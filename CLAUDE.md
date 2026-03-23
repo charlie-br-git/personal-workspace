@@ -37,16 +37,6 @@ read-equivalent; it produces no external side effects.
 
 -----
 
-## WRITE GATE — APPLIES TO ALL TOOLS
-
-Before executing any action in any DENY list above:
-
-1. Output exactly: `ACTION: [tool] [action] → [target] — [one-line content summary]. Confirm?`
-1. Wait for explicit confirmation in the same turn ("yes", "confirm", "go ahead")
-1. If confirmation is absent, ambiguous, or deferred — abort. Do not retry.
-
------
-
 ## LOGGING — REQUIRED FOR ALL TOOL CALLS
 
 Append every tool invocation to `~/.claude/activity.log`. No exceptions.
