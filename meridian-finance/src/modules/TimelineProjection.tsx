@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip,
-  ResponsiveContainer, Defs, LinearGradient, Stop,
+  ResponsiveContainer,
 } from 'recharts';
 import Card from '../components/Card';
 import Label from '../components/Label';
@@ -64,27 +64,9 @@ export default function TimelineProjection({ profile }: Props) {
   const base = profile.savings.current + profile.savings.emergency;
 
   const scenarios = [
-    {
-      label: 'Conservative',
-      nominalReturn: returnPct / 100 - 0.025,
-      inflation: inflationPct / 100 + 0.01,
-      color: C.blue,
-      gradId: 'gradConservative',
-    },
-    {
-      label: 'Moderate',
-      nominalReturn: returnPct / 100,
-      inflation: inflationPct / 100,
-      color: C.amber,
-      gradId: 'gradModerate',
-    },
-    {
-      label: 'Optimistic',
-      nominalReturn: returnPct / 100 + 0.025,
-      inflation: inflationPct / 100 - 0.005,
-      color: C.green,
-      gradId: 'gradOptimistic',
-    },
+    { label: 'Conservative', nominalReturn: returnPct / 100 - 0.025, inflation: inflationPct / 100 + 0.01, color: C.blue, gradId: 'gradConservative' },
+    { label: 'Moderate',     nominalReturn: returnPct / 100,         inflation: inflationPct / 100,        color: C.amber, gradId: 'gradModerate' },
+    { label: 'Optimistic',   nominalReturn: returnPct / 100 + 0.025, inflation: inflationPct / 100 - 0.005, color: C.green, gradId: 'gradOptimistic' },
   ];
 
   const chartData = Array.from({ length: 11 }, (_, yr) => {
@@ -104,37 +86,18 @@ export default function TimelineProjection({ profile }: Props) {
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
         <Card>
           <div style={{ color: C.amber2, fontWeight: 600, fontSize: 13, marginBottom: 18 }}>Projection Controls</div>
-          <SliderControl
-            label="Monthly Savings Rate"
-            value={savingsRatePct}
-            min={0} max={50} step={1}
-            onChange={setSavingsRatePct}
-            format={v => v.toFixed(0) + '%'}
-          />
-          <SliderControl
-            label="Expected Return"
-            value={returnPct}
-            min={3} max={14} step={0.5}
-            onChange={setReturnPct}
-            format={v => v.toFixed(1) + '%'}
-          />
-          <SliderControl
-            label="Inflation Rate"
-            value={inflationPct}
-            min={1} max={6} step={0.5}
-            onChange={setInflationPct}
-            format={v => v.toFixed(1) + '%'}
-          />
-
+          <SliderControl label="Monthly Savings Rate" value={savingsRatePct} min={0} max={50} step={1} onChange={setSavingsRatePct} format={v => v.toFixed(0) + '%'} />
+          <SliderControl label="Expected Return"      value={returnPct}      min={3} max={14} step={0.5} onChange={setReturnPct}      format={v => v.toFixed(1) + '%'} />
+          <SliderControl label="Inflation Rate"       value={inflationPct}   min={1} max={6}  step={0.5} onChange={setInflationPct}   format={v => v.toFixed(1) + '%'} />
           <div style={{ marginTop: 12, borderTop: `1px solid ${C.border}`, paddingTop: 14 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
-              <span style={{ fontSize: 12, color: C.muted, fontFamily: '"DM Mono", monospace' }}>Monthly Savings</span>
-              <span style={{ fontSize: 12, color: C.text, fontFamily: '"DM Mono", monospace' }}>{fmtFull(monthlySavings)}</span>
+              <span style={{ fontSize: 12, color: C.muted, fontFamily: 'ui-monospace, monospace' }}>Monthly Savings</span>
+              <span style={{ fontSize: 12, color: C.text, fontFamily: 'ui-monospace, monospace' }}>{fmtFull(monthlySavings)}</span>
             </div>
             {scenarios.map(sc => (
               <div key={sc.label} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 5 }}>
-                <span style={{ fontSize: 11, color: sc.color, fontFamily: '"DM Mono", monospace' }}>{sc.label} (Yr 10)</span>
-                <span style={{ fontSize: 11, color: sc.color, fontFamily: '"DM Mono", monospace' }}>{fmt(yr10(sc.label))}</span>
+                <span style={{ fontSize: 11, color: sc.color, fontFamily: 'ui-monospace, monospace' }}>{sc.label} (Yr 10)</span>
+                <span style={{ fontSize: 11, color: sc.color, fontFamily: 'ui-monospace, monospace' }}>{fmt(yr10(sc.label))}</span>
               </div>
             ))}
           </div>
@@ -144,8 +107,8 @@ export default function TimelineProjection({ profile }: Props) {
           <div style={{ color: C.amber2, fontWeight: 600, fontSize: 13, marginBottom: 14 }}>Starting Position</div>
           {[
             { label: 'Current Savings', value: profile.savings.current },
-            { label: 'Emergency Fund', value: profile.savings.emergency },
-            { label: 'Total Base', value: base },
+            { label: 'Emergency Fund',  value: profile.savings.emergency },
+            { label: 'Total Base',      value: base },
           ].map((row, i) => (
             <div key={row.label}>
               {i > 0 && <div style={{ height: 1, background: C.border, margin: '8px 0' }} />}
@@ -167,43 +130,26 @@ export default function TimelineProjection({ profile }: Props) {
               <defs>
                 {scenarios.map(sc => (
                   <linearGradient key={sc.gradId} id={sc.gradId} x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor={sc.color} stopOpacity={0.20} />
+                    <stop offset="5%"  stopColor={sc.color} stopOpacity={0.20} />
                     <stop offset="95%" stopColor={sc.color} stopOpacity={0.02} />
                   </linearGradient>
                 ))}
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke={C.border} vertical={false} />
-              <XAxis
-                dataKey="year"
-                tick={{ fill: C.muted, fontSize: 11, fontFamily: '"DM Mono", monospace' }}
-                axisLine={false} tickLine={false}
-                tickFormatter={v => `Yr ${v}`}
-              />
-              <YAxis
-                tick={{ fill: C.muted, fontSize: 10, fontFamily: '"DM Mono", monospace' }}
-                axisLine={false} tickLine={false}
-                tickFormatter={v => fmt(v)}
-              />
+              <XAxis dataKey="year" tick={{ fill: C.muted, fontSize: 11, fontFamily: 'ui-monospace, monospace' }} axisLine={false} tickLine={false} tickFormatter={v => `Yr ${v}`} />
+              <YAxis tick={{ fill: C.muted, fontSize: 10, fontFamily: 'ui-monospace, monospace' }} axisLine={false} tickLine={false} tickFormatter={v => fmt(v)} />
               <Tooltip content={<CustomTooltip formatter={fmtFull} />} />
               {scenarios.map(sc => (
-                <Area
-                  key={sc.label}
-                  type="monotone"
-                  dataKey={sc.label}
-                  stroke={sc.color}
-                  strokeWidth={2}
-                  fill={`url(#${sc.gradId})`}
-                />
+                <Area key={sc.label} type="monotone" dataKey={sc.label} stroke={sc.color} strokeWidth={2} fill={`url(#${sc.gradId})`} />
               ))}
             </AreaChart>
           </ResponsiveContainer>
         </Card>
 
-        {/* Year-by-year table */}
         <Card>
           <div style={{ color: C.amber2, fontWeight: 600, fontSize: 13, marginBottom: 14 }}>Year-by-Year Breakdown</div>
           <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: '"DM Mono", monospace', fontSize: 12 }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: 'ui-monospace, monospace', fontSize: 12 }}>
               <thead>
                 <tr>
                   {['Year', 'Annual Savings', ...scenarios.map(s => s.label)].map(h => (
@@ -217,7 +163,7 @@ export default function TimelineProjection({ profile }: Props) {
                 {TABLE_YEARS.map(yr => (
                   <tr key={yr}>
                     <td style={{ textAlign: 'center', padding: '8px 10px', color: C.text2, borderBottom: `1px solid ${C.border}` }}>{yr}</td>
-                    <td style={{ textAlign: 'right', padding: '8px 10px', color: C.text2, borderBottom: `1px solid ${C.border}` }}>{fmtFull(annualSavings)}</td>
+                    <td style={{ textAlign: 'right',  padding: '8px 10px', color: C.text2, borderBottom: `1px solid ${C.border}` }}>{fmtFull(annualSavings)}</td>
                     {scenarios.map(sc => (
                       <td key={sc.label} style={{ textAlign: 'right', padding: '8px 10px', color: sc.color, borderBottom: `1px solid ${C.border}` }}>
                         {fmt(chartData[yr][sc.label] as number)}

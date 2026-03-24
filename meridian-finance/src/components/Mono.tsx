@@ -13,7 +13,7 @@ export default function Mono({ children, size = 16, color = C.text, style }: Mon
   return (
     <div
       style={{
-        fontFamily: '"DM Mono", monospace',
+        fontFamily: 'ui-monospace, "Courier New", monospace',
         fontSize: size,
         color,
         ...style,

@@ -16,24 +16,17 @@ export default function SliderControl({ label, value, min, max, step, onChange, 
   return (
     <div style={{ marginBottom: 18 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
-        <span style={{ fontSize: 11, color: C.muted, textTransform: 'uppercase', letterSpacing: '1.5px', fontFamily: '"DM Mono", monospace' }}>
+        <span style={{ fontSize: 11, color: C.muted, textTransform: 'uppercase', letterSpacing: '1.5px', fontFamily: 'ui-monospace, monospace' }}>
           {label}
         </span>
-        <span style={{ fontSize: 13, color: C.amber2, fontFamily: '"DM Mono", monospace', fontWeight: 500 }}>
+        <span style={{ fontSize: 13, color: C.amber2, fontFamily: 'ui-monospace, monospace', fontWeight: 500 }}>
           {format(value)}
         </span>
       </div>
-      <input
-        type="range"
-        min={min}
-        max={max}
-        step={step}
-        value={value}
-        onChange={e => onChange(parseFloat(e.target.value))}
-      />
+      <input type="range" min={min} max={max} step={step} value={value} onChange={e => onChange(parseFloat(e.target.value))} />
       <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 3 }}>
-        <span style={{ fontSize: 10, color: C.text2, fontFamily: '"DM Mono", monospace' }}>{format(min)}</span>
-        <span style={{ fontSize: 10, color: C.text2, fontFamily: '"DM Mono", monospace' }}>{format(max)}</span>
+        <span style={{ fontSize: 10, color: C.text2, fontFamily: 'ui-monospace, monospace' }}>{format(min)}</span>
+        <span style={{ fontSize: 10, color: C.text2, fontFamily: 'ui-monospace, monospace' }}>{format(max)}</span>
       </div>
     </div>
   );

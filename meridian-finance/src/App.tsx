@@ -16,12 +16,7 @@ const C = {
   red: '#ef4444',
   muted: '#64748b',
   text: '#e2e8f0',
-  text2: '#94a3b8',
 };
-
-const FONTS = `
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
-`;
 
 const TABS = [
   { id: 'budget', label: 'Budget Snapshot', icon: LayoutDashboard },
@@ -82,8 +77,6 @@ export default function App() {
 
   return (
     <>
-      <style>{FONTS}</style>
-
       {/* Header */}
       <header
         style={{
@@ -99,17 +92,15 @@ export default function App() {
           height: 60,
         }}
       >
-        {/* Wordmark */}
         <div style={{ display: 'flex', alignItems: 'baseline', gap: 10 }}>
-          <span style={{ fontFamily: '"Playfair Display", serif', fontSize: 20, fontWeight: 700, color: C.amber2 }}>
+          <span style={{ fontFamily: 'Georgia, "Times New Roman", serif', fontSize: 20, fontWeight: 700, color: C.amber2 }}>
             Meridian
           </span>
-          <span style={{ fontFamily: '"DM Mono", monospace', fontSize: 10, color: C.muted, letterSpacing: '2.5px', textTransform: 'uppercase' }}>
+          <span style={{ fontFamily: 'ui-monospace, "Courier New", monospace', fontSize: 10, color: C.muted, letterSpacing: '2.5px', textTransform: 'uppercase' }}>
             Financial Planner
           </span>
         </div>
 
-        {/* Summary Stats */}
         <div style={{ display: 'flex', gap: 32, alignItems: 'center' }}>
           {[
             { label: 'Gross Annual', value: fmt(profile.income.gross_annual), color: C.text },
@@ -118,10 +109,10 @@ export default function App() {
             { label: 'Cash Flow', value: fmt(cashFlow), color: cashFlow >= 0 ? C.green : C.red },
           ].map(stat => (
             <div key={stat.label} style={{ textAlign: 'right' }}>
-              <div style={{ fontSize: 10, color: C.muted, letterSpacing: '1.5px', textTransform: 'uppercase', fontFamily: '"DM Mono", monospace', marginBottom: 2 }}>
+              <div style={{ fontSize: 10, color: C.muted, letterSpacing: '1.5px', textTransform: 'uppercase', fontFamily: 'ui-monospace, monospace', marginBottom: 2 }}>
                 {stat.label}
               </div>
-              <div style={{ fontFamily: '"DM Mono", monospace', fontSize: 16, color: stat.color }}>
+              <div style={{ fontFamily: 'ui-monospace, monospace', fontSize: 16, color: stat.color }}>
                 {stat.value}
               </div>
             </div>
@@ -136,7 +127,6 @@ export default function App() {
           borderBottom: `1px solid ${C.border}`,
           display: 'flex',
           padding: '0 32px',
-          gap: 0,
         }}
       >
         {TABS.map(tab => {
@@ -157,9 +147,8 @@ export default function App() {
                 color: isActive ? C.amber2 : C.muted,
                 cursor: 'pointer',
                 fontSize: 13,
-                fontFamily: '"DM Sans", sans-serif',
+                fontFamily: 'system-ui, sans-serif',
                 fontWeight: isActive ? 600 : 400,
-                transition: 'color 0.2s',
                 marginBottom: -1,
               }}
             >
@@ -171,13 +160,7 @@ export default function App() {
       </nav>
 
       {/* Content */}
-      <main
-        style={{
-          padding: '24px 32px',
-          maxWidth: 1400,
-          margin: '0 auto',
-        }}
-      >
+      <main style={{ padding: '24px 32px', maxWidth: 1400, margin: '0 auto' }}>
         {activeTab === 'budget' && (
           <BudgetSnapshot
             profile={profile}
@@ -187,15 +170,9 @@ export default function App() {
             onUpdateIncome={updateIncome}
           />
         )}
-        {activeTab === 'scenario' && (
-          <ScenarioComparison profile={profile} />
-        )}
-        {activeTab === 'timeline' && (
-          <TimelineProjection profile={profile} />
-        )}
-        {activeTab === 'goals' && (
-          <GoalTracker profile={profile} />
-        )}
+        {activeTab === 'scenario' && <ScenarioComparison profile={profile} />}
+        {activeTab === 'timeline' && <TimelineProjection profile={profile} />}
+        {activeTab === 'goals' && <GoalTracker profile={profile} />}
       </main>
     </>
   );
