@@ -40,7 +40,7 @@ export default function EditableAmount({ value, onChange, size = 14, color = C.t
         onBlur={commit}
         onKeyDown={e => { if (e.key === 'Enter') commit(); if (e.key === 'Escape') setEditing(false); }}
         style={{
-          fontFamily: '"DM Mono", monospace',
+          fontFamily: 'ui-monospace, monospace',
           fontSize: size,
           color: C.text,
           background: C.bg3,
@@ -58,7 +58,7 @@ export default function EditableAmount({ value, onChange, size = 14, color = C.t
     <span
       onClick={() => { setDraft(String(value)); setEditing(true); }}
       style={{
-        fontFamily: '"DM Mono", monospace',
+        fontFamily: 'ui-monospace, monospace',
         fontSize: size,
         color,
         cursor: 'pointer',

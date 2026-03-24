@@ -22,7 +22,7 @@ export default function CustomTooltip({ active, payload, label, formatter }: Cus
         border: `1px solid ${C.border}`,
         borderRadius: 6,
         padding: '10px 14px',
-        fontFamily: '"DM Mono", monospace',
+        fontFamily: 'ui-monospace, monospace',
         fontSize: 12,
       }}
     >

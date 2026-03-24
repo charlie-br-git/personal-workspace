@@ -15,7 +15,7 @@ export default function Label({ children, style }: LabelProps) {
         color: C.muted,
         letterSpacing: '2px',
         textTransform: 'uppercase',
-        fontFamily: '"DM Mono", monospace',
+        fontFamily: 'ui-monospace, "Courier New", monospace',
         ...style,
       }}
     >
