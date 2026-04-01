@@ -14,14 +14,14 @@ export default function RootLayout({
   const jsonLd = generateJsonLd();
 
   return (
-    <html lang="en" className="h-full antialiased">
+    <html lang="en">
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-screen flex flex-col">
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />

@@ -16,10 +16,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const { meta } = getContentBySlug("case-studies", slug);
-  return {
-    title: meta.title,
-    description: meta.excerpt,
-  };
+  return { title: meta.title, description: meta.excerpt };
 }
 
 export default async function CaseStudyPage({
@@ -34,31 +31,25 @@ export default async function CaseStudyPage({
     <article className="mx-auto max-w-3xl px-6 py-24">
       <Link
         href="/case-studies/"
-        className="mb-8 inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-foreground"
+        className="inline-flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors mb-8"
       >
-        <ArrowLeft size={14} />
-        Back to Case Studies
+        <ArrowLeft size={14} /> Back to Case Studies
       </Link>
 
-      <div className="mb-3 flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-2 mb-4">
         {meta.tags.map((tag) => (
-          <span
-            key={tag}
-            className="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary-light"
-          >
+          <span key={tag} className="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary-light">
             {tag}
           </span>
         ))}
       </div>
 
-      <h1 className="mb-4 text-4xl font-bold leading-tight md:text-5xl">
-        {meta.title}
-      </h1>
-      <p className="mb-8 text-lg text-muted">{meta.excerpt}</p>
+      <h1 className="text-3xl md:text-4xl font-bold leading-tight mb-4">{meta.title}</h1>
+      <p className="text-lg text-muted mb-8">{meta.excerpt}</p>
 
-      <div className="section-divider mb-12" />
+      <div className="section-divider mb-10" />
 
-      <div className="prose prose-invert prose-lg max-w-none prose-headings:font-bold prose-headings:text-foreground prose-p:text-muted prose-p:leading-relaxed prose-a:text-primary-light prose-a:no-underline hover:prose-a:underline prose-strong:text-foreground prose-ul:text-muted prose-ol:text-muted prose-li:text-muted prose-code:text-accent-light prose-code:bg-surface prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none prose-pre:bg-surface prose-pre:border prose-pre:border-surface-light/50 prose-h2:mt-12 prose-h2:mb-4 prose-h3:mt-8 prose-h3:mb-3 prose-blockquote:border-primary prose-blockquote:text-muted">
+      <div className="prose-custom">
         <MDXRemote source={content} />
       </div>
     </article>
