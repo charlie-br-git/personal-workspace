@@ -1,0 +1,63 @@
+---
+title: "Deploying Enterprise AI: Claude as a Cross-Functional Platform"
+date: "2026-03-15"
+excerpt: "How we deployed Claude across four teams with strict security, custom plugins, and MCP architecture — without compromising on governance."
+tags: ["Enterprise AI", "MCP", "RBAC", "Claude"]
+---
+
+## The Challenge
+
+When your organization decides to adopt AI, the easy part is picking a model. The hard part is deploying it in a way that's actually useful to product designers, marketers, and engineers — all with different needs, different data access requirements, and different risk tolerances.
+
+That was the challenge we faced: enable four distinct teams with AI capabilities while maintaining the security posture that a financial services company demands.
+
+## The Approach
+
+### Architecture: MCP as the Integration Layer
+
+We chose the Model Context Protocol (MCP) as our integration backbone. MCP gave us a standardized way to connect Claude to our internal tools and data sources without building bespoke integrations for each team.
+
+Key architectural decisions:
+
+- **Server-per-domain**: Each team gets its own MCP server configuration, scoped to the tools and data they need
+- **API connectors**: Built connectors to our internal APIs, enabling Claude to pull real-time data from our platform without direct database access
+- **Plugin architecture**: Custom plugins for each team — engineering gets code review and documentation tools, marketing gets content generation with brand guidelines baked in, product gets analytics summarization
+
+### Security: RBAC Without Compromise
+
+In financial services, security isn't optional. Our RBAC implementation ensures:
+
+- **Role-scoped permissions**: Each team's Claude deployment can only access the MCP servers and tools approved for their role
+- **Audit trails**: Every AI interaction is logged with the requesting user, the tools accessed, and the data touched
+- **Data boundaries**: PII and financial data are handled through strict allow-lists — Claude can reference anonymized analytics but never raw customer records
+- **Approval workflows**: Certain high-risk actions require human approval before Claude can execute
+
+### Per-Team Customization
+
+The real value came from tailoring the experience:
+
+- **Engineering**: Code review assistants, documentation generators, architecture diagram tools. Integrated with our CI/CD pipeline via MCP
+- **Product**: Sprint summarization, user research synthesis, competitive analysis with access to our analytics APIs
+- **Design**: Design system documentation, accessibility checkers, copy generation within brand guidelines
+- **Marketing**: Content drafting with tone/voice enforcement, SEO optimization tools, campaign performance summarization
+
+## Patterns That Emerged
+
+1. **Start with the workflow, not the technology.** We interviewed each team about their daily pain points before designing any integration. The best AI tools solve real friction, not hypothetical problems.
+
+2. **Security as a feature, not a gate.** By making RBAC transparent and easy to understand, teams trusted the system more and adopted it faster.
+
+3. **MCP servers are composable.** Once we built the core connectors, spinning up new team configurations was fast. The investment in architecture paid off in velocity.
+
+4. **Governance scales better than freedom.** Early on, some argued for giving everyone full access. The scoped approach meant fewer incidents, faster adoption, and more trust from leadership.
+
+## The Outcome
+
+Within three months of deployment:
+
+- All four teams actively using Claude in their daily workflows
+- Zero security incidents related to AI data access
+- Measurable reduction in time spent on repetitive documentation and analysis tasks
+- A reusable platform architecture that can onboard new teams in days, not weeks
+
+The lesson: enterprise AI isn't about the model — it's about the platform you build around it.

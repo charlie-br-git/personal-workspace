@@ -1,0 +1,79 @@
+---
+title: "What I Learned Deploying Enterprise Claude with MCP"
+date: "2026-03-20"
+excerpt: "Practical lessons from building an enterprise AI platform with Model Context Protocol — architecture decisions, security patterns, and what actually matters."
+tags: ["MCP", "Enterprise AI", "Claude", "Architecture"]
+---
+
+## Why MCP Changes the Enterprise AI Game
+
+If you've tried to deploy AI in an enterprise setting, you've hit the integration wall. Your LLM is smart, but it can't talk to your tools. It can't access your data. It can't do the things your team actually needs it to do.
+
+Model Context Protocol (MCP) solves this by providing a standardized interface between AI assistants and external systems. Think of it as USB-C for AI — a universal connector that replaces custom integrations with a common protocol.
+
+But choosing MCP is the easy part. Deploying it at enterprise scale, with real security requirements, across teams with different needs? That's where the interesting problems live.
+
+## Architecture Decisions That Mattered
+
+### 1. One Server Per Domain, Not One Server Per Team
+
+Our first instinct was to give each team their own MCP server with all the tools they need. This doesn't scale. Instead, we organized servers by **domain** — one for analytics APIs, one for content systems, one for engineering tools — and composed team configurations from these building blocks.
+
+This meant when we improved the analytics connector, every team that used it benefited automatically. Composability beats customization.
+
+### 2. API Connectors as the Security Boundary
+
+Rather than giving Claude direct access to internal systems, we built API connector layers that enforce access controls. Every request from Claude goes through an authenticated API that checks:
+
+- Is this user authorized for this data?
+- Is this action within the scope of their role?
+- Should this request be logged, flagged, or blocked?
+
+The API layer is your security boundary. The MCP server is your capability layer. Keep them separate.
+
+### 3. Plugin Architecture for Team-Specific Behavior
+
+Generic AI is useful. AI that understands your team's context is transformative. We built a plugin system where each team can define:
+
+- **System prompts** tailored to their domain (marketing gets brand guidelines, engineering gets our code standards)
+- **Tool subsets** scoped to their workflow
+- **Output formats** that match how they actually work (engineering wants markdown, marketing wants formatted copy)
+
+## Security Patterns That Work
+
+### RBAC That People Understand
+
+The worst RBAC system is one nobody can explain. We kept ours simple:
+
+- **Roles map to teams**, not individuals
+- **Permissions are additive** — start with nothing, add what's needed
+- **Every permission has a plain-English description** — "Can access anonymized user analytics" not "READ:analytics:user:*:anon"
+
+### Audit Everything, Alert Selectively
+
+We log every AI interaction. But we only alert on anomalies — unusual data access patterns, permission escalation attempts, or actions that touch sensitive data categories. Alert fatigue is the enemy of security.
+
+### Data Classification Drives Access
+
+Before we wrote a single line of RBAC code, we classified our data:
+
+- **Public**: Product descriptions, public market data
+- **Internal**: Aggregated analytics, team documentation
+- **Restricted**: Customer PII, financial records, compliance data
+- **Prohibited**: Never accessible to AI under any circumstances
+
+Each MCP tool is tagged with the data classification level it can access. Roles are tagged with the levels they're allowed to touch. The system enforces the intersection.
+
+## What Actually Matters
+
+After several months in production, here's what I'd tell anyone starting this journey:
+
+**Invest in developer experience.** If it's hard for your team to add a new MCP tool or modify a plugin, they won't do it. Make the platform easy to extend.
+
+**Start with one team, not four.** We piloted with engineering (they're the most forgiving of rough edges) and iterated based on their feedback before expanding. By the time we onboarded marketing, the platform was solid.
+
+**Security is a product feature.** Don't bolt it on. Design it in from day one. When leadership asks "is this safe?" you want to show them the architecture, not a slide deck.
+
+**Measure what changes.** Track the time teams spend on the tasks AI assists with — before and after. Anecdotes are nice; data is convincing. This is how you get buy-in for expanding the platform.
+
+The enterprise AI platform space is still early. The companies that win will be the ones that treat AI deployment as a platform engineering challenge, not just an API integration.
