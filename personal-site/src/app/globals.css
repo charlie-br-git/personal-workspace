@@ -1,57 +1,47 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-background: #0F172A;
-  --color-foreground: #F8FAFC;
+  --color-background: #0B1121;
+  --color-foreground: #E2E8F0;
   --color-primary: #7C3AED;
   --color-primary-light: #A78BFA;
-  --color-secondary: #FF6B6B;
+  --color-secondary: #F97066;
   --color-accent: #06B6D4;
   --color-accent-light: #67E8F9;
-  --color-surface: #1E293B;
-  --color-surface-light: #334155;
+  --color-surface: #151E31;
+  --color-surface-light: #1E293B;
+  --color-border: #1E293B;
   --color-muted: #94A3B8;
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--color-background);
+  background-color: var(--color-background);
   color: var(--color-foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
+/* Gradient text utility */
 .gradient-text {
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-accent) 100%);
+  background: linear-gradient(135deg, #7C3AED, #F97066, #06B6D4);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.gradient-border {
-  position: relative;
-}
-
-.gradient-border::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary), var(--color-accent));
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-}
-
+/* Gradient background */
 .gradient-bg {
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-accent) 100%);
+  background: linear-gradient(135deg, #7C3AED, #F97066);
 }
 
-.gradient-bg-subtle {
-  background: linear-gradient(135deg, rgba(124, 58, 237, 0.1) 0%, rgba(255, 107, 107, 0.05) 50%, rgba(6, 182, 212, 0.1) 100%);
-}
-
+/* Animated gradient */
 @keyframes gradient-shift {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -60,10 +50,102 @@ body {
 
 .animate-gradient {
   background-size: 200% 200%;
-  animation: gradient-shift 6s ease infinite;
+  animation: gradient-shift 8s ease infinite;
 }
 
+/* Section divider */
 .section-divider {
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--color-primary), var(--color-secondary), var(--color-accent), transparent);
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, #1E293B 20%, #334155 50%, #1E293B 80%, transparent 100%);
+  max-width: 1152px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Prose styling for MDX content */
+.prose-custom h2 {
+  color: var(--color-foreground);
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+.prose-custom h3 {
+  color: var(--color-foreground);
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.prose-custom p {
+  color: var(--color-muted);
+  line-height: 1.75;
+  margin-bottom: 1.25rem;
+}
+
+.prose-custom ul, .prose-custom ol {
+  color: var(--color-muted);
+  line-height: 1.75;
+  margin-bottom: 1.25rem;
+  padding-left: 1.5rem;
+}
+
+.prose-custom li {
+  margin-bottom: 0.5rem;
+}
+
+.prose-custom ul { list-style-type: disc; }
+.prose-custom ol { list-style-type: decimal; }
+
+.prose-custom strong {
+  color: var(--color-foreground);
+  font-weight: 600;
+}
+
+.prose-custom a {
+  color: var(--color-primary-light);
+  text-decoration: none;
+}
+
+.prose-custom a:hover {
+  text-decoration: underline;
+}
+
+.prose-custom code {
+  color: var(--color-accent-light);
+  background: var(--color-surface);
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+}
+
+.prose-custom pre {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  margin-bottom: 1.25rem;
+}
+
+.prose-custom pre code {
+  background: none;
+  padding: 0;
+}
+
+.prose-custom blockquote {
+  border-left: 3px solid var(--color-primary);
+  padding-left: 1rem;
+  color: var(--color-muted);
+  font-style: italic;
+  margin-bottom: 1.25rem;
+}
+
+.prose-custom hr {
+  border-color: var(--color-border);
+  margin: 2rem 0;
 }

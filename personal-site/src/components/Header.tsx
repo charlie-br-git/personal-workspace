@@ -15,19 +15,19 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-surface-light/50 bg-background/80 backdrop-blur-md">
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <Link href="/" className="text-xl font-bold">
+    <header className="sticky top-0 z-50 bg-background/90 backdrop-blur-sm border-b border-border">
+      <nav className="mx-auto max-w-5xl flex items-center justify-between px-6 h-16">
+        <Link href="/" className="text-lg font-bold tracking-tight">
           <span className="gradient-text">CB-R</span>
         </Link>
 
-        {/* Desktop nav */}
-        <div className="hidden items-center gap-8 md:flex">
+        {/* Desktop */}
+        <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-muted transition-colors hover:text-foreground"
+              className="text-sm text-muted hover:text-foreground transition-colors"
             >
               {link.label}
             </Link>
@@ -36,23 +36,23 @@ export default function Header() {
 
         {/* Mobile toggle */}
         <button
-          className="text-foreground md:hidden"
+          className="md:hidden text-muted hover:text-foreground"
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle menu"
         >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
+          {isOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
       </nav>
 
-      {/* Mobile nav */}
+      {/* Mobile menu */}
       {isOpen && (
-        <div className="border-t border-surface-light/50 bg-background md:hidden">
-          <div className="flex flex-col gap-4 px-6 py-4">
+        <div className="md:hidden bg-surface border-t border-border">
+          <div className="flex flex-col px-6 py-4 gap-4">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium text-muted transition-colors hover:text-foreground"
+                className="text-sm text-muted hover:text-foreground transition-colors"
                 onClick={() => setIsOpen(false)}
               >
                 {link.label}
