@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { LayoutDashboard, Home, TrendingUp, Target } from 'lucide-react';
+import { LayoutDashboard, Home, TrendingUp, Target, Layers } from 'lucide-react';
 import { INIT, FinancialProfile, Expense } from './data/initialData';
 import BudgetSnapshot from './modules/BudgetSnapshot';
 import ScenarioComparison from './modules/ScenarioComparison';
 import TimelineProjection from './modules/TimelineProjection';
 import GoalTracker from './modules/GoalTracker';
+import Projects from './modules/Projects';
 
 const C = {
   bg: '#0a1628',
@@ -23,6 +24,7 @@ const TABS = [
   { id: 'scenario', label: 'Scenario Comparison', icon: Home },
   { id: 'timeline', label: 'Timeline Projection', icon: TrendingUp },
   { id: 'goals', label: 'Goal Tracker', icon: Target },
+  { id: 'projects', label: 'Projects', icon: Layers },
 ] as const;
 
 type TabId = typeof TABS[number]['id'];
@@ -173,6 +175,7 @@ export default function App() {
         {activeTab === 'scenario' && <ScenarioComparison profile={profile} />}
         {activeTab === 'timeline' && <TimelineProjection profile={profile} />}
         {activeTab === 'goals' && <GoalTracker profile={profile} />}
+        {activeTab === 'projects' && <Projects />}
       </main>
     </>
   );
