@@ -1,12 +1,12 @@
-import React from 'react';
+import type { ReactNode, CSSProperties } from 'react';
 
 const C = { text: '#e2e8f0' };
 
 interface MonoProps {
-  children: React.ReactNode;
+  children: ReactNode;
   size?: number;
   color?: string;
-  style?: React.CSSProperties;
+  style?: CSSProperties;
 }
 
 export default function Mono({ children, size = 16, color = C.text, style }: MonoProps) {

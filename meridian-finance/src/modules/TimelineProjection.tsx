@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer,
 } from 'recharts';
 import Card from '../components/Card';
-import Label from '../components/Label';
 import Mono from '../components/Mono';
 import CustomTooltip from '../components/CustomTooltip';
 import SliderControl from '../components/SliderControl';

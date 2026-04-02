@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState, type CSSProperties } from 'react';
 import {
   PieChart, Pie, Cell, Tooltip,
   BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Legend,
@@ -55,7 +55,6 @@ interface Props {
 function ExpenseCard({
   title,
   expenses,
-  type,
   onUpdate,
   onAdd,
   onRemove,
@@ -81,7 +80,7 @@ function ExpenseCard({
     setAdding(false);
   };
 
-  const inputStyle: React.CSSProperties = {
+  const inputStyle: CSSProperties = {
     background: C.bg3,
     border: `1px solid ${C.border}`,
     borderRadius: 4,

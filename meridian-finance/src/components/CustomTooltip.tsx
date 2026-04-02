@@ -1,5 +1,3 @@
-import React from 'react';
-
 const C = { bg2: '#112240', border: '#1e3a5f', text: '#e2e8f0', muted: '#64748b' };
 
 interface CustomTooltipProps {

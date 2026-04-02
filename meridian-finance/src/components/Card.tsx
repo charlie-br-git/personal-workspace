@@ -1,4 +1,4 @@
-import React from 'react';
+import type { ReactNode, CSSProperties } from 'react';
 
 const C = {
   bg2: '#112240',
@@ -6,8 +6,8 @@ const C = {
 };
 
 interface CardProps {
-  children: React.ReactNode;
-  style?: React.CSSProperties;
+  children: ReactNode;
+  style?: CSSProperties;
 }
 
 export default function Card({ children, style }: CardProps) {
