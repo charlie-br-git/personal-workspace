@@ -1,10 +1,10 @@
-import React from 'react';
+import type { ReactNode, CSSProperties } from 'react';
 
 const C = { muted: '#64748b' };
 
 interface LabelProps {
-  children: React.ReactNode;
-  style?: React.CSSProperties;
+  children: ReactNode;
+  style?: CSSProperties;
 }
 
 export default function Label({ children, style }: LabelProps) {

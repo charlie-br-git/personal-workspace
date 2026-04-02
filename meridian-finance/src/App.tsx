@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { LayoutDashboard, Home, TrendingUp, Target, Layers } from 'lucide-react';
 import { INIT, FinancialProfile, Expense } from './data/initialData';
 import BudgetSnapshot from './modules/BudgetSnapshot';

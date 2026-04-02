@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState, type CSSProperties } from 'react';
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, ReferenceLine,
@@ -102,9 +102,7 @@ function GoalCard({ goal, active, onClick, onDelete }: {
         cursor: 'pointer',
         position: 'relative',
       }}
-      onClick={onClick} // Pass click through to the card
     >
-      {/* Can't use onClick on Card directly with delete — use wrapper */}
       <div onClick={onClick} style={{ cursor: 'pointer' }}>
         {active && (
           <div style={{ position: 'absolute', top: 14, right: 14, width: 8, height: 8, borderRadius: '50%', background: C.amber }} />
@@ -167,7 +165,7 @@ export default function GoalTracker({ profile: _profile }: { profile: FinancialP
   const months = activeGoal ? monthsToGoal(activeGoal.current, activeGoal.target, activeGoal.monthly, activeGoal.rate) : 0;
   const growthCurve = activeGoal ? buildGrowthCurve(activeGoal.current, activeGoal.target, activeGoal.monthly, activeGoal.rate) : [];
 
-  const inputStyle: React.CSSProperties = {
+  const inputStyle: CSSProperties = {
     background: C.bg3,
     border: `1px solid ${C.border}`,
     borderRadius: 4,
