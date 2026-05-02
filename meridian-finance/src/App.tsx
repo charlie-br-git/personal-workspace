@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { LayoutDashboard, Home, TrendingUp, Target } from 'lucide-react';
 import { INIT, FinancialProfile, Expense } from './data/initialData';
+import { useLocalStorage } from './hooks/useLocalStorage';
 import BudgetSnapshot from './modules/BudgetSnapshot';
 import ScenarioComparison from './modules/ScenarioComparison';
 import TimelineProjection from './modules/TimelineProjection';
@@ -32,7 +33,7 @@ function fmt(n: number) {
 }
 
 export default function App() {
-  const [profile, setProfile] = useState<FinancialProfile>(INIT);
+  const [profile, setProfile] = useLocalStorage<FinancialProfile>('meridian-profile', INIT);
   const [activeTab, setActiveTab] = useState<TabId>('budget');
 
   const updateExpense = (type: 'fixed' | 'variable', id: number, amount: number) => {

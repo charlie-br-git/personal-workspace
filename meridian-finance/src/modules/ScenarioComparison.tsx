@@ -9,6 +9,7 @@ import Mono from '../components/Mono';
 import CustomTooltip from '../components/CustomTooltip';
 import SliderControl from '../components/SliderControl';
 import { FinancialProfile } from '../data/initialData';
+import { monthlyPI, loanBalance } from '../lib/calculations';
 
 const C = {
   bg3: '#1a3a5c',
@@ -30,21 +31,6 @@ function fmt(n: number) {
 
 function fmtFull(n: number) {
   return (n < 0 ? '-$' : '$') + Math.abs(Math.round(n)).toLocaleString();
-}
-
-function monthlyPI(principal: number, annualRate: number, years: number): number {
-  const r = annualRate / 12;
-  const n = years * 12;
-  if (r === 0) return principal / n;
-  return (principal * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
-}
-
-function loanBalance(principal: number, annualRate: number, years: number, monthsElapsed: number): number {
-  const r = annualRate / 12;
-  const n = years * 12;
-  if (r === 0) return principal * (1 - monthsElapsed / n);
-  const pmt = (principal * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
-  return principal * Math.pow(1 + r, monthsElapsed) - pmt * (Math.pow(1 + r, monthsElapsed) - 1) / r;
 }
 
 interface Props {
