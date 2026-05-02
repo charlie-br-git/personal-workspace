@@ -87,16 +87,16 @@ function GoalCard({ goal, active, onClick, onDelete }: {
   const yrs = (months / 12).toFixed(1);
 
   return (
-    <Card
-      style={{
-        border: active ? `1px solid ${C.amber}` : `1px solid ${C.border}`,
-        cursor: 'pointer',
-        position: 'relative',
-      }}
-      onClick={onClick} // Pass click through to the card
-    >
-      {/* Can't use onClick on Card directly with delete — use wrapper */}
-      <div onClick={onClick} style={{ cursor: 'pointer' }}>
+    <Card style={{ border: active ? `1px solid ${C.amber}` : `1px solid ${C.border}`, position: 'relative' }}>
+      <div
+        role="button"
+        tabIndex={0}
+        aria-pressed={active}
+        aria-label={`Select goal: ${goal.name}`}
+        onClick={onClick}
+        onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick(); } }}
+        style={{ cursor: 'pointer' }}
+      >
         {active && (
           <div style={{ position: 'absolute', top: 14, right: 14, width: 8, height: 8, borderRadius: '50%', background: C.amber }} />
         )}
@@ -104,7 +104,6 @@ function GoalCard({ goal, active, onClick, onDelete }: {
           <div style={{ fontSize: 13, color: C.text, fontWeight: 500, marginBottom: 4, lineHeight: 1.3 }}>{goal.name}</div>
           <div style={{ fontSize: 11, color: C.muted, fontFamily: '"DM Mono", monospace', marginBottom: 12 }}>Target: {fmtFull(goal.target)}</div>
         </div>
-        {/* Progress Bar */}
         <div style={{ height: 5, background: C.border, borderRadius: 3, overflow: 'hidden', marginBottom: 8 }}>
           <div style={{ width: pct + '%', height: '100%', background: C.amber, borderRadius: 3, transition: 'width 0.3s' }} />
         </div>
@@ -116,6 +115,7 @@ function GoalCard({ goal, active, onClick, onDelete }: {
           <span style={{ fontSize: 11, color: C.text2, fontFamily: '"DM Mono", monospace' }}>Est. {yrs} yrs</span>
           <button
             onClick={e => { e.stopPropagation(); onDelete(); }}
+            aria-label={`Delete goal: ${goal.name}`}
             style={{ background: 'none', border: 'none', cursor: 'pointer', color: C.muted, padding: 2, display: 'flex' }}
           >
             <Trash2 size={13} />

@@ -172,6 +172,7 @@ function ExpenseCard({
               <EditableAmount value={e.amount} onChange={v => onUpdate(e.id, v)} />
               <button
                 onClick={() => onRemove(e.id)}
+                aria-label={`Remove ${e.name}`}
                 style={{ background: 'none', border: 'none', cursor: 'pointer', color: C.muted, padding: 2, display: 'flex' }}
               >
                 <Trash2 size={13} />
