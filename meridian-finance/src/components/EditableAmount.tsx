@@ -25,6 +25,8 @@ export default function EditableAmount({ value, onChange, size = 14, color = C.t
     }
   }, [editing]);
 
+  const startEditing = () => { setDraft(String(value)); setEditing(true); };
+
   const commit = () => {
     const parsed = parseFloat(draft.replace(/[$,]/g, ''));
     if (!isNaN(parsed) && parsed >= 0) onChange(parsed);
@@ -39,6 +41,7 @@ export default function EditableAmount({ value, onChange, size = 14, color = C.t
         onChange={e => setDraft(e.target.value)}
         onBlur={commit}
         onKeyDown={e => { if (e.key === 'Enter') commit(); if (e.key === 'Escape') setEditing(false); }}
+        aria-label="Edit amount"
         style={{
           fontFamily: 'ui-monospace, monospace',
           fontSize: size,
@@ -56,7 +59,11 @@ export default function EditableAmount({ value, onChange, size = 14, color = C.t
 
   return (
     <span
-      onClick={() => { setDraft(String(value)); setEditing(true); }}
+      role="button"
+      tabIndex={0}
+      aria-label={`Edit amount: ${fmt(value)}`}
+      onClick={startEditing}
+      onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); startEditing(); } }}
       style={{
         fontFamily: 'ui-monospace, monospace',
         fontSize: size,

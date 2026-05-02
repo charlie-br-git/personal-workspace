@@ -23,7 +23,13 @@ export default function SliderControl({ label, value, min, max, step, onChange, 
           {format(value)}
         </span>
       </div>
-      <input type="range" min={min} max={max} step={step} value={value} onChange={e => onChange(parseFloat(e.target.value))} />
+      <input
+        type="range"
+        min={min} max={max} step={step} value={value}
+        onChange={e => onChange(parseFloat(e.target.value))}
+        aria-label={label}
+        aria-valuetext={format(value)}
+      />
       <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 3 }}>
         <span style={{ fontSize: 10, color: C.text2, fontFamily: 'ui-monospace, monospace' }}>{format(min)}</span>
         <span style={{ fontSize: 10, color: C.text2, fontFamily: 'ui-monospace, monospace' }}>{format(max)}</span>

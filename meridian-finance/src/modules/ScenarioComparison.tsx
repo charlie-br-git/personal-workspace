@@ -33,6 +33,44 @@ function fmtFull(n: number) {
   return (n < 0 ? '-$' : '$') + Math.abs(Math.round(n)).toLocaleString();
 }
 
+const HORIZON_OPTIONS = [5, 10, 15, 20, 25] as const;
+
+const MILESTONE_MAP: Record<number, number[]> = {
+  5:  [1, 2, 3, 5],
+  10: [1, 3, 5, 10],
+  15: [1, 5, 10, 15],
+  20: [1, 5, 10, 20],
+  25: [1, 5, 15, 25],
+};
+
+function HorizonPicker({ value, onChange }: { value: number; onChange: (v: number) => void }) {
+  return (
+    <div style={{ display: 'flex', gap: 2, background: C.bg3, borderRadius: 5, padding: 2 }}>
+      {HORIZON_OPTIONS.map(yr => (
+        <button
+          key={yr}
+          onClick={() => onChange(yr)}
+          aria-pressed={value === yr}
+          style={{
+            background: value === yr ? C.amber : 'transparent',
+            color: value === yr ? '#000' : C.muted,
+            border: 'none',
+            borderRadius: 3,
+            padding: '4px 10px',
+            fontSize: 11,
+            fontFamily: '"DM Mono", monospace',
+            cursor: 'pointer',
+            fontWeight: value === yr ? 600 : 400,
+            transition: 'background 0.15s',
+          }}
+        >
+          {yr}yr
+        </button>
+      ))}
+    </div>
+  );
+}
+
 interface Props {
   profile: FinancialProfile;
 }
@@ -42,6 +80,7 @@ export default function ScenarioComparison({ profile }: Props) {
   const [downPct, setDownPct] = useState(profile.buy.down_pct * 100);
   const [mortgageRate, setMortgageRate] = useState(profile.buy.rate * 100);
   const [appreciation, setAppreciation] = useState(profile.buy.appreciation * 100);
+  const [horizon, setHorizon] = useState(10);
 
   const rentAmount = profile.expenses.fixed.find(e => e.name === 'Rent')?.amount ?? 2950;
   const returnRate = profile.savings.return_rate;
@@ -58,22 +97,17 @@ export default function ScenarioComparison({ profile }: Props) {
   const totalBuyCost = pi + monthlyTax + monthlyMaint + hoa;
   const totalRentCost = rentAmount;
 
-  // 10-year projection data
-  const projectionData = Array.from({ length: 11 }, (_, yr) => {
-    // Rent + Invest scenario
+  const projectionData = Array.from({ length: horizon + 1 }, (_, yr) => {
     const downInvested = downPayment * Math.pow(1 + returnRate, yr);
-    const costDiff = Math.max(0, totalBuyCost - rentAmount); // monthly savings from renting
+    const costDiff = Math.max(0, totalBuyCost - rentAmount);
     const annualDiff = costDiff * 12;
     const investedDiff = annualDiff > 0
       ? annualDiff * (Math.pow(1 + returnRate, yr) - 1) / returnRate
       : 0;
     const rentInvestTotal = downInvested + investedDiff;
-
-    // Buy scenario — home equity
     const currentValue = homePrice * Math.pow(1 + appreciation / 100, yr);
     const remainingBalance = yr === 0 ? loanAmt : loanBalance(loanAmt, mortgageRate / 100, loanYears, yr * 12);
     const buyEquity = currentValue - remainingBalance;
-
     return {
       year: yr,
       'Rent + Invest': Math.round(rentInvestTotal),
@@ -81,10 +115,9 @@ export default function ScenarioComparison({ profile }: Props) {
     };
   });
 
-  const delta10 = projectionData[10]['Buy (Home Equity)'] - projectionData[10]['Rent + Invest'];
-  const buyLeads = delta10 > 0;
-
-  const milestones = [1, 3, 5, 10].map(yr => ({
+  const deltaFinal = projectionData[horizon]['Buy (Home Equity)'] - projectionData[horizon]['Rent + Invest'];
+  const buyLeads = deltaFinal > 0;
+  const milestones = (MILESTONE_MAP[horizon] ?? MILESTONE_MAP[10]).map(yr => ({
     yr,
     delta: projectionData[yr]['Buy (Home Equity)'] - projectionData[yr]['Rent + Invest'],
   }));
@@ -180,21 +213,24 @@ export default function ScenarioComparison({ profile }: Props) {
 
           {/* Net Worth Delta */}
           <div style={{ marginTop: 8, background: C.bg3, borderRadius: 6, padding: '12px 14px' }}>
-            <Label style={{ marginBottom: 6 }}>10-Year Net Worth Delta</Label>
+            <Label style={{ marginBottom: 6 }}>{horizon}-Year Net Worth Delta</Label>
             <div style={{ fontFamily: '"DM Mono", monospace', fontSize: 20, color: buyLeads ? C.amber : C.blue, marginBottom: 4 }}>
-              {delta10 >= 0 ? '+' : ''}{fmtFull(delta10)}
+              {deltaFinal >= 0 ? '+' : ''}{fmtFull(deltaFinal)}
             </div>
             <div style={{ fontSize: 11, color: C.text2, fontFamily: '"DM Sans", sans-serif', lineHeight: 1.5 }}>
               {buyLeads
-                ? 'Buying leads by ' + fmt(Math.abs(delta10)) + ' after 10 years.'
-                : 'Renting + investing leads by ' + fmt(Math.abs(delta10)) + ' after 10 years.'}
+                ? `Buying leads by ${fmt(Math.abs(deltaFinal))} after ${horizon} years.`
+                : `Renting + investing leads by ${fmt(Math.abs(deltaFinal))} after ${horizon} years.`}
             </div>
           </div>
         </Card>
 
         {/* Right — Chart */}
         <Card>
-          <div style={{ color: C.amber2, fontWeight: 600, fontSize: 13, marginBottom: 14 }}>10-Year Wealth Projection</div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
+            <div style={{ color: C.amber2, fontWeight: 600, fontSize: 13 }}>{horizon}-Year Wealth Projection</div>
+            <HorizonPicker value={horizon} onChange={setHorizon} />
+          </div>
           <ResponsiveContainer width="100%" height={260}>
             <LineChart data={projectionData} margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
               <CartesianGrid strokeDasharray="3 3" stroke={C.border} vertical={false} />
@@ -220,11 +256,7 @@ export default function ScenarioComparison({ profile }: Props) {
             {milestones.map(m => (
               <div key={m.yr} style={{ background: C.bg3, borderRadius: 6, padding: '10px 12px', textAlign: 'center' }}>
                 <Label style={{ marginBottom: 4, textAlign: 'center' }}>Year {m.yr}</Label>
-                <div style={{
-                  fontFamily: '"DM Mono", monospace',
-                  fontSize: 13,
-                  color: m.delta > 0 ? C.amber : C.blue,
-                }}>
+                <div style={{ fontFamily: '"DM Mono", monospace', fontSize: 13, color: m.delta > 0 ? C.amber : C.blue }}>
                   {m.delta > 0 ? '+' : ''}{fmt(m.delta)}
                 </div>
                 <div style={{ fontSize: 10, color: C.text2, marginTop: 2, fontFamily: '"DM Mono", monospace' }}>
