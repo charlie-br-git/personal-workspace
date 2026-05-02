@@ -1,10 +1,17 @@
 import { useState, useEffect } from 'react';
 
-export function useLocalStorage<T>(key: string, initial: T): [T, React.Dispatch<React.SetStateAction<T>>] {
+export function useLocalStorage<T>(
+  key: string,
+  initial: T,
+  isValid?: (v: unknown) => v is T,
+): [T, React.Dispatch<React.SetStateAction<T>>] {
   const [value, setValue] = useState<T>(() => {
     try {
       const item = localStorage.getItem(key);
-      return item ? (JSON.parse(item) as T) : initial;
+      if (!item) return initial;
+      const parsed = JSON.parse(item) as unknown;
+      if (isValid && !isValid(parsed)) return initial;
+      return parsed as T;
     } catch {
       return initial;
     }
@@ -14,7 +21,7 @@ export function useLocalStorage<T>(key: string, initial: T): [T, React.Dispatch<
     try {
       localStorage.setItem(key, JSON.stringify(value));
     } catch {
-      // Ignore storage errors (private browsing, quota exceeded)
+      // Ignore quota/private-browsing errors
     }
   }, [key, value]);
 

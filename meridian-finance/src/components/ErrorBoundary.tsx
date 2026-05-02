@@ -43,6 +43,9 @@ export default class ErrorBoundary extends React.Component<Props, State> {
           <button style={S.btn} onClick={() => this.setState({ error: null })}>
             Retry
           </button>
+          <button style={{ ...S.btn, marginLeft: 8, borderColor: '#ef4444', color: '#ef4444' }} onClick={() => { localStorage.clear(); window.location.reload(); }}>
+            Reset Data
+          </button>
         </div>
       );
     }
