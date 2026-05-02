@@ -9,6 +9,7 @@ import Mono from '../components/Mono';
 import CustomTooltip from '../components/CustomTooltip';
 import SliderControl from '../components/SliderControl';
 import { FinancialProfile } from '../data/initialData';
+import { calcFV, realReturn } from '../lib/calculations';
 
 const C = {
   bg3: '#1a3a5c',
@@ -30,15 +31,6 @@ function fmt(n: number) {
 
 function fmtFull(n: number) {
   return '$' + Math.round(n).toLocaleString();
-}
-
-function calcFV(pv: number, pmt: number, r: number, n: number): number {
-  if (Math.abs(r) < 1e-10) return pv + pmt * n;
-  return pv * Math.pow(1 + r, n) + pmt * (Math.pow(1 + r, n) - 1) / r;
-}
-
-function realReturn(nominal: number, inflation: number): number {
-  return (1 + nominal) / (1 + inflation) - 1;
 }
 
 const TABLE_YEARS = [1, 2, 3, 5, 7, 10];

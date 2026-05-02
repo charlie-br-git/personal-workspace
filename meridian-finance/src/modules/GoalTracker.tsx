@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useLocalStorage } from '../hooks/useLocalStorage';
+import { monthsToGoal } from '../lib/calculations';
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, ReferenceLine,
@@ -47,18 +49,6 @@ function fmt(n: number) {
 
 function fmtFull(n: number) {
   return '$' + Math.round(n).toLocaleString();
-}
-
-function monthsToGoal(current: number, target: number, monthly: number, annualRate: number): number {
-  if (current >= target) return 0;
-  if (monthly <= 0 && annualRate <= 0) return 600;
-  const monthlyRate = annualRate / 12;
-  let balance = current;
-  for (let m = 1; m <= 600; m++) {
-    balance = balance * (1 + monthlyRate) + monthly;
-    if (balance >= target) return m;
-  }
-  return 600;
 }
 
 function yearsToGoal(current: number, target: number, monthly: number, annualRate: number): number {
@@ -135,9 +125,8 @@ function GoalCard({ goal, active, onClick, onDelete }: {
   );
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function GoalTracker({ profile: _profile }: { profile: FinancialProfile }) {
-  const [goals, setGoals] = useState<Goal[]>(INIT_GOALS);
+  const [goals, setGoals] = useLocalStorage<Goal[]>('meridian-goals', INIT_GOALS);
   const [activeId, setActiveId] = useState<number>(INIT_GOALS[0].id);
   const [showAddForm, setShowAddForm] = useState(false);
   const [form, setForm] = useState({ name: '', target: '', current: '', monthly: '', rate: '' });
