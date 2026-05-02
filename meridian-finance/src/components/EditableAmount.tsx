@@ -1,9 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
-
-const C = { amber: '#f59e0b', text: '#e2e8f0', bg3: '#1a3a5c' };
+import { C } from '../lib/theme';
 
 function fmt(n: number) {
   return '$' + n.toLocaleString('en-US', { maximumFractionDigits: 0 });
+}
+
+function parseDraft(s: string): number {
+  return parseFloat(s.replace(/[$,\s]/g, ''));
 }
 
 interface EditableAmountProps {
@@ -15,7 +18,7 @@ interface EditableAmountProps {
 
 export default function EditableAmount({ value, onChange, size = 14, color = C.text }: EditableAmountProps) {
   const [editing, setEditing] = useState(false);
-  const [draft, setDraft] = useState('');
+  const [draft, setDraft]     = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -25,13 +28,36 @@ export default function EditableAmount({ value, onChange, size = 14, color = C.t
     }
   }, [editing]);
 
+  const isValid = (s: string) => {
+    const n = parseDraft(s);
+    return !isNaN(n) && n >= 0;
+  };
+
   const startEditing = () => { setDraft(String(value)); setEditing(true); };
 
-  const commit = () => {
-    const parsed = parseFloat(draft.replace(/[$,]/g, ''));
-    if (!isNaN(parsed) && parsed >= 0) onChange(parsed);
+  const commitAndClose = () => {
+    const n = parseDraft(draft);
+    if (!isNaN(n) && n >= 0) onChange(n);
     setEditing(false);
   };
+
+  const handleBlur = () => {
+    // Always close on blur; save only if valid
+    const n = parseDraft(draft);
+    if (!isNaN(n) && n >= 0) onChange(n);
+    setEditing(false);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      if (isValid(draft)) commitAndClose();
+      // If invalid: stay open so user can fix it
+    } else if (e.key === 'Escape') {
+      setEditing(false);
+    }
+  };
+
+  const invalid = draft !== '' && !isValid(draft);
 
   if (editing) {
     return (
@@ -39,19 +65,21 @@ export default function EditableAmount({ value, onChange, size = 14, color = C.t
         ref={inputRef}
         value={draft}
         onChange={e => setDraft(e.target.value)}
-        onBlur={commit}
-        onKeyDown={e => { if (e.key === 'Enter') commit(); if (e.key === 'Escape') setEditing(false); }}
+        onBlur={handleBlur}
+        onKeyDown={handleKeyDown}
         aria-label="Edit amount"
+        aria-invalid={invalid}
         style={{
           fontFamily: 'ui-monospace, monospace',
           fontSize: size,
           color: C.text,
           background: C.bg3,
-          border: `1.5px solid ${C.amber}`,
+          border: `1.5px solid ${invalid ? C.red : C.amber}`,
           borderRadius: 4,
           padding: '2px 6px',
           width: 110,
           outline: 'none',
+          transition: 'border-color 0.15s',
         }}
       />
     );
