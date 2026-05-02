@@ -10,7 +10,8 @@ import Label from '../components/Label';
 import Mono from '../components/Mono';
 import CustomTooltip from '../components/CustomTooltip';
 import { FinancialProfile } from '../data/initialData';
-import { Trash2, Plus, Target } from 'lucide-react';
+import { downloadCsv } from '../lib/exportCsv';
+import { Trash2, Plus, Target, Download } from 'lucide-react';
 
 const C = {
   bg3: '#1a3a5c',
@@ -130,6 +131,7 @@ export default function GoalTracker({ profile: _profile }: { profile: FinancialP
   const [activeId, setActiveId] = useState<number>(INIT_GOALS[0].id);
   const [showAddForm, setShowAddForm] = useState(false);
   const [form, setForm] = useState({ name: '', target: '', current: '', monthly: '', rate: '' });
+  const [formError, setFormError] = useState('');
 
   const activeGoal = goals.find(g => g.id === activeId) ?? goals[0];
 
@@ -139,18 +141,44 @@ export default function GoalTracker({ profile: _profile }: { profile: FinancialP
     if (id === activeId && next.length > 0) setActiveId(next[0].id);
   };
 
+  const setField = (field: keyof typeof form, value: string) => {
+    setForm(f => ({ ...f, [field]: value }));
+    setFormError('');
+  };
+
   const addGoal = () => {
     const target = parseFloat(form.target.replace(/[$,]/g, ''));
     const current = parseFloat(form.current.replace(/[$,]/g, ''));
     const monthly = parseFloat(form.monthly.replace(/[$,]/g, ''));
     const rate = parseFloat(form.rate) / 100;
-    if (!form.name || isNaN(target) || isNaN(current) || isNaN(monthly) || isNaN(rate)) return;
+    if (!form.name.trim()) { setFormError('Goal name is required.'); return; }
+    if (isNaN(target) || target <= 0) { setFormError('Target must be a positive dollar amount.'); return; }
+    if (isNaN(current) || current < 0) { setFormError('Current amount must be ≥ 0.'); return; }
+    if (current >= target) { setFormError('Current amount must be less than the target.'); return; }
+    if (isNaN(monthly) || monthly < 0) { setFormError('Monthly contribution must be ≥ 0.'); return; }
+    if (isNaN(rate) || rate < 0 || rate > 1) { setFormError('Return rate must be between 0% and 100%.'); return; }
     const newId = Math.max(0, ...goals.map(g => g.id)) + 1;
-    const newGoal = { id: newId, name: form.name, target, current, monthly, rate };
-    setGoals(g => [...g, newGoal]);
+    setGoals(g => [...g, { id: newId, name: form.name.trim(), target, current, monthly, rate }]);
     setActiveId(newId);
     setForm({ name: '', target: '', current: '', monthly: '', rate: '' });
+    setFormError('');
     setShowAddForm(false);
+  };
+
+  const handleExportGoals = () => {
+    const rows: (string | number)[][] = [
+      ['Goal', 'Target', 'Current', 'Still Needed', 'Monthly Contribution', 'Return Rate', 'Est. Years', 'Reach Year'],
+      ...goals.map(g => {
+        const m = monthsToGoal(g.current, g.target, g.monthly, g.rate);
+        return [
+          g.name, g.target, g.current, Math.max(0, g.target - g.current),
+          g.monthly, (g.rate * 100).toFixed(2) + '%',
+          m >= 600 ? 'N/A' : (m / 12).toFixed(1),
+          m >= 600 ? 'N/A' : String(new Date().getFullYear() + Math.floor(m / 12)),
+        ];
+      }),
+    ];
+    downloadCsv('meridian-goals.csv', rows);
   };
 
   const months = activeGoal ? monthsToGoal(activeGoal.current, activeGoal.target, activeGoal.monthly, activeGoal.rate) : 0;
@@ -212,26 +240,31 @@ export default function GoalTracker({ profile: _profile }: { profile: FinancialP
           <div style={{ color: C.amber2, fontWeight: 600, fontSize: 13, marginBottom: 16 }}>New Goal</div>
           <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr', gap: 12, marginBottom: 14 }}>
             <div>
-              <Label style={{ marginBottom: 4 }}>Goal Name</Label>
-              <input style={inputStyle} placeholder="e.g. College Fund" value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} />
+              <Label style={{ marginBottom: 4 }}>Goal Name *</Label>
+              <input style={inputStyle} placeholder="e.g. College Fund" value={form.name} onChange={e => setField('name', e.target.value)} onKeyDown={e => e.key === 'Enter' && addGoal()} />
             </div>
             <div>
-              <Label style={{ marginBottom: 4 }}>Target ($)</Label>
-              <input style={inputStyle} placeholder="e.g. 100000" value={form.target} onChange={e => setForm(f => ({ ...f, target: e.target.value }))} />
+              <Label style={{ marginBottom: 4 }}>Target ($) *</Label>
+              <input style={inputStyle} placeholder="e.g. 100000" value={form.target} onChange={e => setField('target', e.target.value)} onKeyDown={e => e.key === 'Enter' && addGoal()} />
             </div>
             <div>
               <Label style={{ marginBottom: 4 }}>Current ($)</Label>
-              <input style={inputStyle} placeholder="e.g. 5000" value={form.current} onChange={e => setForm(f => ({ ...f, current: e.target.value }))} />
+              <input style={inputStyle} placeholder="e.g. 5000" value={form.current} onChange={e => setField('current', e.target.value)} onKeyDown={e => e.key === 'Enter' && addGoal()} />
             </div>
             <div>
               <Label style={{ marginBottom: 4 }}>Monthly ($)</Label>
-              <input style={inputStyle} placeholder="e.g. 500" value={form.monthly} onChange={e => setForm(f => ({ ...f, monthly: e.target.value }))} />
+              <input style={inputStyle} placeholder="e.g. 500" value={form.monthly} onChange={e => setField('monthly', e.target.value)} onKeyDown={e => e.key === 'Enter' && addGoal()} />
             </div>
             <div>
               <Label style={{ marginBottom: 4 }}>Return Rate (%)</Label>
-              <input style={inputStyle} placeholder="e.g. 5.5" value={form.rate} onChange={e => setForm(f => ({ ...f, rate: e.target.value }))} />
+              <input style={inputStyle} placeholder="e.g. 5.5" value={form.rate} onChange={e => setField('rate', e.target.value)} onKeyDown={e => e.key === 'Enter' && addGoal()} />
             </div>
           </div>
+          {formError && (
+            <div style={{ marginBottom: 10, fontSize: 11, color: C.red, fontFamily: '"DM Mono", monospace' }}>
+              {formError}
+            </div>
+          )}
           <div style={{ display: 'flex', gap: 10 }}>
             <button
               onClick={addGoal}
@@ -240,7 +273,7 @@ export default function GoalTracker({ profile: _profile }: { profile: FinancialP
               Add Goal
             </button>
             <button
-              onClick={() => setShowAddForm(false)}
+              onClick={() => { setShowAddForm(false); setFormError(''); }}
               style={{ background: C.bg3, color: C.text2, border: `1px solid ${C.border}`, borderRadius: 5, padding: '7px 18px', fontFamily: '"DM Sans", sans-serif', cursor: 'pointer', fontSize: 13 }}
             >
               Cancel
@@ -254,7 +287,20 @@ export default function GoalTracker({ profile: _profile }: { profile: FinancialP
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
           {/* Left — Contribution Sensitivity Table */}
           <Card>
-            <div style={{ color: C.amber2, fontWeight: 600, fontSize: 13, marginBottom: 14 }}>Contribution Sensitivity</div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
+              <div style={{ color: C.amber2, fontWeight: 600, fontSize: 13 }}>Contribution Sensitivity</div>
+              <button
+                onClick={handleExportGoals}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 5,
+                  background: C.bg3, border: `1px solid ${C.border}`, borderRadius: 4,
+                  color: C.muted, cursor: 'pointer', padding: '4px 10px', fontSize: 11,
+                  fontFamily: '"DM Mono", monospace',
+                }}
+              >
+                <Download size={11} /> Export CSV
+              </button>
+            </div>
             <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: '"DM Mono", monospace', fontSize: 12 }}>
               <thead>
                 <tr>

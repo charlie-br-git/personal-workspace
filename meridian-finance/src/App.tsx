@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { LayoutDashboard, Home, TrendingUp, Target } from 'lucide-react';
 import { INIT, FinancialProfile, Expense } from './data/initialData';
 import { useLocalStorage } from './hooks/useLocalStorage';
+import ErrorBoundary from './components/ErrorBoundary';
 import BudgetSnapshot from './modules/BudgetSnapshot';
 import ScenarioComparison from './modules/ScenarioComparison';
 import TimelineProjection from './modules/TimelineProjection';
@@ -163,17 +164,31 @@ export default function App() {
       {/* Content */}
       <main style={{ padding: '24px 32px', maxWidth: 1400, margin: '0 auto' }}>
         {activeTab === 'budget' && (
-          <BudgetSnapshot
-            profile={profile}
-            onUpdateExpense={updateExpense}
-            onAddExpense={addExpense}
-            onRemoveExpense={removeExpense}
-            onUpdateIncome={updateIncome}
-          />
+          <ErrorBoundary label="Budget Snapshot">
+            <BudgetSnapshot
+              profile={profile}
+              onUpdateExpense={updateExpense}
+              onAddExpense={addExpense}
+              onRemoveExpense={removeExpense}
+              onUpdateIncome={updateIncome}
+            />
+          </ErrorBoundary>
         )}
-        {activeTab === 'scenario' && <ScenarioComparison profile={profile} />}
-        {activeTab === 'timeline' && <TimelineProjection profile={profile} />}
-        {activeTab === 'goals' && <GoalTracker profile={profile} />}
+        {activeTab === 'scenario' && (
+          <ErrorBoundary label="Scenario Comparison">
+            <ScenarioComparison profile={profile} />
+          </ErrorBoundary>
+        )}
+        {activeTab === 'timeline' && (
+          <ErrorBoundary label="Timeline Projection">
+            <TimelineProjection profile={profile} />
+          </ErrorBoundary>
+        )}
+        {activeTab === 'goals' && (
+          <ErrorBoundary label="Goal Tracker">
+            <GoalTracker profile={profile} />
+          </ErrorBoundary>
+        )}
       </main>
     </>
   );

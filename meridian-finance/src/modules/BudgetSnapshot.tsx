@@ -9,7 +9,8 @@ import Mono from '../components/Mono';
 import EditableAmount from '../components/EditableAmount';
 import CustomTooltip from '../components/CustomTooltip';
 import { FinancialProfile, Expense } from '../data/initialData';
-import { Trash2, Plus } from 'lucide-react';
+import { downloadCsv } from '../lib/exportCsv';
+import { Trash2, Plus, Download } from 'lucide-react';
 
 const C = {
   bg: '#0a1628',
@@ -38,7 +39,6 @@ function pct(n: number) {
   return (n * 100).toFixed(1) + '%';
 }
 
-// Deterministic variance seed based on month index
 function monthVariance(base: number, idx: number): number {
   const factors = [0.97, 1.05, 1.12, 0.93, 1.02, 1.00];
   return Math.round(base * factors[idx]);
@@ -71,14 +71,23 @@ function ExpenseCard({
   const [newName, setNewName] = useState('');
   const [newAmount, setNewAmount] = useState('');
   const [newCategory, setNewCategory] = useState('');
+  const [formError, setFormError] = useState('');
   const total = expenses.reduce((s, e) => s + e.amount, 0);
 
   const handleAdd = () => {
     const amt = parseFloat(newAmount.replace(/[$,]/g, ''));
-    if (!newName.trim() || isNaN(amt)) return;
+    if (!newName.trim()) { setFormError('Name is required.'); return; }
+    if (isNaN(amt) || amt <= 0) { setFormError('Enter a valid amount greater than $0.'); return; }
+    setFormError('');
     onAdd({ name: newName.trim(), amount: amt, category: newCategory.trim() || 'Other' });
     setNewName(''); setNewAmount(''); setNewCategory('');
     setAdding(false);
+  };
+
+  const handleCancel = () => {
+    setAdding(false);
+    setFormError('');
+    setNewName(''); setNewAmount(''); setNewCategory('');
   };
 
   const inputStyle: React.CSSProperties = {
@@ -99,7 +108,7 @@ function ExpenseCard({
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <Mono size={14}>{fmt(total)}</Mono>
           <button
-            onClick={() => setAdding(a => !a)}
+            onClick={() => { setAdding(a => !a); setFormError(''); }}
             style={{
               display: 'flex', alignItems: 'center', gap: 4,
               background: C.bg3, border: `1px solid ${C.border}`, borderRadius: 4,
@@ -113,11 +122,41 @@ function ExpenseCard({
       </div>
 
       {adding && (
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 90px 80px auto', gap: 6, marginBottom: 12, alignItems: 'center' }}>
-          <input placeholder="Name" value={newName} onChange={e => setNewName(e.target.value)} style={inputStyle} />
-          <input placeholder="$Amount" value={newAmount} onChange={e => setNewAmount(e.target.value)} style={inputStyle} />
-          <input placeholder="Category" value={newCategory} onChange={e => setNewCategory(e.target.value)} style={inputStyle} />
-          <button onClick={handleAdd} style={{ ...inputStyle, background: C.amber, color: '#000', cursor: 'pointer', fontWeight: 600 }}>Add</button>
+        <div style={{ marginBottom: 12 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 90px 80px auto auto', gap: 6, alignItems: 'center' }}>
+            <input
+              placeholder="Name *"
+              value={newName}
+              onChange={e => { setNewName(e.target.value); setFormError(''); }}
+              onKeyDown={e => e.key === 'Enter' && handleAdd()}
+              style={{ ...inputStyle, borderColor: formError && !newName.trim() ? C.red : C.border }}
+            />
+            <input
+              placeholder="$Amount *"
+              value={newAmount}
+              onChange={e => { setNewAmount(e.target.value); setFormError(''); }}
+              onKeyDown={e => e.key === 'Enter' && handleAdd()}
+              style={{ ...inputStyle, borderColor: formError && !newAmount.trim() ? C.red : C.border }}
+            />
+            <input
+              placeholder="Category"
+              value={newCategory}
+              onChange={e => setNewCategory(e.target.value)}
+              onKeyDown={e => e.key === 'Enter' && handleAdd()}
+              style={inputStyle}
+            />
+            <button onClick={handleAdd} style={{ ...inputStyle, background: C.amber, color: '#000', cursor: 'pointer', fontWeight: 600, whiteSpace: 'nowrap' }}>
+              Add
+            </button>
+            <button onClick={handleCancel} style={{ ...inputStyle, cursor: 'pointer', color: C.muted }}>
+              ✕
+            </button>
+          </div>
+          {formError && (
+            <div style={{ marginTop: 5, fontSize: 11, color: C.red, fontFamily: '"DM Mono", monospace' }}>
+              {formError}
+            </div>
+          )}
         </div>
       )}
 
@@ -141,30 +180,59 @@ function ExpenseCard({
           </div>
         </div>
       ))}
+
+      {/* Footer: type label */}
+      {expenses.length === 0 && (
+        <div style={{ fontSize: 12, color: C.muted, textAlign: 'center', padding: '12px 0', fontFamily: '"DM Mono", monospace' }}>
+          No {type} expenses. Click Add to create one.
+        </div>
+      )}
     </Card>
   );
 }
 
-export default function BudgetSnapshot({ profile, onUpdateExpense, onAddExpense, onRemoveExpense }: Props) {
+export default function BudgetSnapshot({ profile, onUpdateExpense, onAddExpense, onRemoveExpense, onUpdateIncome }: Props) {
   const totalFixed = profile.expenses.fixed.reduce((s, e) => s + e.amount, 0);
   const totalVariable = profile.expenses.variable.reduce((s, e) => s + e.amount, 0);
   const totalExpenses = totalFixed + totalVariable;
   const cashFlow = profile.income.net_monthly - totalExpenses;
   const savingsRate = profile.income.net_monthly > 0 ? cashFlow / profile.income.net_monthly : 0;
 
-  // Category aggregation for pie chart
   const categoryMap: Record<string, number> = {};
   [...profile.expenses.fixed, ...profile.expenses.variable].forEach(e => {
     categoryMap[e.category] = (categoryMap[e.category] || 0) + e.amount;
   });
   const pieData = Object.entries(categoryMap).map(([name, value]) => ({ name, value }));
 
-  // 6-month bar chart data
   const barData = MONTHS.map((month, i) => ({
     month,
     Fixed: monthVariance(totalFixed, i),
     Variable: monthVariance(totalVariable, i),
   }));
+
+  const handleExport = () => {
+    const rows: (string | number)[][] = [
+      ['Meridian Budget Export'],
+      [],
+      ['Income'],
+      ['Gross Annual', profile.income.gross_annual],
+      ['Net Monthly', profile.income.net_monthly],
+      [],
+      ['Fixed Expenses', 'Amount', 'Category'],
+      ...profile.expenses.fixed.map(e => [e.name, e.amount, e.category]),
+      ['Total Fixed', totalFixed, ''],
+      [],
+      ['Variable Expenses', 'Amount', 'Category'],
+      ...profile.expenses.variable.map(e => [e.name, e.amount, e.category]),
+      ['Total Variable', totalVariable, ''],
+      [],
+      ['Summary'],
+      ['Total Expenses', totalExpenses],
+      ['Cash Flow', cashFlow],
+      ['Savings Rate', pct(savingsRate)],
+    ];
+    downloadCsv('meridian-budget.csv', rows);
+  };
 
   return (
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
@@ -172,16 +240,18 @@ export default function BudgetSnapshot({ profile, onUpdateExpense, onAddExpense,
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
         {/* Stat Strip */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
-          {[
-            { label: 'Gross Annual', value: fmt(profile.income.gross_annual), color: C.text },
-            { label: 'Net Monthly', value: fmt(profile.income.net_monthly), color: C.text },
-            { label: 'Cash Flow', value: fmt(cashFlow), color: cashFlow >= 0 ? C.green : C.red },
-          ].map(s => (
-            <Card key={s.label} style={{ padding: '14px 16px' }}>
-              <Label style={{ marginBottom: 6 }}>{s.label}</Label>
-              <Mono size={18} color={s.color}>{s.value}</Mono>
-            </Card>
-          ))}
+          <Card style={{ padding: '14px 16px' }}>
+            <Label style={{ marginBottom: 6 }}>Gross Annual</Label>
+            <EditableAmount value={profile.income.gross_annual} onChange={v => onUpdateIncome('gross_annual', v)} size={18} />
+          </Card>
+          <Card style={{ padding: '14px 16px' }}>
+            <Label style={{ marginBottom: 6 }}>Net Monthly</Label>
+            <EditableAmount value={profile.income.net_monthly} onChange={v => onUpdateIncome('net_monthly', v)} size={18} />
+          </Card>
+          <Card style={{ padding: '14px 16px' }}>
+            <Label style={{ marginBottom: 6 }}>Cash Flow</Label>
+            <Mono size={18} color={cashFlow >= 0 ? C.green : C.red}>{fmt(cashFlow)}</Mono>
+          </Card>
         </div>
 
         {/* Fixed Expenses */}
@@ -216,12 +286,7 @@ export default function BudgetSnapshot({ profile, onUpdateExpense, onAddExpense,
               {pct(totalExpenses / profile.income.net_monthly)} of net income
             </div>
           </Card>
-          <Card
-            style={{
-              padding: '14px 16px',
-              borderColor: savingsRate >= 0.20 ? C.green : C.amber,
-            }}
-          >
+          <Card style={{ padding: '14px 16px', borderColor: savingsRate >= 0.20 ? C.green : C.amber }}>
             <Label style={{ marginBottom: 6 }}>Savings Rate</Label>
             <Mono size={18} color={savingsRate >= 0.20 ? C.green : C.amber}>{pct(savingsRate)}</Mono>
             <div style={{ fontSize: 11, color: C.muted, marginTop: 4, fontFamily: '"DM Mono", monospace' }}>
@@ -232,7 +297,20 @@ export default function BudgetSnapshot({ profile, onUpdateExpense, onAddExpense,
 
         {/* Spending by Category */}
         <Card>
-          <div style={{ color: C.amber2, fontWeight: 600, fontSize: 13, marginBottom: 14 }}>Spending by Category</div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
+            <div style={{ color: C.amber2, fontWeight: 600, fontSize: 13 }}>Spending by Category</div>
+            <button
+              onClick={handleExport}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 5,
+                background: C.bg3, border: `1px solid ${C.border}`, borderRadius: 4,
+                color: C.muted, cursor: 'pointer', padding: '4px 10px', fontSize: 11,
+                fontFamily: '"DM Mono", monospace',
+              }}
+            >
+              <Download size={11} /> Export CSV
+            </button>
+          </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
             <ResponsiveContainer width={190} height={190}>
               <PieChart>
