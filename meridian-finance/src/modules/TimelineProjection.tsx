@@ -1,75 +1,84 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer,
 } from 'recharts';
 import Card from '../components/Card';
-import Label from '../components/Label';
 import Mono from '../components/Mono';
 import CustomTooltip from '../components/CustomTooltip';
 import SliderControl from '../components/SliderControl';
 import { FinancialProfile } from '../data/initialData';
+import { calcFV, realReturn } from '../lib/calculations';
+import { C } from '../lib/theme';
+import { fmt, fmtFull } from '../lib/format';
+import { useIsMobile } from '../hooks/useIsMobile';
 
-const C = {
-  bg3: '#1a3a5c',
-  border: '#1e3a5f',
-  amber: '#f59e0b',
-  amber2: '#fbbf24',
-  green: '#10b981',
-  blue: '#3b82f6',
-  muted: '#64748b',
-  text: '#e2e8f0',
-  text2: '#94a3b8',
-};
+const HORIZON_OPTIONS = [5, 10, 15, 20, 25] as const;
 
-function fmt(n: number) {
-  if (n >= 1000000) return '$' + (n / 1000000).toFixed(2) + 'M';
-  if (n >= 1000) return '$' + (n / 1000).toFixed(1) + 'k';
-  return '$' + Math.round(n).toLocaleString();
+function getTableYears(h: number): number[] {
+  if (h === 5)  return [1, 2, 3, 4, 5];
+  if (h === 10) return [1, 2, 3, 5, 7, 10];
+  if (h === 15) return [1, 3, 5, 7, 10, 15];
+  if (h === 20) return [1, 3, 5, 10, 15, 20];
+  return [1, 5, 10, 15, 20, 25];
 }
 
-function fmtFull(n: number) {
-  return '$' + Math.round(n).toLocaleString();
+function HorizonPicker({ value, onChange }: { value: number; onChange: (v: number) => void }) {
+  return (
+    <div style={{ display: 'flex', gap: 2, background: C.bg3, borderRadius: 5, padding: 2 }}>
+      {HORIZON_OPTIONS.map(yr => (
+        <button
+          key={yr}
+          onClick={() => onChange(yr)}
+          aria-pressed={value === yr}
+          style={{
+            background: value === yr ? C.amber : 'transparent',
+            color: value === yr ? '#000' : C.muted,
+            border: 'none', borderRadius: 3,
+            padding: '4px 10px', fontSize: 11,
+            fontFamily: 'ui-monospace, monospace',
+            cursor: 'pointer',
+            fontWeight: value === yr ? 600 : 400,
+            transition: 'background 0.15s',
+          }}
+        >
+          {yr}yr
+        </button>
+      ))}
+    </div>
+  );
 }
-
-function calcFV(pv: number, pmt: number, r: number, n: number): number {
-  if (Math.abs(r) < 1e-10) return pv + pmt * n;
-  return pv * Math.pow(1 + r, n) + pmt * (Math.pow(1 + r, n) - 1) / r;
-}
-
-function realReturn(nominal: number, inflation: number): number {
-  return (1 + nominal) / (1 + inflation) - 1;
-}
-
-const TABLE_YEARS = [1, 2, 3, 5, 7, 10];
 
 interface Props {
   profile: FinancialProfile;
 }
 
 export default function TimelineProjection({ profile }: Props) {
-  const totalFixed = profile.expenses.fixed.reduce((s, e) => s + e.amount, 0);
+  const isMobile = useIsMobile();
+
+  const totalFixed    = profile.expenses.fixed.reduce((s, e) => s + e.amount, 0);
   const totalVariable = profile.expenses.variable.reduce((s, e) => s + e.amount, 0);
-  const cashFlow = profile.income.net_monthly - totalFixed - totalVariable;
+  const cashFlow      = profile.income.net_monthly - totalFixed - totalVariable;
   const initSavingsRate = profile.income.net_monthly > 0
     ? Math.max(0, Math.min(50, (cashFlow / profile.income.net_monthly) * 100))
     : 10;
 
   const [savingsRatePct, setSavingsRatePct] = useState(Math.round(initSavingsRate));
-  const [returnPct, setReturnPct] = useState(profile.savings.return_rate * 100);
-  const [inflationPct, setInflationPct] = useState(profile.savings.inflation * 100);
+  const [returnPct,      setReturnPct]      = useState(profile.savings.return_rate * 100);
+  const [inflationPct,   setInflationPct]   = useState(profile.savings.inflation * 100);
+  const [horizon,        setHorizon]        = useState(10);
 
   const monthlySavings = profile.income.net_monthly * (savingsRatePct / 100);
-  const annualSavings = monthlySavings * 12;
-  const base = profile.savings.current + profile.savings.emergency;
+  const annualSavings  = monthlySavings * 12;
+  const base           = profile.savings.current + profile.savings.emergency;
 
   const scenarios = [
-    { label: 'Conservative', nominalReturn: returnPct / 100 - 0.025, inflation: inflationPct / 100 + 0.01, color: C.blue, gradId: 'gradConservative' },
-    { label: 'Moderate',     nominalReturn: returnPct / 100,         inflation: inflationPct / 100,        color: C.amber, gradId: 'gradModerate' },
-    { label: 'Optimistic',   nominalReturn: returnPct / 100 + 0.025, inflation: inflationPct / 100 - 0.005, color: C.green, gradId: 'gradOptimistic' },
+    { label: 'Conservative', nominalReturn: returnPct / 100 - 0.025, inflation: inflationPct / 100 + 0.01,  color: C.blue,  gradId: 'gradConservative' },
+    { label: 'Moderate',     nominalReturn: returnPct / 100,         inflation: inflationPct / 100,          color: C.amber, gradId: 'gradModerate'     },
+    { label: 'Optimistic',   nominalReturn: returnPct / 100 + 0.025, inflation: inflationPct / 100 - 0.005, color: C.green, gradId: 'gradOptimistic'   },
   ];
 
-  const chartData = Array.from({ length: 11 }, (_, yr) => {
+  const chartData = Array.from({ length: horizon + 1 }, (_, yr) => {
     const row: Record<string, number | string> = { year: yr };
     scenarios.forEach(sc => {
       const r = realReturn(sc.nominalReturn, sc.inflation);
@@ -78,26 +87,27 @@ export default function TimelineProjection({ profile }: Props) {
     return row;
   });
 
-  const yr10 = (label: string) => (chartData[10][label] as number) ?? 0;
+  const yrFinal    = (label: string) => (chartData[horizon][label] as number) ?? 0;
+  const tableYears = getTableYears(horizon);
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '280px 1fr', gap: 20 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '280px 1fr', gap: 20 }}>
       {/* LEFT */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
         <Card>
           <div style={{ color: C.amber2, fontWeight: 600, fontSize: 13, marginBottom: 18 }}>Projection Controls</div>
-          <SliderControl label="Monthly Savings Rate" value={savingsRatePct} min={0} max={50} step={1} onChange={setSavingsRatePct} format={v => v.toFixed(0) + '%'} />
-          <SliderControl label="Expected Return"      value={returnPct}      min={3} max={14} step={0.5} onChange={setReturnPct}      format={v => v.toFixed(1) + '%'} />
-          <SliderControl label="Inflation Rate"       value={inflationPct}   min={1} max={6}  step={0.5} onChange={setInflationPct}   format={v => v.toFixed(1) + '%'} />
+          <SliderControl label="Monthly Savings Rate" value={savingsRatePct} min={0}  max={50} step={1}   onChange={setSavingsRatePct} format={v => v.toFixed(0) + '%'} />
+          <SliderControl label="Expected Return"      value={returnPct}      min={3}  max={14} step={0.5} onChange={setReturnPct}      format={v => v.toFixed(1) + '%'} />
+          <SliderControl label="Inflation Rate"       value={inflationPct}   min={1}  max={6}  step={0.5} onChange={setInflationPct}   format={v => v.toFixed(1) + '%'} />
           <div style={{ marginTop: 12, borderTop: `1px solid ${C.border}`, paddingTop: 14 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
               <span style={{ fontSize: 12, color: C.muted, fontFamily: 'ui-monospace, monospace' }}>Monthly Savings</span>
-              <span style={{ fontSize: 12, color: C.text, fontFamily: 'ui-monospace, monospace' }}>{fmtFull(monthlySavings)}</span>
+              <span style={{ fontSize: 12, color: C.text,  fontFamily: 'ui-monospace, monospace' }}>{fmtFull(monthlySavings)}</span>
             </div>
             {scenarios.map(sc => (
               <div key={sc.label} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 5 }}>
-                <span style={{ fontSize: 11, color: sc.color, fontFamily: 'ui-monospace, monospace' }}>{sc.label} (Yr 10)</span>
-                <span style={{ fontSize: 11, color: sc.color, fontFamily: 'ui-monospace, monospace' }}>{fmt(yr10(sc.label))}</span>
+                <span style={{ fontSize: 11, color: sc.color, fontFamily: 'ui-monospace, monospace' }}>{sc.label} (Yr {horizon})</span>
+                <span style={{ fontSize: 11, color: sc.color, fontFamily: 'ui-monospace, monospace' }}>{fmt(yrFinal(sc.label))}</span>
               </div>
             ))}
           </div>
@@ -124,7 +134,12 @@ export default function TimelineProjection({ profile }: Props) {
       {/* RIGHT */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
         <Card>
-          <div style={{ color: C.amber2, fontWeight: 600, fontSize: 13, marginBottom: 14 }}>Savings Growth Projection (Real, Inflation-Adjusted)</div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14, flexWrap: 'wrap', gap: 8 }}>
+            <div style={{ color: C.amber2, fontWeight: 600, fontSize: 13 }}>
+              Savings Growth Projection (Real, Inflation-Adjusted)
+            </div>
+            <HorizonPicker value={horizon} onChange={setHorizon} />
+          </div>
           <ResponsiveContainer width="100%" height={280}>
             <AreaChart data={chartData} margin={{ top: 10, right: 20, left: 10, bottom: 5 }}>
               <defs>
@@ -147,7 +162,10 @@ export default function TimelineProjection({ profile }: Props) {
         </Card>
 
         <Card>
-          <div style={{ color: C.amber2, fontWeight: 600, fontSize: 13, marginBottom: 14 }}>Year-by-Year Breakdown</div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14, flexWrap: 'wrap', gap: 8 }}>
+            <div style={{ color: C.amber2, fontWeight: 600, fontSize: 13 }}>Year-by-Year Breakdown</div>
+            <HorizonPicker value={horizon} onChange={setHorizon} />
+          </div>
           <div style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: 'ui-monospace, monospace', fontSize: 12 }}>
               <thead>
@@ -160,7 +178,7 @@ export default function TimelineProjection({ profile }: Props) {
                 </tr>
               </thead>
               <tbody>
-                {TABLE_YEARS.map(yr => (
+                {tableYears.map(yr => (
                   <tr key={yr}>
                     <td style={{ textAlign: 'center', padding: '8px 10px', color: C.text2, borderBottom: `1px solid ${C.border}` }}>{yr}</td>
                     <td style={{ textAlign: 'right',  padding: '8px 10px', color: C.text2, borderBottom: `1px solid ${C.border}` }}>{fmtFull(annualSavings)}</td>

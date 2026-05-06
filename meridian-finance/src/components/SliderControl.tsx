@@ -1,4 +1,3 @@
-import React from 'react';
 
 const C = { amber2: '#fbbf24', muted: '#64748b', text2: '#94a3b8' };
 
@@ -23,7 +22,13 @@ export default function SliderControl({ label, value, min, max, step, onChange, 
           {format(value)}
         </span>
       </div>
-      <input type="range" min={min} max={max} step={step} value={value} onChange={e => onChange(parseFloat(e.target.value))} />
+      <input
+        type="range"
+        min={min} max={max} step={step} value={value}
+        onChange={e => onChange(parseFloat(e.target.value))}
+        aria-label={label}
+        aria-valuetext={format(value)}
+      />
       <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 3 }}>
         <span style={{ fontSize: 10, color: C.text2, fontFamily: 'ui-monospace, monospace' }}>{format(min)}</span>
         <span style={{ fontSize: 10, color: C.text2, fontFamily: 'ui-monospace, monospace' }}>{format(max)}</span>
