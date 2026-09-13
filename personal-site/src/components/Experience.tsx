@@ -2,7 +2,7 @@ const experiences = [
   {
     era: "ai" as const,
     period: "2024 — Present",
-    title: "Director of Product Management",
+    title: "Director of Product, Platform and AI",
     company: "Willow Wealth (fka Yieldstreet)",
     description:
       "Leading enterprise AI deployment — Claude customization with MCP architecture, API connectors, RBAC, and team-specific plugins across product, design, marketing, and engineering.",

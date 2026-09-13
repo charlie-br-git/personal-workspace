@@ -36,7 +36,7 @@ export default function About() {
           </div>
           <div className="space-y-5 text-muted leading-relaxed">
             <p>
-              Today, as Director of Product Management, I lead our enterprise AI
+              Today, as Director of Product, Platform and AI, I lead our enterprise AI
               initiatives — deploying Claude across product, design, marketing, and
               engineering teams. This means architecting MCP integrations, building
               API connectors, implementing strict RBAC protocols, and creating
