@@ -9,7 +9,7 @@ export const siteMetadata: Metadata = {
     template: "%s | Charlie Bittner-Rossmiller",
   },
   description:
-    "Director of Product Management building enterprise AI platforms. Writing about MCP architecture, Claude deployment, and bridging product and engineering.",
+    "Director of Product, Platform and AI — building enterprise AI platforms. Writing about MCP architecture, Claude deployment, and bridging product and engineering.",
   keywords: [
     "AI platform engineer",
     "enterprise AI",
@@ -28,7 +28,7 @@ export const siteMetadata: Metadata = {
     title:
       "Charlie Bittner-Rossmiller — AI Platform Engineering & Product Leadership",
     description:
-      "Director of Product Management building enterprise AI platforms. Writing about MCP architecture, Claude deployment, and bridging product and engineering.",
+      "Director of Product, Platform and AI — building enterprise AI platforms. Writing about MCP architecture, Claude deployment, and bridging product and engineering.",
   },
   twitter: {
     card: "summary_large_image",
@@ -47,7 +47,7 @@ export function generateJsonLd() {
     "@context": "https://schema.org",
     "@type": "Person",
     name: "Charlie Bittner-Rossmiller",
-    jobTitle: "Director of Product Management",
+    jobTitle: "Director of Product, Platform and AI",
     worksFor: {
       "@type": "Organization",
       name: "Willow Wealth",
