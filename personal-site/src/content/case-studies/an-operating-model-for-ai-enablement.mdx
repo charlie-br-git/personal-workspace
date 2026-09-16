@@ -1,0 +1,44 @@
+---
+title: "An Operating Model for AI Enablement"
+date: "2026-09-16"
+excerpt: "Governance only works if requests can find it: written decision rights, a self-serve intake, office hours as the support surface, and a coach-don't-build default that keeps one person from becoming the bottleneck."
+tags: ["AI Enablement", "AI Governance", "Operating Model", "Enterprise AI"]
+---
+
+## The Bottleneck Problem
+
+An AI program run through one person has a failure mode with a date on it. Ours showed up early and in writing — at one point the working record put it plainly: the funnel was working, and I was the bottleneck. Demand for AI tooling was arriving faster than any individual could serve it, from people nobody had onboarded.
+
+The fix wasn't more hours. It was an operating model: decision rights people can look up, an intake anyone can file, a support surface with a standing slot on the calendar, and a default of coaching builders rather than building for them.
+
+## Decision Rights, Written Down
+
+Who decides is the first thing a requester needs to know, so it's written down rather than tribal: I sign off org-wide and non-engineering AI deployments; engineering-adjacent ones are co-signed with the engineering lead; anything touching regulated data brings compliance in first. Written decision rights turn "who do I even ask?" into a lookup — and they make the gate auditable, because every approval names who gave it and under what conditions.
+
+## An Intake That Runs Itself
+
+The intake is self-serve by design, and the best evidence it works is a case where I was only needed at the end: a project-management operator with no engineering background built her own Slack-to-project-tracker automation; the AI itself flagged her design as needing governance review mid-build; she filed the intake ticket herself and paused before touching real data. The loop ran end to end without me until the approval — which took four minutes, because the *class* of automation (scheduled AI-to-chat delivery) had already been approved once, with a reference implementation attached.
+
+That's the compounding trick: approve classes, not instances. The first approval in a category is slow and careful; every later one inherits its reasoning and its conditions.
+
+## Office Hours as the Support Model
+
+Requests that fit a form get a form. Requests shaped like "I'm not sure this is even allowed" get a room: weekly AI office hours, later made fully optional, doubling as intake. The clearest session on record: a system owner arrived hesitant about giving AI write access to a CRM, and the room converted the request into a dedicated read-only service account — the same pattern already live on several internal systems — with a dev environment being stood up before noon the same morning. When attendance data came in, the format got restructured rather than defended: a pruned, fully-optional core list.
+
+## Coach, Don't Build
+
+The recorded default, when someone asks to have something built for them, is to help them build it themselves instead. The systems that came out of that stance run without me: a business-operations lead operates her own AI assistant, including an unattended weekly review workflow and a prioritization artifact it maintains; the project operator above runs her pilot in production under two written conditions. My name is on the approvals and the guardrails, not the commits — which is the point.
+
+## Tools Outlive Their Builders
+
+Colleague-built AI tools tend to be welded to their author's personal account, which makes every vacation an outage risk. Twice in one month, a colleague-built tool moved off its author's account and onto a trained second operator — once from morning escalation to a set-up, test-run second operator within the same morning. Unglamorous work, but it's the difference between "someone built a tool" and "the org has a capability."
+
+## Patterns
+
+1. **Write the decision rights down.** "Who decides" as a lookup is the cheapest governance you will ever ship.
+
+2. **Approve classes, not instances.** The four-minute approval was only possible because the slow, careful version had already happened once for the category.
+
+3. **Office hours beat ticket queues for ambiguous requests.** A ticket queue would likely have stalled on a question as ambiguous as the write-access one — the requester needed a conversation, not a form.
+
+4. **The systems you don't build are the leverage.** A program's health is measured by what runs without its owner — including, eventually, the owner's own job.

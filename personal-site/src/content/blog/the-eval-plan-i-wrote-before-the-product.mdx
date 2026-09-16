@@ -1,0 +1,39 @@
+---
+title: "The Eval Plan I Wrote Before the Product"
+date: "2026-08-14"
+excerpt: "A 50-prompt golden set, judge rubrics, committed refusal patterns, and CI regression gates — the evaluation design for an AI feature that never got built, and why the plan was still worth writing."
+tags: ["AI Evaluation", "LLM Evals", "AI Product Management", "Golden Datasets"]
+---
+
+## Evals as the Phase-Zero Deliverable
+
+In April 2026 I wrote the PRD for an AI-powered investor-experience proof of concept. The first deliverable in the plan wasn't the feature — it was the evaluation harness. The design:
+
+- **A 50-prompt golden set**, split deliberately: 15 refusals, 10 citation correctness, 10 numeric grounding, 10 tool-use correctness, 5 personalization
+- **Graders**: an LLM judge working from a rubric, plus regex checks for the rules that must never bend — the spec's example: no dollar claim without a prior tool call
+- **A runner** (promptfoo) wired into CI, running on every PR and blocking merge on regression against a pinned baseline
+- **Prompt and model versions logged on every request**, so any output can be traced to exactly what produced it
+- **A hard gate**: all 50 prompts passing before the next phase starts
+- **Ten committed refusal patterns with sample replies**, written before any model saw a user
+
+## Why Refusals Lead the Set
+
+Fifteen of fifty prompts test declining, because in a regulated domain the most important behavior an AI feature has is refusing correctly: no advice it isn't licensed to give, no numbers it can't ground in a tool call, no confident answer where the honest one is "that needs a human." Refusal isn't an error state to minimize — it's product surface, with its own spec, its own test cases, and its own copy.
+
+## It Never Got Built
+
+Honest status: the proof of concept didn't proceed past the spec, and none of this exists as running infrastructure — no harness in CI, no golden set being scored. I'm publishing the plan as what it is, because "here's the eval design I wrote and why it never ran" is a more useful artifact than silence, and a more honest one than implying it shipped.
+
+## What Survived Anyway
+
+The plan's habits outlived the plan. Definitions get pinned before numbers get quoted. Verification gets designed in before capability gets scaled. Refusal behavior gets treated as a feature with tests rather than an apology. The measurement discipline and the adversarial-review pipelines I run today are the same instincts, applied to the AI program itself instead of one feature.
+
+## Notes
+
+1. **Write the eval plan before the feature.** It forces the arguments about what "working" means to happen while they're still cheap.
+
+2. **In regulated domains, refusals are product surface.** Spec them, test them, write their copy — don't leave the most consequential behavior to the model's defaults.
+
+3. **A judge needs a rubric, and hard rules need regexes.** LLM-as-judge grades the gradable; deterministic checks hold the lines that must never bend.
+
+4. **An unbuilt plan is still an asset — published as what it is.** The fastest way to lose credibility on evals is to imply yours ran when it didn't.

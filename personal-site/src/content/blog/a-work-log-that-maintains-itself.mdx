@@ -1,0 +1,47 @@
+---
+title: "A Work Log That Maintains Itself"
+date: "2026-09-07"
+excerpt: "Running personal working memory as a small, agent-maintained wiki: immutable sources, an agent-written knowledge layer with provenance, and morning and evening routines that load and reconcile context."
+tags: ["Agentic AI", "Knowledge Management", "Personal Tooling"]
+---
+
+## The Problem With Notes
+
+Working context has a short half-life. Decisions live in chat scrollback, project state lives in your head, and every new AI session starts from zero — re-deriving things that were settled weeks ago. Note-taking apps don't fix this; the notes go stale the day after they're written, because maintaining them is a job and nobody holds it.
+
+So I gave the job to an agent. My working memory is a small local wiki that an AI maintains against a written schema, with a simple division of labor: I own sourcing, exploration, and asking questions; the agent owns all writing, summarizing, cross-referencing, and filing.
+
+## The Shape
+
+Three layers, plain markdown on disk:
+
+- **Immutable sources.** Everything raw — documents, exports, transcripts — lands in a sources folder the agent may read but never modify. If a source is wrong, the correction is noted in the derived layer; the original stays as evidence.
+- **An agent-written knowledge layer.** Source summaries, entity pages, concept pages — each carrying provenance in its frontmatter (original filename, date added, date processed) and citing the raw source for every factual claim. Cross-links are the point: a link to a page that doesn't exist yet isn't an error, it's a marked todo.
+- **Operational memory.** A rolling summary of the current state of my world, plus topic files — projects, people, decisions, open loops, a glossary — and an append-only daily log with greppable entry prefixes.
+
+Above all of it sits a schema file the agent must read before touching anything. It's co-evolved: when a filing question comes up and gets decided, the decision is written into the schema, so the next session inherits the rule instead of re-litigating it.
+
+## The Routines
+
+Two scheduled sessions bookend the day. A morning brief loads the rolling summary, sweeps the live sources — messages, tickets, calendars, repositories — and produces a triage against what the wiki already knows. An evening pass reconciles the day back into the topic files: what changed, what got decided, what's newly owed. The topic files accrete; the daily log just records. Between the two, any ad-hoc session starts already knowing what's going on.
+
+## Rules That Earned Their Place
+
+- **The agent writes; the human sources.** Hand-edits to derived pages bypass the schema the agent maintains against, so corrections go through the agent instead.
+- **Append-only where history matters.** The daily log and the activity log never get rewritten — a consistent entry prefix makes the whole history greppable.
+- **Provenance on every derived page.** A summary that can't say where it came from is a rumor with formatting.
+- **Retired material gets archived, not deleted** — into a dated, append-only archive that everyday sessions are forbidden to read. Removals stay auditable without polluting current context.
+
+## What Breaks
+
+Honest failure notes, because scheduled agents meet real laptops: a missed evening run replays on wake, sometimes at the same moment as the morning brief — two sessions editing the same files at once. The mitigations that stuck: targeted edits rather than file rewrites, a written rule for which session is authoritative when they collide, and treating "no log was written on the day it covers" as a defect to track rather than a shrug. Scheduled automation needs a missed-fire story the way distributed systems need a retry story.
+
+## Notes
+
+1. **Compile knowledge once; stop re-deriving it per question.** The wiki is the cache, and the agent keeps it warm.
+
+2. **Separate immutable sources from derived pages, and stamp provenance on everything derived.** That separation is what makes an agent-written layer trustworthy.
+
+3. **Make the schema a file the agent reads first — and let it evolve.** Every filing decision written into the schema is a conversation you never have again.
+
+4. **Design for the missed fire.** The failure mode of personal automation isn't bad output; it's the run that silently didn't happen.

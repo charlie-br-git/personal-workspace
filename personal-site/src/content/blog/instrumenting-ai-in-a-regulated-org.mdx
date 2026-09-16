@@ -1,0 +1,39 @@
+---
+title: "Instrumenting the AI Layer in a Regulated Org"
+date: "2026-09-11"
+excerpt: "Traces, logs, and admin plumbing for an organization's AI layer: probing what the tools can actually reach, documenting what the instrumentation can't see, and using the system's own audit trail to settle access questions."
+tags: ["Observability", "Datadog", "Enterprise AI", "Compliance"]
+---
+
+## Why the AI Layer Needs Its Own Telemetry
+
+An organization that can't see what its AI surfaces actually reach — or actually do — is guessing every time someone asks "is this safe?" or "is this working?" AI observability wasn't on anyone's roadmap, so I built it: every governance decision I owned depended on being able to see what the AI surfaces could reach and what they actually did.
+
+## The Plumbing
+
+The admin-side work was unglamorous and load-bearing:
+
+- **Usage telemetry flowing into the observability stack the org already trusts** — vendor usage-and-cost integrations stood up on a dedicated, scoped admin key, with OTLP-compatible pipelines so AI telemetry lands beside the traces and logs engineering already reads
+- **The org-wide AI-to-observability connector migrated** off a deprecated preview endpoint onto the supported one — buying chart rendering, dashboard retrieval, and automatic delivery of future features for every user, in one announced change
+- **Live probes over assumptions** — instead of trusting a connector's on/off status, I probed what each AI surface could actually reach, endpoint by endpoint
+- **Connector approvals settled into a read-only service-account pattern** that is now the standard answer whenever a new internal system wants AI access
+
+That third one produced the finding I'd hand to anyone running enterprise AI: **an AI surface's self-report about its own capabilities is unreliable.** Ours repeatedly reported a whole integration as "blocked." The system's audit trail showed successful authenticated queries the entire time — access was *endpoint-scoped*, not blocked, and because the conventional first sanity-check endpoint happened to 403 behind a proxy, any probe that stopped there reported "not connected" and was wrong. The generalization: capability records must come from live probes, not from configuration state or the AI's own account of itself.
+
+The same honesty applies to what the instrumentation *can't* see. Our engineering-metrics integration reported 0% AI attribution on delivered code, while the actual figure — measured from PR attribution and reconciled against the vendor console — was roughly four of five merged PRs. I recorded it as what it was: **a detection gap, not an adoption gap**, with the missing attribution path documented rather than papered over.
+
+## What the Instrumentation Made Possible
+
+A regulated environment adds constraints that make observability *more* valuable, not less. The same admin work that gave us telemetry also enabled colleagues to stay compliant instead of blocking them. When a senior engineer challenged my endpoint migration because their scoped incident-opening automation might break, the audit trail showed that path untouched, and the migration shipped with their sign-off about twenty minutes later. Under the same scoped-access model, a read-only ERP connector went live for Finance's month-end close — named users, scoped access, written usage rules — which is what enablement looks like when the constraint is doing its job.
+
+The instrumentation also fed work product: mining production error data into a scored, evidence-carrying fix backlog (~100 tasks) — with the agent's own triage re-checked before any of it was published, which reopened roughly a third of the items it had quietly marked resolved. The guardrails went out in the announcement text itself, not in a linked policy nobody opens: human-gated, propose-only on sensitive surfaces, nothing touching money, KYC, or PII. When engineering pushed back on the auto-proposed-fix mechanism with legitimate quality concerns, I re-scoped the program to ride their own alerting trigger instead of defending the original design. The diagnostic value lived in the backlog, not in the delivery mechanism — so the mechanism was the part to give up.
+
+## Lessons
+
+1. **The system's own record is the trust currency.** Twice, an audit trail resolved in minutes a question that discussion and configuration screens hadn't.
+
+2. **Probe capabilities; never trust self-reports.** "We tried, the AI doesn't have access" is unreliable in both directions until someone tests a path that should work.
+
+3. **Name your detection gaps.** A metric that silently reads 0% is worse than no metric — say what the instrumentation can't see, or it will be read as truth.
+
+4. **In a regulated org, observability is the enablement.** Every hour of telemetry plumbing converts later governance debates into lookups.

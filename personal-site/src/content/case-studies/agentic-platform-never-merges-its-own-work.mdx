@@ -1,0 +1,36 @@
+---
+title: "An Agentic Platform That Never Merges Its Own Work"
+date: "2026-08-28"
+excerpt: "The CI and governance layer for AI-produced changes: a quality gate that never auto-merges, fail-closed validation hardened by adversarial testing, and multi-agent review where one reviewer's job is to block the change."
+tags: ["Agentic AI", "Platform Engineering", "CI/CD", "AI Safety"]
+---
+
+## The Premise
+
+Once AI writes real code and runs real workflows, the platform question changes. At Willow Wealth — a regulated alternative-investment platform of about 120 people — AI-assisted code shows up on roughly four of five merged engineering PRs, so the question stopped being whether AI can do the work and became what checks the work, and who owns the merge.
+
+I run an agentic CI/governance platform built around one non-negotiable: **the system never merges its own changes.** The architecture was co-developed with our platform engineering lead; I executed and operate it — the first working version came out of a single day running four AI coding sessions in parallel, with me as the only relay and the only one allowed to decide anything, and roughly two dozen pull requests merged through the same gate being built that morning. Every AI-produced pull request passes the gate — a battery of automated checks plus human-origin attribution — and then waits for a person. Every other component assumes the gate: workflows are designed to produce PRs that pass it, not to route around it.
+
+## How Agents Earned Unattended Operation
+
+We didn't start with autonomous agents; we started with the gate. Scheduled agentic workflows — dependency bumps, cross-repo change feeds, architecture-model updates — now run unattended in production, opening PRs that pass the gate week after week. I ratified the tier classifications that authorize that unattended operation, against evidence of the gate holding rather than a slide deck. Each run leaves a record — which checks ran, what they returned, who approved the merge — so widening a workflow's scope is argued from logs rather than from intent.
+
+## Fail Closed, and Test Like an Attacker
+
+The platform's metadata parsing originally ran on string manipulation — the kind of thing that works until it silently doesn't. I replaced it with fail-closed schema validation backed by a 21-case test suite. Then came the interesting part: an adversarial hardening round against the validator itself found a Unicode-homoglyph evasion — Cyrillic characters that visually impersonate the metadata fence and slip past naive checks. The round also surfaced that the fix I'd initially ordered wouldn't have closed the hole. Happy-path test suites don't find that class of bug; adversaries do, so we simulate them before shipping.
+
+## Multi-Agent Adversarial Review
+
+For higher-stakes changes, one review isn't enough — so the platform runs multi-agent adversarial review before release: parallel AI reviewers with deliberately different lenses, including one whose instructions are to argue that the change should not ship. The largest of these ran fourteen agents across six verification passes over one draft patch to production code; each pass surfaced defects that were fixed and re-verified before the next. A standing cross-model policy backs it: plan with one model, review with a different one, so the reviewer doesn't share the author's blind spots.
+
+The same discipline applies to prose as to code. The org-wide AI instruction set — the configuration that shapes how the assistant answers for every employee, including its compliance and investor-data rules — went through a thirteen-agent review before I shipped it in two version-controlled variants, ending invisible drift on a field that previously had no version history.
+
+## Patterns
+
+1. **The author never merges.** However good AI-produced work gets, keeping merge authority human is what makes everything else defensible — to engineers, to leadership, and to regulators.
+
+2. **Gate before scale.** Build the checkpoint first, then add agents. Retrofitting governance onto a fleet of live automations is the expensive order.
+
+3. **Fail closed.** A validator that lets ambiguous input through is a validator in name only. Reject what you can't positively verify.
+
+4. **AI checking AI works — if the checkers are adversarial and diverse.** N identical reviewers agree with each other. Reviewers with different lenses, one of them explicitly instructed to block the change, find what redundancy can't.
