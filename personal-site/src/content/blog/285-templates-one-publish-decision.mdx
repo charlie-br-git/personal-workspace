@@ -1,0 +1,45 @@
+---
+title: "285 Templates, One Publish Decision"
+date: "2026-08-22"
+excerpt: "Making a design system readable to AI tools — a one-component pilot, a same-day publish call with a one-command rollback, and the drift checks that keep it honest."
+tags: ["Design Systems", "AI Tooling", "Developer Experience", "Figma"]
+---
+
+## The Gap Between Design and Everyone Else
+
+When AI coding tools looked at our designs, they saw geometry: raw dimensions, generic utility classes, a pixel-faithful reconstruction of decisions our design system had already made properly. Engineers got plausible-looking code that ignored the real component library. Designers watched their system get re-derived badly. Product and marketing mockups drifted from what production actually renders. Every team paid a translation tax, and AI tooling was reproducing it at scale — at a company where AI-assisted code shows up on roughly four of five merged engineering PRs, that tax rides along on most of the code that ships.
+
+The fix was to make the design system itself AI-readable: mapping design components to their real code counterparts, so an AI tool asked about a design returns actual component code with real props, not a geometric impression of it.
+
+## Pilot, Then Commit — Same Day
+
+We proved the hypothesis on a single component first: with the mapping in place, design context queries returned genuine component-derived code instead of layout guesses. The core mechanism worked end to end.
+
+Rather than trickling templates out, I published the full library — **285 templates** — the same day, and converted the pre-publish design-team vouching step into post-hoc review. Three things made that the lower-risk option:
+
+- **The pilot had already de-risked the mechanics** — the remaining risk was content quality, which post-hoc review covers
+- **Rollback was one command** — a fast, total undo made the blast radius acceptable
+- **Coverage had no silent holes** — no skip lists. All 357 components accounted for, each as a template or a documented recipe; a skip list is where a "covered" claim quietly stops being true
+
+The publish was announced the same day to engineering, design, and leadership — crediting the earlier proof-of-concept work by the designers who'd started down this road.
+
+## Keeping It True Over Time
+
+A mapping like this rots quietly: the design file changes, the code moves, and six months later the "source of truth" is a source of confident lies. So the publish shipped with its maintenance story: a drift check that diffs a fresh design-system export against the committed baseline, so divergence surfaces as a diff instead of a surprise. Engineering's adoption condition was explicit — maintained by a pipeline, no manual dev intervention — and that condition shaped the design.
+
+## Who It's For — and What They Get
+
+- **Engineers** query design context and get component code with real props, instead of re-deriving it
+- **Designers** stay the source of truth in AI-assisted workflows rather than being routed around
+- **Product and marketing** mock up in the same component language production renders
+- **Leadership** loses a silent translation layer between what was designed and what ships
+
+## Patterns
+
+1. **Pilot the mechanism, not the whole library.** One component answered the only question that mattered; the other 284 were repetition.
+
+2. **A cheap rollback changes the risk math.** With a one-command undo, publishing all 285 at once cost less than staging them — the worst case was a revert, not a cleanup.
+
+3. **No skip lists.** Coverage claims are only as good as their exceptions. Account for everything, even if "accounted for" means "documented recipe, not template."
+
+4. **Ship the maintenance story with the feature.** The drift check wasn't a follow-up — it was part of what "shipped" meant.
