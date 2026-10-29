@@ -1,6 +1,6 @@
 # CLAUDE.md — Personal Assistant Configuration
 
-# Scope: Local personal setup | Updated: 2026-03-23
+# Scope: Local personal setup | Updated: 2026-10-29
 
 -----
 
@@ -32,8 +32,11 @@ read-equivalent; it produces no external side effects.
 ### Google Drive / Docs
 
 - ALLOW: read (only when explicitly requested), search, summarize, compose draft text in response
-- DENY: save, overwrite, create new files, share, delete, modify permissions
+- DENY: save, overwrite, create new files, copy, share, delete, trash, modify permissions
 - DENY: any action not listed above
+- Connector may be connected even though it exposes write/share/trash tools; use read-only
+  tools only (search_files, list_recent_files, get_file_metadata, read_file_content).
+  This is an explicit exception to the MCP SCOPE VIOLATION rule for Google Drive only.
 
 -----
 
