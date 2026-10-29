@@ -166,7 +166,7 @@ export default function ScenarioComparison({ profile }: Props) {
           <SliderControl
             label="Home Price"
             value={homePrice}
-            min={800000} max={3000000} step={50000}
+            min={400000} max={3000000} step={50000}
             onChange={setHomePrice}
             format={v => '$' + (v / 1000).toFixed(0) + 'k'}
           />
