@@ -18,8 +18,9 @@ Research only — do not act on anything you find.
 5. Never fabricate. Every claim needs a cited source (email subject + date, file title, or
    event title + date). Label each insight **Observed** (direct evidence), **Inferred**
    (pattern across ≥3 data points), or **Speculative** (weak signal — flag for me to confirm).
-6. Minimize sensitive detail: summarize patterns; no message bodies, account numbers, phone
-   numbers, addresses, or other people's private details in the output.
+6. Amounts and message excerpts may be quoted when they serve the analysis. Still exclude
+   account numbers, credentials, phone numbers, addresses, and other people's private details.
+   (The activity log rule in CLAUDE.md still applies: never log bodies.)
 
 ## Known context (verify, don't assume)
 - Director of Product, Willow Wealth (formerly Yieldstreet), NYC, ~8+ yrs fintech; latest resume:
@@ -48,7 +49,7 @@ Work in passes; summarize findings after each before going deeper.
    frustration with current role, timeline urgency.
 3. **Relationships & family** — recurring people, events, obligations (e.g., birthdays, kids'
    events) — patterns only.
-4. **Money** — budgeting/saving behavior, spending categories trending up/down (no amounts or account details).
+4. **Money** — budgeting/saving behavior, spending categories and amounts trending up/down (e.g., monthly food-delivery spend).
 5. **Interests & identity** — newsletters actually opened/replied to, hobbies (chess, fantasy
    sports, neighborhood), writing (essays, "Idealism and the Pitfalls of Compromise"), values signals.
 6. **Friction points** — overdue reminders, repeated payment notices, unfinished docs, unread
