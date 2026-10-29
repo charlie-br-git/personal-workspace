@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 const C = { amber: '#f59e0b', text: '#e2e8f0', bg3: '#1a3a5c' };
 

@@ -90,8 +90,9 @@ export default function Home() {
             <span className="gradient-text">working together?</span>
           </h2>
           <p className="text-lg text-muted max-w-xl mx-auto mb-8">
-            I&apos;m always up for conversations about AI platform engineering,
-            product strategy, or the future of enterprise AI.
+            I&apos;m always up for conversations about regulated fintech product
+            strategy, enterprise AI adoption, and building products that hold up
+            under scrutiny.
           </p>
           <a
             href="/personal-workspace/contact/"

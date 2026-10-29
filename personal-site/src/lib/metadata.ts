@@ -1,23 +1,25 @@
 import type { Metadata } from "next";
 
-const siteUrl = "https://charliebr.com";
+const siteUrl = "https://charlie-br-git.github.io/personal-workspace";
 
 export const siteMetadata: Metadata = {
   title: {
     default:
-      "Charlie Bittner-Rossmiller — AI Platform Engineering & Product Leadership",
+      "Charlie Bittner-Rossmiller — Product Leadership in Regulated Fintech & Applied AI",
     template: "%s | Charlie Bittner-Rossmiller",
   },
   description:
-    "Director of Product Management building enterprise AI platforms. Writing about MCP architecture, Claude deployment, and bridging product and engineering.",
+    "Director of Product Management in regulated private-markets fintech. Led a company-wide Claude Enterprise rollout. Writing about MCP architecture, AI governance, and bridging product and engineering.",
   keywords: [
-    "AI platform engineer",
-    "enterprise AI",
-    "MCP architecture",
-    "AI product leader",
-    "Claude deployment",
+    "director of product management",
     "fintech product management",
-    "AI platform engineering",
+    "alternative investments",
+    "private markets",
+    "SEC FINRA regulated products",
+    "enterprise AI adoption",
+    "MCP architecture",
+    "AI governance",
+    "Claude deployment",
   ],
   authors: [{ name: "Charlie Bittner-Rossmiller" }],
   openGraph: {
@@ -26,15 +28,15 @@ export const siteMetadata: Metadata = {
     url: siteUrl,
     siteName: "Charlie Bittner-Rossmiller",
     title:
-      "Charlie Bittner-Rossmiller — AI Platform Engineering & Product Leadership",
+      "Charlie Bittner-Rossmiller — Product Leadership in Regulated Fintech & Applied AI",
     description:
-      "Director of Product Management building enterprise AI platforms. Writing about MCP architecture, Claude deployment, and bridging product and engineering.",
+      "Director of Product Management in regulated private-markets fintech. Led a company-wide Claude Enterprise rollout. Writing about MCP architecture, AI governance, and bridging product and engineering.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Charlie Bittner-Rossmiller — AI Platform Engineering",
+    title: "Charlie Bittner-Rossmiller — Product Leadership in Regulated Fintech & Applied AI",
     description:
-      "Building enterprise AI platforms. Writing about MCP architecture, Claude deployment, and bridging product and engineering.",
+      "Regulated fintech product leadership and enterprise AI adoption. Writing about MCP architecture and AI governance.",
   },
   robots: {
     index: true,
@@ -53,13 +55,14 @@ export function generateJsonLd() {
       name: "Willow Wealth",
     },
     knowsAbout: [
-      "AI Platform Engineering",
-      "Model Context Protocol (MCP)",
-      "Enterprise AI Deployment",
       "Product Management",
       "Fintech",
       "Alternative Investments",
-      "RBAC Systems",
+      "Private Markets",
+      "SEC and FINRA Regulated Products",
+      "Enterprise AI Adoption",
+      "AI Governance",
+      "Model Context Protocol (MCP)",
       "API Architecture",
     ],
     alumniOf: {

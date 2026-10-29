@@ -55,7 +55,6 @@ interface Props {
 function ExpenseCard({
   title,
   expenses,
-  type,
   onUpdate,
   onAdd,
   onRemove,

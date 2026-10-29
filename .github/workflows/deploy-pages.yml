@@ -1,10 +1,12 @@
-name: Deploy Personal Site to GitHub Pages
+name: Deploy Site to GitHub Pages
 
 on:
   push:
     branches: [main]
     paths:
       - "personal-site/**"
+      - "meridian-finance/**"
+      - ".github/workflows/deploy-pages.yml"
   workflow_dispatch:
 
 permissions:
@@ -12,6 +14,7 @@ permissions:
   pages: write
   id-token: write
 
+# Both apps publish into one Pages site, so they must deploy together.
 concurrency:
   group: "pages"
   cancel-in-progress: false
@@ -19,9 +22,6 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: personal-site
     steps:
       - uses: actions/checkout@v4
 
@@ -29,10 +29,24 @@ jobs:
         with:
           node-version: "20"
           cache: "npm"
-          cache-dependency-path: personal-site/package-lock.json
+          cache-dependency-path: |
+            personal-site/package-lock.json
+            meridian-finance/package-lock.json
 
       - run: npm ci
+        working-directory: personal-site
       - run: npm run build
+        working-directory: personal-site
+
+      - run: npm ci
+        working-directory: meridian-finance
+      - run: npm run build
+        working-directory: meridian-finance
+
+      - name: Assemble site (Meridian served under /meridian-finance/)
+        run: |
+          mkdir -p personal-site/out/meridian-finance
+          cp -R meridian-finance/dist/. personal-site/out/meridian-finance/
 
       - uses: actions/configure-pages@v4
 

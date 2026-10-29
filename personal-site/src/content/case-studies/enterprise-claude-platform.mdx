@@ -1,63 +1,52 @@
 ---
-title: "Deploying Enterprise AI: Claude as a Cross-Functional Platform"
+title: "Rolling Out Claude Enterprise as a Governed Platform"
 date: "2026-03-15"
-excerpt: "How we deployed Claude across four teams with strict security, custom plugins, and MCP architecture — without compromising on governance."
-tags: ["Enterprise AI", "MCP", "RBAC", "Claude"]
+excerpt: "A company-wide Claude Enterprise rollout in a regulated firm: domain-scoped MCP servers, role-based access, an agent registry, and audit trails — and what governance taught me about adoption."
+tags: ["Enterprise AI", "AI Governance", "MCP", "RBAC"]
 ---
 
 ## The Challenge
 
-When your organization decides to adopt AI, the easy part is picking a model. The hard part is deploying it in a way that's actually useful to product designers, marketers, and engineers — all with different needs, different data access requirements, and different risk tolerances.
+When an organization decides to adopt AI, picking a model is the easy part. The hard part is deploying it so that product designers, marketers, and engineers all get real value, with different needs, data access requirements, and risk tolerances, while meeting the security posture a financial services company demands.
 
-That was the challenge we faced: enable four distinct teams with AI capabilities while maintaining the security posture that a financial services company demands.
+This is an internal platform: its users are employees, not customers. The bar was still high, because the data around it is regulated.
 
 ## The Approach
 
 ### Architecture: MCP as the Integration Layer
 
-We chose the Model Context Protocol (MCP) as our integration backbone. MCP gave us a standardized way to connect Claude to our internal tools and data sources without building bespoke integrations for each team.
+We used the Model Context Protocol (MCP) as the integration backbone. It gave us a standard way to connect Claude to internal tools and data without building bespoke integrations for every team.
 
-Key architectural decisions:
+- **Domain-scoped servers, composed per team**: servers are organized by domain (analytics, content, engineering tools), and each team's configuration is assembled from the pieces it is approved to use
+- **API connectors as the boundary**: Claude reaches internal systems through authenticated APIs, not direct database access
+- **Plugin architecture**: team-specific plugins carry each group's prompts, tool subsets, and output formats
 
-- **Server-per-domain**: Each team gets its own MCP server configuration, scoped to the tools and data they need
-- **API connectors**: Built connectors to our internal APIs, enabling Claude to pull real-time data from our platform without direct database access
-- **Plugin architecture**: Custom plugins for each team — engineering gets code review and documentation tools, marketing gets content generation with brand guidelines baked in, product gets analytics summarization
+### Governance: RBAC and an Agent Registry
 
-### Security: RBAC Without Compromise
-
-In financial services, security isn't optional. Our RBAC implementation ensures:
-
-- **Role-scoped permissions**: Each team's Claude deployment can only access the MCP servers and tools approved for their role
-- **Audit trails**: Every AI interaction is logged with the requesting user, the tools accessed, and the data touched
-- **Data boundaries**: PII and financial data are handled through strict allow-lists — Claude can reference anonymized analytics but never raw customer records
-- **Approval workflows**: Certain high-risk actions require human approval before Claude can execute
+- **Role-scoped permissions**: each team's deployment can only reach the MCP servers and tools approved for its role
+- **Agent registry**: a central record of agents and connectors, built with governance partners
+- **Audit trails**: AI interactions are logged with the requesting user, the tools accessed, and the data touched
+- **Data boundaries**: PII and financial data move through strict allow-lists
+- **Approval workflows**: certain high-risk actions require human approval
 
 ### Per-Team Customization
 
-The real value came from tailoring the experience:
-
-- **Engineering**: Code review assistants, documentation generators, architecture diagram tools. Integrated with our CI/CD pipeline via MCP
-- **Product**: Sprint summarization, user research synthesis, competitive analysis with access to our analytics APIs
-- **Design**: Design system documentation, accessibility checkers, copy generation within brand guidelines
-- **Marketing**: Content drafting with tone/voice enforcement, SEO optimization tools, campaign performance summarization
+- **Engineering**: code review and documentation tools
+- **Product**: sprint summarization, research synthesis, and analytics summaries
+- **Design**: design-system documentation and copy within brand guidelines
+- **Marketing**: content drafting with tone and voice guidelines
 
 ## Patterns That Emerged
 
-1. **Start with the workflow, not the technology.** We interviewed each team about their daily pain points before designing any integration. The best AI tools solve real friction, not hypothetical problems.
+1. **Start with the workflow, not the technology.** The best AI tools solve real friction, not hypothetical problems.
+2. **Security as a feature, not a gate.** Making access rules easy to understand made teams trust the system and adopt it faster.
+3. **Servers compose.** Once the core connectors existed, new team configurations were fast to assemble.
+4. **Governance scales better than freedom.** Scoped access meant fewer surprises and more trust from leadership.
 
-2. **Security as a feature, not a gate.** By making RBAC transparent and easy to understand, teams trusted the system more and adopted it faster.
+## Outcome and Scope
 
-3. **MCP servers are composable.** Once we built the core connectors, spinning up new team configurations was fast. The investment in architecture paid off in velocity.
+- Rolled out company-wide, with team-specific plugins and MCP integrations for product, design, marketing, and engineering
+- An agent registry and governance model around agents and connectors
+- A reusable architecture in which new team configurations reuse existing connectors
 
-4. **Governance scales better than freedom.** Early on, some argued for giving everyone full access. The scoped approach meant fewer incidents, faster adoption, and more trust from leadership.
-
-## The Outcome
-
-Within three months of deployment:
-
-- All four teams actively using Claude in their daily workflows
-- Zero security incidents related to AI data access
-- Measurable reduction in time spent on repetitive documentation and analysis tasks
-- A reusable platform architecture that can onboard new teams in days, not weeks
-
-The lesson: enterprise AI isn't about the model — it's about the platform you build around it.
+I would not describe this as a shipped customer-facing AI product, and I do not present it as one. It is enterprise platform leadership, supported by hands-on prototyping. The next layer I would put in place is per-team adoption and time-saved measurement, plus evaluations on the highest-risk workflows.

@@ -1,4 +1,3 @@
-import React from 'react';
 
 const C = { amber2: '#fbbf24', muted: '#64748b', text2: '#94a3b8' };
 

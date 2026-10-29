@@ -30,6 +30,7 @@ export interface FinancialProfile {
   buy: BuyScenario;
 }
 
+// Illustrative sample data for demonstration only; not real financial information.
 export const INIT: FinancialProfile = {
   income: {
     gross_annual: 180000,

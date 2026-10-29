@@ -51,8 +51,8 @@ export default function ContactPage() {
         Let&apos;s <span className="gradient-text">connect.</span>
       </h1>
       <p className="text-lg text-muted max-w-2xl mb-12">
-        I&apos;m always interested in conversations about AI platform engineering,
-        enterprise deployment patterns, or the intersection of product and engineering leadership.
+        I&apos;m always interested in conversations about regulated fintech product
+        strategy, enterprise AI adoption and governance, or the intersection of product and engineering leadership.
       </p>
 
       <div className="grid md:grid-cols-3 gap-6">

@@ -5,7 +5,7 @@ const experiences = [
     title: "Director of Product Management",
     company: "Willow Wealth (fka Yieldstreet)",
     description:
-      "Leading enterprise AI deployment — Claude customization with MCP architecture, API connectors, RBAC, and team-specific plugins across product, design, marketing, and engineering.",
+      "Lead product across private-markets offerings and enterprise AI adoption. 2025 product work: Managed Portfolios (YS360, $10M+ AUM), registered funds ($6M AUM in two months), Equity Trust custodial integration (IRA setup 31 \u2192 7 days), the Atomic Invest partnership; co-drove a distribution-model strategy shift with the founder. Led the company-wide Claude Enterprise rollout: MCP integrations, RBAC, team-specific plugins, and an agent registry with governance. Mentor emerging product talent.",
   },
   {
     era: "product" as const,
@@ -13,7 +13,7 @@ const experiences = [
     title: "Senior Product Manager",
     company: "Yieldstreet",
     description:
-      "Drove product strategy for alternative investments platform, leading cross-functional teams on greenfield features and platform-wide initiatives during rapid growth.",
+      "Drove product strategy for the alternative investments platform, leading cross-functional teams on greenfield features and platform-wide initiatives.",
   },
   {
     era: "product" as const,
@@ -21,36 +21,36 @@ const experiences = [
     title: "Product Manager",
     company: "Yieldstreet",
     description:
-      "Transitioned from engineering to product, leveraging technical depth to bridge stakeholder needs with scalable platform architecture.",
+      "Transitioned from engineering to product, using technical depth to bridge stakeholder needs with scalable platform architecture.",
   },
   {
     era: "engineering" as const,
     period: "2017 — 2018",
-    title: "Software Engineer",
+    title: "Software Engineer (employee #13)",
     company: "Yieldstreet",
     description:
-      "Built core platform features for the alternative investments marketplace, contributing to the engineering foundation of a high-growth fintech startup.",
+      "Built core platform features for the alternative investments marketplace, including investment flows, compliance automation and data pipelines.",
   },
   {
     era: "engineering" as const,
     period: "2016 — 2017",
-    title: "Junior Software Engineer",
+    title: "Junior Software Engineer (employee #5)",
     company: "Self Lender",
     description:
-      "First engineering role post-bootcamp. Built features for a credit-building fintech product.",
+      "First engineering role after General Assembly (2015). Built features for a credit-building fintech product.",
   },
   {
     era: "foundation" as const,
     period: "2011 — 2014",
-    title: "Associate → Manager, Business Solutions",
-    company: "Robin Hood Foundation → New Leaders",
+    title: "Associate \u2192 Manager, Business Solutions",
+    company: "Robin Hood Foundation; New Leaders for New Schools",
     description:
-      "Analytics, donor data systems, and business solutions. Developed the systems thinking that would later drive platform architecture decisions.",
+      "Analytics, donor data systems, and business solutions. Built the systems thinking behind later platform decisions.",
   },
 ];
 
 const eraConfig = {
-  ai: { color: "bg-secondary", label: "AI Platform" },
+  ai: { color: "bg-secondary", label: "Product + AI" },
   product: { color: "bg-primary", label: "Product" },
   engineering: { color: "bg-accent", label: "Engineering" },
   foundation: { color: "bg-green-500", label: "Foundation" },
@@ -65,7 +65,7 @@ export default function Experience() {
         </p>
         <h2 className="text-3xl md:text-4xl font-bold mb-12">
           From analytics to{" "}
-          <span className="gradient-text">AI platform architecture.</span>
+          <span className="gradient-text">regulated product and AI leadership.</span>
         </h2>
 
         <div className="space-y-6">

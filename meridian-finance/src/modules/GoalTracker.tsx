@@ -102,7 +102,6 @@ function GoalCard({ goal, active, onClick, onDelete }: {
         cursor: 'pointer',
         position: 'relative',
       }}
-      onClick={onClick} // Pass click through to the card
     >
       {/* Can't use onClick on Card directly with delete — use wrapper */}
       <div onClick={onClick} style={{ cursor: 'pointer' }}>

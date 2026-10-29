@@ -1,9 +1,9 @@
 export default function About() {
   const stats = [
-    { value: "8+", label: "Years in Fintech" },
-    { value: "3", label: "Career Transitions" },
-    { value: "4", label: "Teams Enabled with AI" },
-    { value: "500K+", label: "Platform Users" },
+    { value: "8+ yrs", label: "Engineer to Director on one regulated platform" },
+    { value: "$10M+", label: "AUM — Managed Portfolios (YS360)" },
+    { value: "$6M", label: "AUM in 2 months — registered funds launch" },
+    { value: "31 \u2192 7 days", label: "IRA setup via custodial integration" },
   ];
 
   return (
@@ -13,42 +13,44 @@ export default function About() {
           About
         </p>
         <h2 className="text-3xl md:text-4xl font-bold mb-10">
-          A non-traditional path to{" "}
-          <span className="gradient-text">AI platform leadership.</span>
+          An engineer who became a product leader, in{" "}
+          <span className="gradient-text">regulated private markets.</span>
         </h2>
 
         <div className="grid md:grid-cols-2 gap-10 mb-14">
           <div className="space-y-5 text-muted leading-relaxed">
             <p>
-              My path to building AI platforms started in an unlikely place —
-              environmental studies at WashU, then years of data analytics and
-              donor systems at organizations like the Robin Hood Foundation. That
-              foundation in systems thinking and stakeholder management turned out
-              to be the perfect preparation for what came next.
+              I started in nonprofit analytics and donor systems (Robin Hood
+              Foundation, New Leaders for New Schools), studied environmental
+              studies at WashU, and became a software engineer after General
+              Assembly&apos;s Web Development Immersive in 2015. I joined
+              Yieldstreet (now Willow Wealth) as an engineer in 2017 and moved
+              through product management, senior product management, and into
+              my current Director role.
             </p>
             <p>
-              After completing General Assembly&apos;s Web Development Immersive, I
-              went from junior engineer to software engineer to product manager at
-              Yieldstreet (now Willow Wealth), where I&apos;ve spent the last 8+
-              years scaling a fintech platform from startup to industry leader in
-              alternative investments.
+              The work is regulated by nature: registered funds, managed
+              portfolios, custodial integrations, and a broker-dealer context
+              where compliance is a design input rather than a late-stage gate.
+              Engineering first means I know what the system can and cannot do
+              before I commit the roadmap to it.
             </p>
           </div>
           <div className="space-y-5 text-muted leading-relaxed">
             <p>
-              Today, as Director of Product Management, I lead our enterprise AI
-              initiatives — deploying Claude across product, design, marketing, and
-              engineering teams. This means architecting MCP integrations, building
-              API connectors, implementing strict RBAC protocols, and creating
-              custom plugins tailored to each team&apos;s workflow.
+              Since 2024 I have also led enterprise AI adoption at Willow:
+              a company-wide Claude Enterprise rollout with MCP integrations,
+              API connectors, role-based access, team-specific plugins, and an
+              agent registry with governance. It is an internal platform, built
+              with engineering and governance partners.
             </p>
             <p>
-              The through-line of my career has always been the same:{" "}
+              I build to think: I prototype with the Claude API, React Native,
+              Python, Twilio and MCP.{" "}
               <span className="text-foreground font-medium">
-                making complex systems accessible to the people who need them.
-              </span>{" "}
-              Whether it&apos;s alternative investments for retail investors or AI
-              tooling for cross-functional teams, I build platforms that ship.
+                The through-line is making complex, regulated systems usable by
+                the people who depend on them.
+              </span>
             </p>
           </div>
         </div>
