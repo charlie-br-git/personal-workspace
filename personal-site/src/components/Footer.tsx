@@ -1,5 +1,3 @@
-import { Mail } from "lucide-react";
-
 function LinkedInIcon({ size = 18 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
@@ -29,9 +27,6 @@ export default function Footer() {
           </a>
           <a href="https://github.com/charlie-br-git" target="_blank" rel="noopener noreferrer" className="text-muted hover:text-foreground transition-colors" aria-label="GitHub">
             <GitHubIcon />
-          </a>
-          <a href="mailto:hello@charliebr.com" className="text-muted hover:text-foreground transition-colors" aria-label="Email">
-            <Mail size={18} />
           </a>
         </div>
       </div>

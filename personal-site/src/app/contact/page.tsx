@@ -1,4 +1,4 @@
-import { Mail, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -27,19 +27,13 @@ const links = [
     label: "LinkedIn",
     href: "https://www.linkedin.com/in/charliebr/",
     icon: <LinkedInIcon />,
-    description: "Connect and see my full professional history",
+    description: "The best way to reach me — connect or send a message",
   },
   {
     label: "GitHub",
     href: "https://github.com/charlie-br-git",
     icon: <GitHubIcon />,
     description: "Check out what I'm building",
-  },
-  {
-    label: "Email",
-    href: "mailto:hello@charliebr.com",
-    icon: <Mail size={28} />,
-    description: "For conversations that need more than a DM",
   },
 ];
 
@@ -55,7 +49,7 @@ export default function ContactPage() {
         strategy, enterprise AI adoption and governance, or the intersection of product and engineering leadership.
       </p>
 
-      <div className="grid md:grid-cols-3 gap-6">
+      <div className="grid md:grid-cols-2 gap-6">
         {links.map((link) => (
           <a
             key={link.label}

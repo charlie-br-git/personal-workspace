@@ -1,7 +1,7 @@
 ---
 title: "Rolling Out Claude Enterprise as a Governed Platform"
 date: "2026-03-15"
-excerpt: "A company-wide Claude Enterprise rollout in a regulated firm: domain-scoped MCP servers, role-based access, an agent registry, and audit trails — and what governance taught me about adoption."
+excerpt: "A company-wide Claude Enterprise rollout at a regulated financial firm: domain-scoped servers, role-based access, an agent registry, and audit trails — and what governance taught me about adoption."
 tags: ["Enterprise AI", "AI Governance", "MCP", "RBAC"]
 ---
 
@@ -23,18 +23,15 @@ We used the Model Context Protocol (MCP) as the integration backbone. It gave us
 
 ### Governance: RBAC and an Agent Registry
 
-- **Role-scoped permissions**: each team's deployment can only reach the MCP servers and tools approved for its role
+- **Role-scoped permissions**: each team can only reach the servers and tools approved for its role
 - **Agent registry**: a central record of agents and connectors, built with governance partners
-- **Audit trails**: AI interactions are logged with the requesting user, the tools accessed, and the data touched
-- **Data boundaries**: PII and financial data move through strict allow-lists
-- **Approval workflows**: certain high-risk actions require human approval
+- **Auditability**: AI interactions are logged so that usage can be reviewed
+- **Data boundaries**: sensitive data is handled through explicit allow-lists
+- **Human approval**: higher-risk actions are gated
 
 ### Per-Team Customization
 
-- **Engineering**: code review and documentation tools
-- **Product**: sprint summarization, research synthesis, and analytics summaries
-- **Design**: design-system documentation and copy within brand guidelines
-- **Marketing**: content drafting with tone and voice guidelines
+Each of the product, design, marketing, and engineering teams got a plugin shaped around its own workflow: its own prompts, tool subset, and output format, rather than a generic assistant.
 
 ## Patterns That Emerged
 
