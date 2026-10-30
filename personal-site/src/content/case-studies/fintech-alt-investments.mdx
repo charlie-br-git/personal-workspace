@@ -28,9 +28,14 @@ I moved into product because I saw a gap: strong engineering, but a need for som
 - **Greenfield product launches**: multiple new investment verticals from concept to launch, each with its own regulatory, UX, and technical requirements
 - **Platform unification**: a unified investor experience across previously siloed products as asset classes were added
 - **First 0-to-1 product**: a new savings account product that scaled to 19K accounts and $100M+ in deposits within six months of launch
+- **Retirement accounts**: launched the IRA product with our custodian, Pensco Trust, at a time when few custodians offered APIs or accepted e-signatures instead of notarized paper. Setup took 31 days at launch; we iterated it to 7 and eliminated 1,200+ hours a year of manual work. Added a partnership with Capitalize for 401(k)-to-IRA rollovers
 - **Self-service tooling**: an internal no-code admin platform that let marketing and product teams build audience segments, run A/B tests, and automate campaigns without engineering tickets
 
-### The Lesson: Go Where the Workarounds Are
+### The Lesson: Build for the Partner's Worst Day
+
+In 2020 the custodian's planned two-day weekend migration turned into a month-long outage, and we weren't ready for it. I escalated to the custodian's CEO; onsite meetings with both CEOs produced the partnership's first SLAs and SLOs. On our side we built retries, audits, and other resilience features so the platform could absorb the next disruption. The IRA business recovered and grew to roughly $75M in assets.
+
+### The Second Lesson: Go Where the Workarounds Are
 
 The most impactful improvement of this period came from spending a week shadowing the investor relations team. Their workarounds and manual processes revealed platform gaps that no amount of analytics would have surfaced.
 
@@ -38,7 +43,7 @@ The most impactful improvement of this period came from spending a week shadowin
 
 As Senior PM and then Director (managing three PMs), the work shifted from building features to building systems:
 
-- **Retirement accounts**: researched, scoped, and managed the API integration with our custodian, Pensco Trust (later Pacific Premier Trust, after its acquisition), which cut account setup from 31 days to 7 and eliminated 1,200+ hours of annual manual work; added a partnership with Capitalize to support 401(k)-to-IRA rollovers
+- **Next custodian**: moved retirement custody to Equity Trust in 2023, integrating its WealthBridge account link so Equity Trust clients could invest directly
 - **Discovery as a practice**: established the product discovery process and ran the first user research, which led to a dedicated UX research team
 
 - **Platform thinking**: moving the team's mental model from features to reusable capabilities that serve multiple products
@@ -49,10 +54,9 @@ As Senior PM and then Director (managing three PMs), the work shifted from build
 
 The most recent product work is where regulation, partnerships, and distribution strategy came together:
 
-- **Managed Portfolios (YS360)**: $10M+ in assets under management
+- **Willow 360 managed portfolios** (formerly Yieldstreet 360): $10M+ in assets under management, with allocations advised by Wilshire
 - **Registered funds**: $6M in AUM within two months of launch
-- **Equity Trust custodial partnership**: moved retirement custody to Equity Trust
-- **Atomic Invest partnership**
+- **Atomic partnership**: embedded brokerage for trade execution and reconciliation
 - **Distribution model**: co-drove a strategic shift in distribution with the company's founder. This was a shared strategic effort, not a solo call
 
 ## Phase 4: Applied AI (2026–Present)

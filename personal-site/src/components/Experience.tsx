@@ -5,7 +5,7 @@ const experiences = [
     title: "Director of Product Management",
     company: "Willow Wealth (fka Yieldstreet)",
     description:
-      "Own AI enablement, governance, and infrastructure org-wide (since mid-2026): go/no-go authority for AI and agentic deployments under a three-tier capability framework I ratified, extended, and operate; measurement pipeline behind 90%+ weekly active use across ~120 seats; agentic CI platform, co-developed with the platform engineering lead, that never auto-merges. Product: Managed Portfolios (YS360, $10M+ AUM), registered funds ($6M AUM in two months), the Equity Trust custodial partnership and the Atomic Invest partnership, and a distribution-model shift co-driven with the founder. Manage three PMs.",
+      "Own AI enablement, governance, and infrastructure org-wide (since mid-2026): go/no-go authority for AI and agentic deployments under a three-tier capability framework I ratified, extended, and operate; measurement pipeline behind 90%+ weekly active use across ~120 seats; agentic CI platform, co-developed with the platform engineering lead, that never auto-merges. Product: Willow 360 managed portfolios ($10M+ AUM, allocations advised by Wilshire), registered funds ($6M AUM in two months), the Atomic partnership (embedded brokerage), and a distribution-model shift co-driven with the founder. Manage three PMs.",
   },
   {
     era: "product" as const,
@@ -13,7 +13,7 @@ const experiences = [
     title: "Senior Product Manager",
     company: "Yieldstreet",
     description:
-      "Retirement-account API integration with the custodian (Pensco Trust, later Pacific Premier Trust) that cut account setup from 31 days to 7 and eliminated 1,200+ hours of annual manual work. Established the product discovery process and first user research, leading to a dedicated UX research team. Data-driven build-vs-buy frameworks for the retirement platform.",
+      "Moved retirement custody to Equity Trust (May 2023) through its WealthBridge integration, choosing white-labeled, redirect, or shared-middleware models partner by partner. Established the product discovery process and first user research, leading to a dedicated UX research team. Data-driven build-vs-buy frameworks for the retirement platform.",
   },
   {
     era: "product" as const,
@@ -21,7 +21,7 @@ const experiences = [
     title: "Product Manager",
     company: "Yieldstreet",
     description:
-      "Led the first 0-to-1 product: a savings account that scaled to 19K accounts and $100M+ in deposits within six months. Built an internal no-code admin platform for audience segmentation, A/B tests, and campaign automation. Partnered with the CTO on the monolith-to-SOA platform strategy.",
+      "Launched the IRA product with custodian Pensco Trust and iterated account setup from 31 days to 7, eliminating 1,200+ hours a year of manual work; when a planned two-day custodian migration became a month-long outage, escalated to its CEO, set the partnership\u2019s first SLAs and SLOs, and built retries and audits into our platform. Added Capitalize for 401(k)-to-IRA rollovers. Led the first 0-to-1 product: a savings account that scaled to 19K accounts and $100M+ in deposits within six months. Built an internal no-code admin platform for audience segmentation, A/B tests, and campaign automation. Partnered with the CTO on the monolith-to-SOA platform strategy.",
   },
   {
     era: "engineering" as const,

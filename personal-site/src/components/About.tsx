@@ -1,9 +1,9 @@
 export default function About() {
   const stats = [
     { value: "9 yrs", label: "Engineer to Director on one regulated platform" },
-    { value: "$10M+", label: "AUM — Managed Portfolios (YS360)" },
+    { value: "$10M+", label: "AUM — Willow 360 managed portfolios" },
     { value: "90%+", label: "Weekly active AI adoption, ~120-seat org" },
-    { value: "31 \u2192 7 days", label: "Retirement account setup via API integration" },
+    { value: "31 \u2192 7 days", label: "IRA account setup, from launch to scale" },
   ];
 
   return (
