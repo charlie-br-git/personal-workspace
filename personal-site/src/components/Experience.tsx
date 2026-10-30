@@ -5,7 +5,7 @@ const experiences = [
     title: "Director of Product Management",
     company: "Willow Wealth (fka Yieldstreet)",
     description:
-      "Own AI enablement, governance, and infrastructure org-wide (since mid-2026): go/no-go authority for AI and agentic deployments under a three-tier capability framework I ratified, extended, and operate; measurement pipeline behind 90%+ weekly active use across ~120 seats; agentic CI platform, co-developed with the platform engineering lead, that never auto-merges. Product: Willow 360 managed portfolios ($10M+ AUM, allocations advised by Wilshire), registered funds ($6M AUM in two months), the Atomic partnership (embedded brokerage), and a distribution-model shift co-driven with the founder. Manage three PMs.",
+      "Own AI enablement, governance, and infrastructure org-wide (since mid-2026): go/no-go authority for AI and agentic deployments under a three-tier capability framework I ratified, extended, and operate; measurement pipeline behind 90%+ weekly active use across ~120 seats; agentic CI platform, co-developed with the platform engineering lead, that never auto-merges. Product: Willow 360 managed portfolios ($10M+ AUM, allocations advised by Wilshire), registered funds ($6M AUM in two months), the Atomic integration (embedded brokerage running dual-tenant RIA and broker-dealer programs), and a distribution-model shift co-driven with the founder. Manage three PMs.",
   },
   {
     era: "product" as const,
