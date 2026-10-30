@@ -1,4 +1,5 @@
 import { getAllContent, getContentBySlug } from "@/lib/content";
+import { mdxComponents } from "@/components/MdxComponents";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
@@ -50,7 +51,7 @@ export default async function CaseStudyPage({
       <div className="section-divider mb-10" />
 
       <div className="prose-custom">
-        <MDXRemote source={content} />
+        <MDXRemote source={content} components={mdxComponents} />
       </div>
     </article>
   );

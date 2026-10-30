@@ -1,0 +1,41 @@
+---
+title: "Measuring Enterprise AI Value: Definitions, Denominators, and Estimates"
+date: "2026-09-03"
+excerpt: "Working notes on measuring AI value inside an organization: where vendor dashboard estimates come from, how to verify the basis before reporting a number, and the bookkeeping that keeps the reported figures defensible."
+tags: ["AI Adoption", "Metrics", "Enterprise AI"]
+---
+
+## Where the Numbers Come From
+
+Most enterprise AI consoles now estimate value for you: hours saved, a return ratio, productivity deltas. These are estimates computed on a basis the vendor chose — and the basis is usually documented, adjustable, or both. Before one of those numbers goes into a report, someone has to read how it's derived. That reading is unglamorous, and it often changes the number.
+
+## A Worked Example
+
+Our vendor console showed a value ratio around 5:1, alongside an estimate of hours saved. Putting the time-saved calculator's inputs next to our own PR-attribution export showed the two were counting different populations: the console computed savings over pull requests *created*, while our attribution counted pull requests *merged* — and those populations differed by more than a factor of two. Re-basing the estimate on merged work brought it in line with what our independent method produced.
+
+The value ratio got the same treatment. Rebuilt on merged work, with a denominator verified against actual invoices, the range was ~2.3–3.4:1 — three separate estimation routes converging near the conservative end. That's the range that went into an AI strategy presentation to our leadership team, presented as an estimate with its assumptions attached. Leadership adopted the corrected range, and it has held as the reported figure since.
+
+Two working rules came out of this: no time-saved figure is reported without its underlying definition stated inline, and the reported number is always the one whose derivation can be walked end to end.
+
+## The Bookkeeping
+
+Catching one bad number doesn't generalize. The checks have to be routine, and ours are small and mostly boring:
+
+- **A weekly pipeline** turns vendor usage exports into aggregates-only reports — individual usage stays admin-only by policy
+- **A longitudinal series** tracks adoption with cohort segmentation (retained, new, and churned weekly-active users), so "adoption" means more than a login count
+- **The core metric was calibrated before it was locked** — the export-based proxy was checked against the vendor dashboard's own figures before the threshold was locked
+- **The KPI document is version-controlled** — including a written definition of a shadow-AI incident, so off-platform usage has a category to land in — with launch anchors explicitly labeled as pre-instrumentation estimates so they can be revised without ceremony
+- **An assumptions registry** flags every unverified input as UNCONFIRMED until an invoice or export settles it, with a dated annotation when it does
+- **Reconciliation runs both directions** — our series against the console's totals, and the console against the invoices. When someone questions the basis, the answer is the reconciliation rather than a re-derivation
+
+None of it is complicated to run. It's the same discipline finance applies to any reported figure, applied to AI metrics while the reporting conventions were still forming.
+
+## Notes
+
+1. **Read the definition before quoting the number.** Most disagreements about AI value are disagreements about the basis, discovered late.
+
+2. **Report the number you can walk end to end.** A smaller figure with a checkable derivation is more useful — and more durable — than a larger one that dies at the first hard question.
+
+3. **Reconcile against the invoice, both directions.** Dashboards estimate; invoices settle.
+
+4. **Label estimates as estimates.** Anchors marked "pre-instrumentation" get revised without embarrassment. Unlabeled ones become commitments by accident.

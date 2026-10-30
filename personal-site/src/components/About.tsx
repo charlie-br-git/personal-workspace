@@ -1,9 +1,9 @@
 export default function About() {
   const stats = [
-    { value: "8+ yrs", label: "Engineer to Director on one regulated platform" },
+    { value: "9 yrs", label: "Engineer to Director on one regulated platform" },
     { value: "$10M+", label: "AUM — Managed Portfolios (YS360)" },
-    { value: "$6M", label: "AUM in 2 months — registered funds launch" },
-    { value: "31 \u2192 7 days", label: "IRA setup via custodial integration" },
+    { value: "90%+", label: "Weekly active AI adoption, ~120-seat org" },
+    { value: "31 \u2192 7 days", label: "Retirement account setup via API integration" },
   ];
 
   return (
@@ -26,7 +26,7 @@ export default function About() {
               Assembly&apos;s Web Development Immersive in 2015. I joined
               Yieldstreet (now Willow Wealth) as an engineer in 2017 and moved
               through product management, senior product management, and into
-              my current Director role.
+              my current Director role, managing a team of three PMs.
             </p>
             <p>
               The work is regulated by nature: registered funds, managed
@@ -38,11 +38,12 @@ export default function About() {
           </div>
           <div className="space-y-5 text-muted leading-relaxed">
             <p>
-              Since 2024 I have also led enterprise AI adoption at Willow:
-              a company-wide Claude Enterprise rollout with MCP integrations,
-              API connectors, role-based access, team-specific plugins, and an
-              agent registry with governance. It is an internal platform, built
-              with engineering and governance partners.
+              Since 2025 I have led enterprise AI adoption at Willow, and since
+              mid-2026 I own AI enablement, governance, and infrastructure
+              org-wide: go/no-go authority under a capability framework I
+              ratified, extended, and operate; the measurement pipeline behind
+              90%+ weekly active use; and an agentic CI platform that never
+              merges its own work. Every user is an internal employee, by design.
             </p>
             <p>
               I build to think: I prototype with the Claude API, React Native,

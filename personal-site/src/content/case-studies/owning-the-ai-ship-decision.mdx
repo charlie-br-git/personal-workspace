@@ -1,0 +1,54 @@
+---
+title: "Running an AI Release Gate in a Regulated Firm"
+date: "2026-09-15"
+excerpt: "How go/no-go decisions for AI and agentic systems get made at an alternative-investment platform: a codified ship bar, a go under challenge, a no-go on ready work, and why speed is part of the standard."
+tags: ["AI Governance", "Enterprise AI", "Product Leadership", "Fintech"]
+---
+
+## The Problem Nobody Owns by Default
+
+Deploying enterprise AI gets you tools people *can* use. The question that arrives next has no default owner: when an AI system wants to act — merge code, post updates, read financial systems — who decides it's ready, and against what bar?
+
+At Willow Wealth that decision sits with me. A three-tier AI capability framework — which I ratified and now extend and operate — sets what each tier of tool is allowed to do across a ~120-person company, in an environment where FINRA and SEC obligations make "what ships" a compliance decision as much as a technical one.
+
+## Both Directions of the Decision
+
+A release gate you've never used to say no is a rubber stamp. Two decisions from the same period:
+
+**The go, under challenge.** I migrated our org-wide AI-to-observability integration off a deprecated endpoint onto the supported one. A senior engineer asked me to defer it — an incident-opening automation he relied on used an adjacent access path, and he was about to be unreachable. Instead of rolling back, I pulled the platform's own audit trail: his path was untouched by the change. He could check the same trail himself, and signed off about twenty minutes later. The rule this left me with: when someone asks you to defer a change that's already live, the answer is evidence about their specific concern, not a reflexive rollback.
+
+**The no-go, on my own work.** A fully-prepared org-wide permissions rollout — payloads staged, pre-deploy checks green — stayed unshipped: deploying it as a single blob could have silently applied the wrong security posture to one cohort of users. "Ready" and "safe to ship" are different claims, and the gap between them was a scoping question nobody had answered yet. I wrote the hold down, with the reasoning, in the decision record.
+
+## What "Good Enough to Ship" Actually Means
+
+Codified, not vibes. Every AI deployment I approve clears the same bar:
+
+- **Read-only by construction** — write access is always a separate governance request
+- **Human-gated** — no auto-merge, no unreviewed actions on sensitive surfaces
+- **Hard exclusions** — nothing that touches money movement, KYC, or PII
+- **Provenance** — automated writes carry who/what/why, with a deny list underneath
+- **Approval ≠ go-live** — sign-off and activation are separate, deliberate steps
+- **A defined rollback or kill path** — before launch, not after
+- **Pre-launch success targets** for anything classed as financial-impact
+
+Anything investor-facing routes through compliance review (FINRA 2210) before it ships. Across this period nothing investor-facing shipped — deliberately; that was the gate working as designed, not a backlog. The same gate applies to my own prototypes.
+
+The bar covers numbers as well as deployments: when a vendor metric definition overstated time saved by more than 2× — counting PRs created rather than merged — the corrected, invoice-verified ratio of ~2.3–3.4:1, not the as-found ~5:1, is what went to leadership.
+
+## Speed Is Part of the Bar
+
+Governance that's slow gets routed around. When a non-technical operations lead filed an intake for a Slack-to-project-tracker automation — the AI itself had flagged her design as needing review — I approved it the same day, four minutes after the ask, with two written conditions: aggregate-level data only, and PII rules apply to every post. It has run in production under those conditions since — governed by me, built and operated by its non-technical owner.
+
+The same posture got an operations workflow to a working internal POC in one sitting: a business-operations lead spec'd her services team's manual pre-call preparation process in a 1:1, and two hours later a compliant pre-call brief generator — read-only, sensitive fields excluded, gaps stated rather than filled — was running against real data. A POC, not a team-wide launch; governance designed in from the first prompt is what made two hours possible. Under the same model, a read-only ERP connector went live for Finance's month-end close — named users, scoped access, written usage rules — and that scoped, read-only service-account pattern became the standard answer whenever another system asks for AI access.
+
+The test of the whole posture is whether the org kept using the tools: weekly active use peaked above 90% of the ~120 seats, with AI-assisted code on roughly four of five merged engineering PRs.
+
+## Patterns
+
+1. **Evidence from the system beats persuasion.** The audit trail settled a colleague's objection to a live change in minutes — and separately disproved an AI surface's own claim that an integration was blocked (access turned out to be endpoint-scoped, not blocked). When the evidence is checkable by both parties, the argument usually ends.
+
+2. **A no-go you can explain is a feature.** Writing down *why* something didn't ship builds more trust than shipping it would have.
+
+3. **Approval is not go-live.** Separating them lets you say yes quickly without anything going live accidentally.
+
+4. **Speed keeps governance alive.** A four-minute conditioned approval gets used; a four-week review board gets bypassed.

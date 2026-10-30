@@ -46,4 +46,18 @@ Each of the product, design, marketing, and engineering teams got a plugin shape
 - An agent registry and governance model around agents and connectors
 - A reusable architecture in which new team configurations reuse existing connectors
 
-I would not describe this as a shipped customer-facing AI product, and I do not present it as one. It is enterprise platform leadership, supported by hands-on prototyping. The next layer I would put in place is per-team adoption and time-saved measurement, plus evaluations on the highest-risk workflows.
+I would not describe this as a shipped customer-facing AI product, and I do not present it as one. All users are internal employees.
+
+## Where It Went (updated September 2026)
+
+Six months on it is org-wide, and the shape changed more than the scale:
+
+- ~120 seats across the company, 90%+ weekly active at peak — weekly active measured against a usage threshold validated against the vendor dashboard before the metric was locked, reported as aggregates only
+- AI-assisted code on roughly four of five merged engineering PRs, with attribution reconciled against the vendor console
+- A three-tier capability framework I ratified, extended, and now operate — it decides what each deployment may do, carries go/no-go release authority, and attaches written ship conditions (aggregate-only data, PII rules, human in the loop) to new automations
+- Agentic workflows running unattended in production, behind a quality gate that never auto-merges
+- Org-wide meant non-engineering too: a read-only ERP connector live for Finance's month-end close with named users and written usage rules, and weekly office hours plus a versioned org-wide skill and prompt layer keeping the rest of the seats supplied
+
+Anything investor-facing routes through FINRA 2210 compliance review before it ships; nothing investor-facing has shipped — that is the deliberate outcome, not a backlog. And not all of it landed as designed: production error data was mined into a scored fix backlog with published guardrails, but engineering rejected the auto-proposed fix PRs on quality grounds, so the mechanism was re-scoped to ride their existing alerting trigger.
+
+The governance side is its own case study: [Running an AI Release Gate in a Regulated Firm](/case-studies/owning-the-ai-ship-decision).

@@ -14,9 +14,10 @@ export default function Hero() {
           <span className="gradient-text">built for the AI era.</span>
         </h1>
         <p className="text-lg md:text-xl text-muted max-w-2xl leading-relaxed mb-10">
-          Director of Product at Willow Wealth. Eight years building and launching private-markets
-          products in an SEC- and FINRA-regulated environment — and the hands-on builder who led our company-wide Claude
-          Enterprise rollout, from MCP integrations to agent governance.
+          Director of Product Management at Willow Wealth. Nine years building and launching
+          private-markets products in an SEC- and FINRA-regulated environment — and now the owner
+          of AI enablement, governance, and infrastructure org-wide: 90%+ weekly active adoption
+          across a ~120-person company, behind a release gate I operate.
         </p>
         <div className="flex flex-wrap gap-4">
           <a

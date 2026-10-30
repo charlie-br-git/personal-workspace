@@ -1,0 +1,44 @@
+---
+title: "Building a Triage Agent on Existing Datadog Alerts"
+date: "2026-09-13"
+excerpt: "From no AI in the loop to an agent that mines production Datadog errors into a scored, evidence-carrying fix backlog — riding the alerts engineering already trusts, tested on my own setup first, with guardrails designed in."
+tags: ["Datadog", "Agentic AI", "Observability", "Incident Triage", "SRE"]
+---
+
+## The Starting Point: Nothing
+
+Engineering had good Datadog coverage — monitors, alert channels, years of accumulated signal. What didn't exist was any AI in that loop: production errors got triaged by whoever had time, and the long tail of recurring, known-shape errors got triaged by nobody.
+
+I built the AI half from zero, in an order I'd defend: access first, diagnosis second, solutions third, automation last.
+
+## Access First, and Scoped
+
+Step one was boring on purpose: read-only Datadog access on the scoped service-account pattern, with live probes to establish exactly which API endpoints the agent could actually reach — rather than trusting configuration state or the agent's own account of itself. (Those probes later paid for themselves in an unrelated way: they disproved the agent's own recurring "Datadog is blocked" self-report — access turned out to be endpoint-scoped, not blocked.)
+
+## Diagnosis: Mining Errors Into an Evidence-Carrying Backlog
+
+With read access in place, the agent mined production error data — traces, logs, monitor history — into a scored fix backlog of roughly a hundred tasks, each carrying its supporting evidence and a proposed direction. Before any of it was published, I re-checked the agent's own triage verdicts; that quiet-batch verification reopened roughly a third of the items it had quietly marked resolved. An agent's judgment about its own work is data, not truth.
+
+## Solutions: Propose, Verify, Don't Merge
+
+The step past diagnosis was proposed fixes — draft patches with the reasoning attached. The deepest of these — a Datadog-triggered performance patch — went through fourteen review agents across six adversarial verification passes before I'd even consider it shippable, and it still lives as a draft: proposing is the agent's job; merging is a human's, on the owning team. When engineering rejected auto-opened fix PRs on quality grounds — with fair counter-examples from the first drop — I kept the diagnostic pipeline and dropped the delivery mechanism they didn't want.
+
+## Automation: A Managed Agent on the Alerts That Already Exist
+
+Two decisions shaped the automation. The first was what *not* to build: no parallel alerting, no new trigger for people to learn. The agent runs off the alerts engineering already set up and already trusts — their monitors, their channels, their thresholds. A new trigger competes with years of encoded judgment; a rider inherits it.
+
+The second was to prove the whole loop before deepening any part of it. I stood up the managed agent myself — service configuration, API keys, the lot — and wired it into CI: GitHub Actions that run the AI's triage and its proposals *inside the same PR review gates every other change passes through*, so the automation's output faces exactly the scrutiny a human's would. The proof of concept ran the full path end to end — alert signal in, gated review out. The honest remaining step: each CI action needs more detail before I'd call it production-grade, and that's written down as next work, not glossed. (An in-channel responder answers those same alerts conversationally, in-thread. It runs on the same foundation — the agent surface, the connectors, and the scoped service accounts are my platform work — with a platform engineer driving the in-thread triage skills built on top of it. Both paths run inside the governance envelope — connector scope, guardrails, spend limits — that I set.)
+
+## Tested on Myself First
+
+Instrumentation followed the same rule as automation: prove it on your own setup before pointing it at anyone else's. I used OTLP-compatible pipelines to instrument and monitor my own AI setup first — my sessions, my usage, my failure modes — before standing up the org-wide telemetry, so the first person to live under the monitoring was me. That's also what kept it user-friendly for coworkers: by the time it touched their workflows it was read-only by construction, human-gated, propose-only on sensitive surfaces, with the guardrails stated in the announcement text rather than in a linked policy nobody opens.
+
+## Patterns
+
+1. **Build in the order access → diagnosis → solutions → automation.** Each step earns the next; skipping ahead is how AI-in-ops projects lose the room.
+
+2. **Ride existing alerts.** The org's monitors encode years of judgment about what matters. A new trigger competes with that; a rider inherits it.
+
+3. **Re-check the agent's own verdicts.** A third of "quietly resolved" wasn't. Verification of AI triage is part of the pipeline, not an audit afterward.
+
+4. **Be your own first tenant.** Monitoring you haven't lived under yourself isn't ready for coworkers — especially in a shop where their compliance posture depends on your scoping being right.

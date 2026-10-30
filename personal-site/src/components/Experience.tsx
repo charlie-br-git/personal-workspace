@@ -1,51 +1,51 @@
 const experiences = [
   {
     era: "ai" as const,
-    period: "2024 — Present",
+    period: "Mar 2024 — Present",
     title: "Director of Product Management",
     company: "Willow Wealth (fka Yieldstreet)",
     description:
-      "Lead product across private-markets offerings and enterprise AI adoption. 2025 product work: Managed Portfolios (YS360, $10M+ AUM), registered funds ($6M AUM in two months), Equity Trust custodial integration (IRA setup 31 \u2192 7 days), the Atomic Invest partnership; co-drove a distribution-model strategy shift with the founder. Led the company-wide Claude Enterprise rollout: MCP integrations, RBAC, team-specific plugins, and an agent registry with governance. Mentor emerging product talent.",
+      "Own AI enablement, governance, and infrastructure org-wide (since mid-2026): go/no-go authority for AI and agentic deployments under a three-tier capability framework I ratified, extended, and operate; measurement pipeline behind 90%+ weekly active use across ~120 seats; agentic CI platform, co-developed with the platform engineering lead, that never auto-merges. Product: Managed Portfolios (YS360, $10M+ AUM), registered funds ($6M AUM in two months), the Atomic Invest partnership, and a distribution-model shift co-driven with the founder. Manage three PMs.",
   },
   {
     era: "product" as const,
-    period: "2021 — 2024",
+    period: "Sep 2021 — Mar 2024",
     title: "Senior Product Manager",
     company: "Yieldstreet",
     description:
-      "Drove product strategy for the alternative investments platform, leading cross-functional teams on greenfield features and platform-wide initiatives.",
+      "Retirement-account API integration that cut account setup from 31 days to 7 and eliminated 1,200+ hours of annual manual work. Established the product discovery process and first user research, leading to a dedicated UX research team. Data-driven build-vs-buy frameworks for the retirement platform.",
   },
   {
     era: "product" as const,
-    period: "2018 — 2021",
+    period: "May 2018 — Sep 2021",
     title: "Product Manager",
     company: "Yieldstreet",
     description:
-      "Transitioned from engineering to product, using technical depth to bridge stakeholder needs with scalable platform architecture.",
+      "Led the first 0-to-1 product: a savings account that scaled to 19K accounts and $100M+ in deposits within six months. Built an internal no-code admin platform for audience segmentation, A/B tests, and campaign automation. Partnered with the CTO on the monolith-to-SOA platform strategy.",
   },
   {
     era: "engineering" as const,
-    period: "2017 — 2018",
+    period: "May 2017 — May 2018",
     title: "Software Engineer (employee #13)",
     company: "Yieldstreet",
     description:
-      "Built core platform features for the alternative investments marketplace, including investment flows, compliance automation and data pipelines.",
+      "Led the frontend migration from Angular to React; designed the Banking-as-a-Service integration for account onboarding and funding.",
   },
   {
     era: "engineering" as const,
-    period: "2016 — 2017",
+    period: "Feb 2016 — Jan 2017",
     title: "Junior Software Engineer (employee #5)",
     company: "Self Lender",
     description:
-      "First engineering role after General Assembly (2015). Built features for a credit-building fintech product.",
+      "First engineering role after General Assembly (2015), at a regulated credit-building fintech. Built MVP account workflows that scaled from an 11-user pilot to 25K+ active accounts.",
   },
   {
     era: "foundation" as const,
-    period: "2011 — 2014",
+    period: "2011 — 2015",
     title: "Associate \u2192 Manager, Business Solutions",
     company: "Robin Hood Foundation; New Leaders for New Schools",
     description:
-      "Analytics, donor data systems, and business solutions. Built the systems thinking behind later platform decisions.",
+      "Robin Hood (2011–2014): Salesforce integration and automated processing for ~3,500 annual donations. New Leaders (2014–2015): requirements, roadmaps, and platforms for 150 staff and 600 participants across 13 cities.",
   },
 ];
 

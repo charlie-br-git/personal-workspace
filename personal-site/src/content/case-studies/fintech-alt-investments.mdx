@@ -7,7 +7,7 @@ tags: ["Fintech", "Regulated Products", "Product Strategy", "Platform Architectu
 
 ## The Context
 
-I joined Yieldstreet in 2017 as a software engineer (employee #13), when the team could fit in a single room. Over eight years I moved through engineering, product management, senior product management, and into my current Director role at what is now Willow Wealth. The platform sits in alternative investments and private markets, an environment governed by SEC and FINRA requirements, where compliance shapes product design from the first sketch.
+I joined Yieldstreet in 2017 as a software engineer (employee #13), when the team could fit in a single room. Since then I have moved through engineering, product management, senior product management, and into my current Director role at what is now Willow Wealth. The platform sits in alternative investments and private markets, an environment governed by SEC and FINRA requirements, where compliance shapes product design from the first sketch.
 
 This is a look at the product decisions I made and learned from along the way.
 
@@ -27,34 +27,45 @@ I moved into product because I saw a gap: strong engineering, but a need for som
 
 - **Greenfield product launches**: multiple new investment verticals from concept to launch, each with its own regulatory, UX, and technical requirements
 - **Platform unification**: a unified investor experience across previously siloed products as asset classes were added
-- **Self-service tooling**: internal tools that let operations and compliance teams manage offerings without engineering tickets
+- **First 0-to-1 product**: a new savings account product that scaled to 19K accounts and $100M+ in deposits within six months of launch
+- **Self-service tooling**: an internal no-code admin platform that let marketing and product teams build audience segments, run A/B tests, and automate campaigns without engineering tickets
 
 ### The Lesson: Go Where the Workarounds Are
 
 The most impactful improvement of this period came from spending a week shadowing the investor relations team. Their workarounds and manual processes revealed platform gaps that no amount of analytics would have surfaced.
 
-## Phase 3: Scaling Product Leadership (2021–Present)
+## Phase 3: Scaling Product Leadership (2021–2025)
 
-As Senior PM and then Director, the work shifted from building features to building systems:
+As Senior PM and then Director (managing three PMs), the work shifted from building features to building systems:
+
+- **Retirement accounts**: researched, scoped, and managed the retirement-account API integration that cut account setup from 31 days to 7 and eliminated 1,200+ hours of annual manual work
+- **Discovery as a practice**: established the product discovery process and ran the first user research, which led to a dedicated UX research team
 
 - **Platform thinking**: moving the team's mental model from features to reusable capabilities that serve multiple products
 - **Widening the product surface**: broadening from alternative investments into wider private markets meant rethinking information architecture, redesigning onboarding for different risk profiles, and building compliance workflows for additional asset types
 - **Cross-functional alignment**: with multiple engineering squads, design teams, and a growing marketing organization, coordination became the product challenge
 
-## Phase 4: Regulated Launches and Partnerships (2025)
+### Regulated Launches and Partnerships
 
-The 2025 product work is where regulation, partnerships, and distribution strategy came together:
+The most recent product work is where regulation, partnerships, and distribution strategy came together:
 
 - **Managed Portfolios (YS360)**: $10M+ in assets under management
 - **Registered funds**: $6M in AUM within two months of launch
-- **Custodial integration with Equity Trust**: cut IRA account setup from 31 days to 7
 - **Atomic Invest partnership**
 - **Distribution model**: co-drove a strategic shift in distribution with the company's founder. This was a shared strategic effort, not a solo call
+
+## Phase 4: Applied AI (2026–Present)
+
+The fourth phase started the way the others did — with a gap nobody owned. As the company deployed AI across every function, the hard questions weren't about models: who decides what an AI system is allowed to do, what "good enough to ship" means when the author is an agent, and how to measure adoption and value without fooling yourself.
+
+That's the job now: AI enablement, governance, and infrastructure across the organization, as the company's enterprise AI administrator. It draws on every earlier phase — the engineer's respect for what systems can and can't do, the PM's habit of starting from a real workflow, and the platform instinct that capabilities beat features.
+
+The details are their own pieces: [running the AI release gate](/case-studies/owning-the-ai-ship-decision), [an agentic platform that never merges its own work](/case-studies/agentic-platform-never-merges-its-own-work), [the operating model behind the program](/case-studies/an-operating-model-for-ai-enablement), and [keeping the program's numbers defensible](/blog/measuring-enterprise-ai-value).
 
 ## What Regulation Teaches Product Managers
 
 1. **Compliance is a design input, not a gate.** Bringing compliance and legal in at the sketch stage removes rework later.
-2. **Partner integrations are where the time goes.** The custodial integration is what moved IRA setup from 31 days to 7.
+2. **Partner integrations are where the time goes.** The retirement-account API integration is what moved setup from 31 days to 7.
 3. **Start as an engineer if you can.** You will know when a simple request is actually a platform rewrite.
 4. **Invest in internal tools early.** Self-service tooling for operations saves far more engineering time than it costs.
 5. **Unify before you multiply.** Adding products to a fragmented platform creates exponential complexity.
