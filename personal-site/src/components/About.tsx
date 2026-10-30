@@ -22,7 +22,7 @@ export default function About() {
             <p>
               I started in nonprofit analytics and donor systems (Robin Hood
               Foundation, New Leaders for New Schools), studied environmental
-              studies at WashU, and became a software engineer after General
+              science at WashU, and became a software engineer after General
               Assembly&apos;s Web Development Immersive in 2015. I joined
               Yieldstreet (now Willow Wealth) as an engineer in 2017 and moved
               through product management, senior product management, and into
