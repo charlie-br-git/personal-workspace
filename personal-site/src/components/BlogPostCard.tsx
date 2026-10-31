@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, Clock } from "lucide-react";
 import type { ContentMeta } from "@/lib/content";
+import { formatDate } from "@/lib/format";
 
 export default function BlogPostCard({ meta }: { meta: ContentMeta }) {
   return (
@@ -9,7 +10,7 @@ export default function BlogPostCard({ meta }: { meta: ContentMeta }) {
       className="group block rounded-xl bg-surface border border-border p-6 hover:border-primary/30 transition-colors"
     >
       <div className="flex items-center gap-3 text-xs text-muted mb-3">
-        <time>{meta.date}</time>
+        <time dateTime={meta.date}>{formatDate(meta.date)}</time>
         {meta.readingTime && (
           <>
             <span>·</span>
