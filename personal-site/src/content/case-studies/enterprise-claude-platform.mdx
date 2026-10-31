@@ -1,7 +1,7 @@
 ---
 title: "Rolling Out Claude Enterprise as a Governed Platform"
 date: "2026-03-15"
-excerpt: "A company-wide Claude Enterprise rollout at a regulated financial firm: domain-scoped servers, role-based access, an agent registry, and audit trails — and what governance taught me about adoption."
+excerpt: "Claude Enterprise rollout at a regulated financial firm: domain-scoped MCP servers, role-based access, an agent registry, audit logging. An internal platform."
 tags: ["Enterprise AI", "AI Governance", "MCP", "RBAC"]
 ---
 
@@ -10,6 +10,8 @@ tags: ["Enterprise AI", "AI Governance", "MCP", "RBAC"]
 When an organization decides to adopt AI, picking a model is the easy part. The hard part is deploying it so that product designers, marketers, and engineers all get real value, with different needs, data access requirements, and risk tolerances, while meeting the security posture a financial services company demands.
 
 This is an internal platform: its users are employees, not customers. The bar was still high, because the data around it is regulated.
+
+The rollout began in 2025; this write-up is from March 2026, with a September 2026 update at the end. The governance and measurement record in that update begins in 2026.
 
 ## The Approach
 
@@ -25,8 +27,8 @@ We used the Model Context Protocol (MCP) as the integration backbone. It gave us
 
 - **Role-scoped permissions**: each team can only reach the servers and tools approved for its role
 - **Agent registry**: a central record of agents and connectors, built with governance partners
-- **Auditability**: AI interactions are logged so that usage can be reviewed
-- **Data boundaries**: sensitive data is handled through explicit allow-lists
+- **Audit logging**: AI interactions are logged so that access and usage can be reviewed
+- **Data governance and privacy**: sensitive data is handled through explicit allow-lists, with written PII rules as ship conditions for new automations
 - **Human approval**: higher-risk actions are gated
 
 ### Per-Team Customization
@@ -61,3 +63,5 @@ Six months on it is org-wide, and the shape changed more than the scale:
 Anything investor-facing routes through FINRA 2210 compliance review before it ships; nothing investor-facing has shipped — that is the deliberate outcome, not a backlog. And not all of it landed as designed: production error data was mined into a scored fix backlog with published guardrails, but engineering rejected the auto-proposed fix PRs on quality grounds, so the mechanism was re-scoped to ride their existing alerting trigger.
 
 The governance side is its own case study: [Running an AI Release Gate in a Regulated Firm](/case-studies/owning-the-ai-ship-decision).
+
+Context: the regulated product business this platform was rolled out into is described in [Building Regulated Products on a Private-Markets Platform](/case-studies/fintech-alt-investments).

@@ -21,10 +21,11 @@ export default function Hero() {
         </h1>
         <p className="text-lg md:text-xl text-muted max-w-2xl leading-relaxed mb-10">
           Engineer to Director on one SEC- and FINRA-regulated private-markets platform since
-          2017, now managing three PMs. Since mid-2026 I own AI enablement, governance, and
-          infrastructure org-wide: go/no-go authority under a capability framework I ratified,
-          extended, and operate; the measurement pipeline behind 90%+ weekly active adoption at
-          peak across ~120 internal seats; and a release gate for AI and agentic deployments.
+          2017: registered funds, managed portfolios, IRA custody and broker-dealer integrations,
+          and a team of three PMs. Since mid-2026 I also own AI enablement, governance, and
+          infrastructure org-wide &mdash; go/no-go authority under a capability framework I
+          ratified, extended, and operate, and the measurement pipeline behind 90%+ weekly active
+          adoption at peak across ~120 internal seats.
         </p>
         <div className="flex flex-wrap items-center gap-4">
           <Link

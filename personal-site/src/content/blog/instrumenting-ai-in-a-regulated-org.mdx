@@ -1,7 +1,7 @@
 ---
 title: "Instrumenting the AI Layer in a Regulated Org"
 date: "2026-09-11"
-excerpt: "Traces, logs, and admin plumbing for an organization's AI layer: probing what the tools can actually reach, documenting what the instrumentation can't see, and using the system's own audit trail to settle access questions."
+excerpt: "AI observability in a regulated org: traces, logs and admin plumbing for the AI layer, probes of what tools can really reach, and the audit trail as arbiter."
 tags: ["Observability", "Datadog", "Enterprise AI", "Compliance"]
 ---
 
@@ -38,3 +38,5 @@ The instrumentation also fed work product: mining production error data into a s
 3. **Name your detection gaps.** A metric that silently reads 0% is worse than no metric — say what the instrumentation can't see, or it will be read as truth.
 
 4. **In a regulated org, observability is the enablement.** Every hour of telemetry plumbing converts later governance debates into lookups.
+
+Context: the regulated product business this AI layer serves is described in [Building Regulated Products on a Private-Markets Platform](/case-studies/fintech-alt-investments).

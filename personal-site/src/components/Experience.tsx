@@ -17,14 +17,15 @@ const experiences: Role[] = [
     title: "Director of Product Management",
     company: "Willow Wealth (fka Yieldstreet)",
     scope:
-      "Manage three PMs. Since mid-2026, own AI enablement, governance, and infrastructure org-wide as the company’s Claude Enterprise administrator.",
+      "Manage three PMs across private-markets products \u2014 managed portfolios, registered funds, embedded brokerage. Since mid-2026, also own AI enablement, governance, and infrastructure org-wide as the company\u2019s Claude Enterprise administrator.",
     bullets: [
+      "Product: Willow 360 managed portfolios ($10M+ AUM, allocations advised by Wilshire); registered funds ($6M AUM in two months); the Atomic integration (embedded brokerage running dual-tenant RIA and broker-dealer programs); a distribution-model shift co-driven with the founder.",
+      "Co-led the company\u2019s SOC 2 and ISO 27001 programs, supplying control evidence to auditors and running vendor security reviews.",
+      "Led the company-wide Claude Enterprise rollout (2025) with MCP integrations and an agent registry.",
       "Go/no-go authority for AI and agentic deployments under a three-tier capability framework I ratified, extended, and operate.",
       "Measurement pipeline behind 90%+ weekly active AI use at peak across ~120 seats; every user is an internal employee.",
       "Agentic CI platform, co-developed with the platform engineering lead, that never auto-merges.",
-      "Administer the company’s Claude API and Console keys: each scoped to one process and its users, spend reviewed per key, revocation wired into IT offboarding. Built a proof of concept for an in-house AI gateway.",
-      "Co-led the company’s SOC 2 and ISO 27001 programs, supplying control evidence to auditors and running vendor security reviews.",
-      "Product: Willow 360 managed portfolios ($10M+ AUM, allocations advised by Wilshire); registered funds ($6M AUM in two months); the Atomic integration (embedded brokerage running dual-tenant RIA and broker-dealer programs); a distribution-model shift co-driven with the founder.",
+      "Administer the company\u2019s Claude API and Console keys: each scoped to one process and its users, spend reviewed per key, revocation wired into IT offboarding. Built a proof of concept for an in-house AI gateway.",
     ],
   },
   {
