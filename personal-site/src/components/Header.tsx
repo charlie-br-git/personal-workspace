@@ -12,14 +12,21 @@ const navLinks = [
   { href: "/contact/", label: "Contact" },
 ];
 
+const linkedInUrl = "https://www.linkedin.com/in/charliebr/";
+
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 bg-background/90 backdrop-blur-sm border-b border-border">
       <nav className="mx-auto max-w-5xl flex items-center justify-between px-6 h-16">
-        <Link href="/" className="text-lg font-bold tracking-tight">
-          <span className="gradient-text">CB-R</span>
+        <Link
+          href="/"
+          aria-label="Charlie Bittner-Rossmiller, home"
+          className="text-lg font-bold tracking-tight"
+        >
+          <span className="gradient-text hidden sm:inline">Charlie Bittner-Rossmiller</span>
+          <span className="gradient-text sm:hidden">Charlie B-R</span>
         </Link>
 
         {/* Desktop */}
@@ -33,6 +40,14 @@ export default function Header() {
               {link.label}
             </Link>
           ))}
+          <a
+            href={linkedInUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm font-medium text-foreground hover:text-primary-light transition-colors"
+          >
+            LinkedIn ↗
+          </a>
         </div>
 
         {/* Mobile toggle */}
@@ -40,6 +55,7 @@ export default function Header() {
           className="md:hidden text-muted hover:text-foreground"
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle menu"
+          aria-expanded={isOpen}
         >
           {isOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
@@ -59,6 +75,14 @@ export default function Header() {
                 {link.label}
               </Link>
             ))}
+            <a
+              href={linkedInUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm font-medium text-foreground hover:text-primary-light transition-colors"
+            >
+              LinkedIn ↗
+            </a>
           </div>
         </div>
       )}

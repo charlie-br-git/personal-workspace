@@ -22,11 +22,11 @@ export default function Footer() {
           &copy; {new Date().getFullYear()} Charlie Bittner-Rossmiller
         </p>
         <div className="flex items-center gap-5">
-          <a href="https://www.linkedin.com/in/charliebr/" target="_blank" rel="noopener noreferrer" className="text-muted hover:text-foreground transition-colors" aria-label="LinkedIn">
-            <LinkedInIcon />
+          <a href="https://www.linkedin.com/in/charliebr/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors">
+            <LinkedInIcon /> LinkedIn
           </a>
-          <a href="https://github.com/charlie-br-git" target="_blank" rel="noopener noreferrer" className="text-muted hover:text-foreground transition-colors" aria-label="GitHub">
-            <GitHubIcon />
+          <a href="https://github.com/charlie-br-git" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors">
+            <GitHubIcon /> GitHub
           </a>
         </div>
       </div>

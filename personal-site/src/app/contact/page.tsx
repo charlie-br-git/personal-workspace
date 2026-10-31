@@ -3,7 +3,8 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Get in touch with Charlie Bittner-Rossmiller.",
+  description:
+    "Connect with Charlie Bittner-Rossmiller, Director of Product Management in regulated fintech, on LinkedIn or GitHub.",
 };
 
 function LinkedInIcon() {
@@ -47,6 +48,7 @@ export default function ContactPage() {
       <p className="text-lg text-muted max-w-2xl mb-12">
         I&apos;m always interested in conversations about regulated fintech product
         strategy, enterprise AI adoption and governance, or the intersection of product and engineering leadership.
+        A LinkedIn message or connection note with one line about what you&apos;re working on is all it takes.
       </p>
 
       <div className="grid md:grid-cols-2 gap-6">

@@ -1,8 +1,8 @@
 export default function About() {
   const stats = [
-    { value: "9 yrs", label: "Engineer to Director on one regulated platform" },
+    { value: "Since 2017", label: "Engineer to Director on one SEC/FINRA-regulated platform" },
     { value: "$10M+", label: "AUM — Willow 360 managed portfolios" },
-    { value: "90%+", label: "Weekly active AI adoption, ~120-seat org" },
+    { value: "90%+", label: "Weekly active AI adoption at peak, ~120 internal seats" },
     { value: "31 \u2192 7 days", label: "IRA account setup, from launch to scale" },
   ];
 
@@ -33,7 +33,9 @@ export default function About() {
               portfolios, custodial integrations, and a broker-dealer context
               where compliance is a design input rather than a late-stage gate.
               Engineering first means I know what the system can and cannot do
-              before I commit the roadmap to it.
+              before I commit the roadmap to it. I co-led our SOC 2 and ISO 27001
+              programs, so audit evidence is part of the job rather than an
+              interruption to it.
             </p>
           </div>
           <div className="space-y-5 text-muted leading-relaxed">
@@ -42,8 +44,8 @@ export default function About() {
               mid-2026 I own AI enablement, governance, and infrastructure
               org-wide: go/no-go authority under a capability framework I
               ratified, extended, and operate; the measurement pipeline behind
-              90%+ weekly active use; and an agentic CI platform that never
-              merges its own work. Every user is an internal employee, by design.
+              90%+ weekly active use at peak; and an agentic CI platform that
+              never merges its own work. Every user is an internal employee, by design.
             </p>
             <p>
               I build to think: I prototype with the Claude API, React Native,

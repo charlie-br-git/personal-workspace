@@ -1,4 +1,6 @@
 import { getAllContent, getContentBySlug } from "@/lib/content";
+import { formatDate } from "@/lib/format";
+import { articleJsonLd, articleMetadata } from "@/lib/metadata";
 import { mdxComponents } from "@/components/MdxComponents";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { ArrowLeft, Clock } from "lucide-react";
@@ -17,7 +19,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const { meta } = getContentBySlug("blog", slug);
-  return { title: meta.title, description: meta.excerpt };
+  return articleMetadata({
+    title: meta.title,
+    description: meta.excerpt,
+    path: `/blog/${slug}/`,
+    date: meta.date,
+  });
 }
 
 export default async function BlogPostPage({
@@ -27,9 +34,21 @@ export default async function BlogPostPage({
 }) {
   const { slug } = await params;
   const { meta, content } = getContentBySlug("blog", slug);
+  const jsonLd = articleJsonLd({
+    type: "BlogPosting",
+    title: meta.title,
+    description: meta.excerpt,
+    path: `/blog/${slug}/`,
+    date: meta.date,
+    tags: meta.tags,
+  });
 
   return (
     <article className="mx-auto max-w-3xl px-6 py-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Link
         href="/blog/"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors mb-8"
@@ -38,7 +57,7 @@ export default async function BlogPostPage({
       </Link>
 
       <div className="flex items-center gap-3 text-sm text-muted mb-4">
-        <time>{meta.date}</time>
+        <time dateTime={meta.date}>{formatDate(meta.date)}</time>
         {meta.readingTime && (
           <>
             <span>·</span>

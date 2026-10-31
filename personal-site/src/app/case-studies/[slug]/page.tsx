@@ -1,4 +1,6 @@
 import { getAllContent, getContentBySlug } from "@/lib/content";
+import { formatDate } from "@/lib/format";
+import { articleJsonLd, articleMetadata } from "@/lib/metadata";
 import { mdxComponents } from "@/components/MdxComponents";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { ArrowLeft } from "lucide-react";
@@ -17,7 +19,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const { meta } = getContentBySlug("case-studies", slug);
-  return { title: meta.title, description: meta.excerpt };
+  return articleMetadata({
+    title: meta.title,
+    description: meta.excerpt,
+    path: `/case-studies/${slug}/`,
+    date: meta.date,
+  });
 }
 
 export default async function CaseStudyPage({
@@ -27,15 +34,33 @@ export default async function CaseStudyPage({
 }) {
   const { slug } = await params;
   const { meta, content } = getContentBySlug("case-studies", slug);
+  const jsonLd = articleJsonLd({
+    type: "Article",
+    title: meta.title,
+    description: meta.excerpt,
+    path: `/case-studies/${slug}/`,
+    date: meta.date,
+    tags: meta.tags,
+  });
 
   return (
     <article className="mx-auto max-w-3xl px-6 py-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Link
         href="/case-studies/"
         className="inline-flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors mb-8"
       >
         <ArrowLeft size={14} /> Back to Case Studies
       </Link>
+
+      <div className="flex items-center gap-3 text-sm text-muted mb-4">
+        <span>Case study</span>
+        <span>·</span>
+        <time dateTime={meta.date}>{formatDate(meta.date)}</time>
+      </div>
 
       <div className="flex flex-wrap gap-2 mb-4">
         {meta.tags.map((tag) => (
