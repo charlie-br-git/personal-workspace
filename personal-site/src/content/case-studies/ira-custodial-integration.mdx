@@ -1,0 +1,70 @@
+---
+title: "Custodial Integration in a Regulated IRA Product: 31 Days to 7"
+date: "2026-10-31"
+excerpt: "Partner integrations in regulated fintech: an IRA custodian integration that took setup from 31 days to 7, and the month-long outage that tested it."
+tags: ["Fintech", "Partner Integrations", "Regulated Products", "Product Strategy"]
+---
+
+## The Setup: 31 Days
+
+As a product manager at Willow Wealth (then Yieldstreet) from May 2018 to September 2021, I owned the retirement product. We launched the IRA product with our custodian, Pensco Trust (later Pacific Premier Trust), at a time when few custodians offered APIs or accepted e-signatures instead of notarized paper. An IRA cannot exist without a custodian, so the custodian's process was, by default, our process. Moving existing retirement assets in by ACAT transfer was possible from the start. Opening the account was the problem: setup took 31 days at launch.
+
+Thirty-one days is a long time to ask an investor to wait for an account they decided to open in an afternoon. It was also the one number that described the whole product, because everything downstream waited on it.
+
+## What the 31 Days Were Made Of
+
+Those 31 days went to two things, and neither was a bug in our software. The first was the notarized-paper-and-mail cycle: forms were notarized, mailed, and keyed in by the custodian. The second was the custodian's own manual processing queue. Both were the shape of the industry we had integrated with. One lived in a notary's office and the postal system; the other lived inside the partner.
+
+We iterated setup down to 7 days. The custodian API integration is what moved it, and the work was shared: engineering, operations, and the custodian's people did it together, and my part was deciding what to build, in what order, and what to push on. Along the way it eliminated 1,200+ hours a year of manual work.
+
+In the same era we added a partnership with Capitalize for 401(k)-to-IRA rollovers, another 0-to-1 API integration with a new partner.
+
+## The Partner's Worst Day
+
+Around June 2020, during Pensco's merger into Pacific Premier, the custodian announced a migration as a two-day weekend outage. It became a month-long outage, and we were not ready for it.
+
+The honest version of why is that the system we had built was designed for the happy path. We had an integration that could open accounts; we did not have one that could wait out a partner being unavailable for a month. We had treated the custodian's availability as a given. There were no SLAs between us. No one had written down what the custodian owed us.
+
+## What We Built While It Was Still Down
+
+We did not wait. We did not know how long the outage would last, and we could not make the custodian faster, so we built on the side we controlled. Engineering built retries, audits, and other resilience features into our systems so the platform could withstand further partner disruptions. The point of a retry is that a failed request is not a lost one. The point of an audit is that you can check your own records against the partner's instead of trusting them.
+
+None of this was built to shorten the outage. All of it changed what the next one would cost.
+
+## The Escalation
+
+The escalation was mine. I went directly to Pensco's CEO. That is not a routine call for a product manager, and I made it deliberately: the outage was not a ticket, it was a partnership without terms, and terms are set at the level that can commit to them. The goal was never to win an argument with a partner we still depended on. It was to hold the partner to account without losing the partnership, and to change its terms.
+
+The escalation led to onsite partnership meetings that included our own CEO, and those meetings ended with something the partnership had never had: specific SLAs and SLOs. For the first time there was a written definition of what the custodian owed us.
+
+## Afterward
+
+The IRA product recovered and grew roughly linearly, about $25M a year, to about $75M in assets under management. In May 2023, when I was Senior PM, we moved retirement custody to Equity Trust, integrating its WealthBridge account link so Equity Trust clients could invest directly.
+
+## One Integration Model per Partner
+
+Every one of these partnerships, from Pensco to Capitalize to Equity Trust, was a 0-to-1 API integration with a new partner: requirements first, then technical design, then mapping the partner's process back into our own user experience. That last step is where the product judgment lives, because a partner's API tells you what they can do, not what your investor should see.
+
+Across partners we used three models, and I chose between them partner by partner:
+
+- **A fully white-labeled flow.** The investor stays in our UX from start to finish; the partner's API runs underneath. This is the model we used for new IRA account creation. It gives you full control of the experience and full responsibility for every field and edge case.
+- **A redirect to the partner's site.** The investor leaves our product for the partner's, completes the step there, and comes back. Fastest to ship, least control over the experience, and a visible seam.
+- **Shared middleware.** A layer between the two systems that both sides integrate against. More to build up front; easier to change a partner behind it later.
+
+The deciding questions were the same each time. Who should the investor believe they are dealing with at this step? And what happens to them if the partner's side is slow, or down?
+
+Every integration is a dependency on something you do not run. Alongside the live integrations we kept backup partners and plans to reduce integration risk, so that a single partner's problem would not automatically become the product's problem.
+
+## Lessons
+
+1. **Own what customers hear when something goes wrong.** From the investor's point of view the partner's outage was our outage. Nobody was interested in whose system it was.
+
+2. **Decompose the number before you attack it.** The 31 days was one number but two problems, one in the mail and one inside the partner. Until you split it, you do not know who has to move.
+
+3. **No SLA is an SLA of zero.** If you have not written down what a partner owes you, you have agreed that they owe you nothing. We got our first SLAs and SLOs because something had already gone wrong; the order should have been the other way around.
+
+4. **Escalate to change terms, not to vent.** Going to a partner's CEO is justified when the problem is structural. The measure of success is a partnership with SLAs still standing afterward, not a louder complaint.
+
+5. **Build for the partner's worst day before it arrives.** Choose the integration model for how it fails, not only how it works. Keep the backup you hope not to use. Build the retries and audits before the outage, not during it; they are the parts of an integration nobody sees until the day everyone does.
+
+Context: this is the long version of the "Retirement accounts" bullet and the "Build for the Partner's Worst Day" lesson in [Building Regulated Products on a Private-Markets Platform](/case-studies/fintech-alt-investments).

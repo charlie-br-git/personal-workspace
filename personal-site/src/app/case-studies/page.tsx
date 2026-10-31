@@ -7,14 +7,14 @@ export const metadata: Metadata = {
   description: "Deep dives into regulated fintech product work, enterprise AI governance, and the decisions behind them.",
 };
 
-const PINNED = "fintech-alt-investments";
+const PINNED = ["ira-custodial-integration", "fintech-alt-investments"];
 
 export default function CaseStudiesPage() {
   // The regulated-products overview leads; the AI studies keep their date order after it.
   const all = getAllContent("case-studies");
   const caseStudies = [
-    ...all.filter((c) => c.slug === PINNED),
-    ...all.filter((c) => c.slug !== PINNED),
+    ...PINNED.flatMap((slug) => all.filter((c) => c.slug === slug)),
+    ...all.filter((c) => !PINNED.includes(c.slug)),
   ];
 
   return (
