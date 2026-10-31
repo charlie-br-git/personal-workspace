@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { ContentMeta } from "@/lib/content";
+import { formatDate } from "@/lib/format";
 
 export default function CaseStudyCard({ meta }: { meta: ContentMeta }) {
   return (
@@ -8,6 +9,9 @@ export default function CaseStudyCard({ meta }: { meta: ContentMeta }) {
       href={`/case-studies/${meta.slug}/`}
       className="group block rounded-xl bg-surface border border-border p-6 hover:border-primary/30 transition-colors"
     >
+      <time dateTime={meta.date} className="block text-xs text-muted mb-3">
+        {formatDate(meta.date)}
+      </time>
       <div className="flex flex-wrap gap-2 mb-3">
         {meta.tags.map((tag) => (
           <span

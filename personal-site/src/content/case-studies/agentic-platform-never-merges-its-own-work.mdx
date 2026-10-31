@@ -1,7 +1,7 @@
 ---
-title: "An Agentic Platform That Never Merges Its Own Work"
+title: "Agentic CI Governance: A Platform That Never Merges Its Own Work"
 date: "2026-08-28"
-excerpt: "The CI and governance layer for AI-produced changes: a quality gate that never auto-merges, fail-closed validation hardened by adversarial testing, and multi-agent review where one reviewer's job is to block the change."
+excerpt: "Agentic CI governance in a regulated firm: a PR gate for AI-produced changes that never auto-merges, fail-closed validation, and adversarial multi-agent review."
 tags: ["Agentic AI", "Platform Engineering", "CI/CD", "AI Safety"]
 ---
 
@@ -21,7 +21,7 @@ The platform's metadata parsing originally ran on string manipulation — the ki
 
 ## Multi-Agent Adversarial Review
 
-For higher-stakes changes, one review isn't enough — so the platform runs multi-agent adversarial review before release: parallel AI reviewers with deliberately different lenses, including one whose instructions are to argue that the change should not ship. The largest of these ran fourteen agents across six verification passes over one draft patch to production code; each pass surfaced defects that were fixed and re-verified before the next. A standing cross-model policy backs it: plan with one model, review with a different one, so the reviewer doesn't share the author's blind spots.
+For higher-stakes changes, one review isn't enough — so the platform runs multi-agent adversarial review before release: parallel AI reviewers with deliberately different lenses, including one whose instructions are to argue that the change should not ship. The largest of these ran fourteen agents across six verification passes over one draft patch against production code — a patch that remains unmerged; each pass surfaced defects that were fixed and re-verified before the next. A standing cross-model policy backs it: plan with one model, review with a different one, so the reviewer doesn't share the author's blind spots.
 
 The same discipline applies to prose as to code. The org-wide AI instruction set — the configuration that shapes how the assistant answers for every employee, including its compliance and investor-data rules — went through a thirteen-agent review before I shipped it in two version-controlled variants, ending invisible drift on a field that previously had no version history.
 
@@ -34,3 +34,5 @@ The same discipline applies to prose as to code. The org-wide AI instruction set
 3. **Fail closed.** A validator that lets ambiguous input through is a validator in name only. Reject what you can't positively verify.
 
 4. **AI checking AI works — if the checkers are adversarial and diverse.** N identical reviewers agree with each other. Reviewers with different lenses, one of them explicitly instructed to block the change, find what redundancy can't.
+
+Context: this platform runs inside the regulated product business described in [Building Regulated Products on a Private-Markets Platform](/case-studies/fintech-alt-investments).
