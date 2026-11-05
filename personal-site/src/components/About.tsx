@@ -59,9 +59,12 @@ export default function About() {
               org-wide as our Claude Enterprise administrator: go/no-go authority
               under a capability framework I ratified, extended, and operate; the
               measurement pipeline behind 90%+ weekly active use at peak; and an
-              agentic CI platform that never merges its own work. Every user is an
-              internal employee, by design. In practice that is privacy and access
-              governance for AI inside a FINRA/SEC firm: role-based access, scoped
+              agentic CI platform that never merges its own work. The platform&apos;s
+              users are employees; since late 2026 its agents also produce
+              customer-facing work &mdash; copy and Figma-to-landing-page builds for
+              top-of-funnel experiments, cutting the time from idea to test. In
+              practice that is privacy and access governance for AI inside a
+              FINRA/SEC firm: role-based access, scoped
               read-only service accounts, audit logging of AI activity,
               aggregate-only reporting with per-user detail restricted to
               administrators, and written PII rules as ship conditions for new

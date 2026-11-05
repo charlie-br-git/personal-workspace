@@ -23,9 +23,10 @@ const experiences: Role[] = [
       "Co-led the company\u2019s SOC 2 and ISO 27001 programs, supplying control evidence to auditors and running vendor security reviews.",
       "Led the company-wide Claude Enterprise rollout (2025) with MCP integrations and an agent registry.",
       "Go/no-go authority for AI and agentic deployments under a three-tier capability framework I ratified, extended, and operate.",
-      "Measurement pipeline behind 90%+ weekly active AI use at peak across ~120 seats; every user is an internal employee.",
+      "Measurement pipeline behind 90%+ weekly active AI use at peak across ~120 seats, technical and non-technical teams including the leadership team.",
+      "Shipped AI agents whose output reaches end users: copywriting and Figma-to-landing-page agents for top-of-funnel experimentation, cutting the time from idea to test (late 2026).",
       "Agentic CI platform, co-developed with the platform engineering lead, that never auto-merges.",
-      "Administer the company\u2019s Claude API and Console keys: each scoped to one process and its users, spend reviewed per key, revocation wired into IT offboarding. Built a proof of concept for an in-house AI gateway.",
+      "Administer the company\u2019s Claude API and Console keys: each scoped to one process and its users, spend reviewed per key, revocation wired into IT offboarding. Evolving the out-of-the-box AI service toward a self-hosted, multi-provider, multi-model AI gateway (proof of concept so far).",
     ],
   },
   {

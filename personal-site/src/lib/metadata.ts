@@ -165,6 +165,7 @@ export function generateJsonLd() {
       "Enterprise AI Adoption",
       "AI Governance",
       "Agentic Workflows",
+      "AI Agents for Growth Experimentation",
       "AI Observability",
       "Model Context Protocol (MCP)",
       "API Architecture",
