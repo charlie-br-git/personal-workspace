@@ -7,7 +7,11 @@ import { getContentBySlug } from "@/lib/content";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
-const FEATURED_CASE_STUDIES = ["fintech-alt-investments", "owning-the-ai-ship-decision"];
+const FEATURED_CASE_STUDIES = [
+  "ira-custodial-integration",
+  "fintech-alt-investments",
+  "owning-the-ai-ship-decision",
+];
 const FEATURED_POSTS = [
   "measuring-enterprise-ai-value",
   "instrumenting-ai-in-a-regulated-org",
@@ -51,7 +55,7 @@ export default function Home() {
               View all <ArrowRight size={14} />
             </Link>
           </div>
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {caseStudies.map((meta) => (
               <CaseStudyCard key={meta.slug} meta={meta} />
             ))}
