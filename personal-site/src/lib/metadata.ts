@@ -6,7 +6,7 @@ export const personId = `${siteUrl}/#person`;
 
 const defaultTitle = "Charlie Bittner-Rossmiller | Director of Product Management";
 const defaultDescription =
-  "Director of Product Management at Willow Wealth, New York. Regulated private-markets fintech; led a company-wide Claude Enterprise rollout and own AI governance.";
+  "Director of Product Management at Willow Wealth, New York. Runs the enterprise AI platform end to end: rollout, governance, measurement, agents. Regulated fintech.";
 
 // Absolute URL on purpose: Next ignores metadataBase for absolute URLs, which
 // sidesteps the basePath being applied twice to a relative image path.
@@ -46,13 +46,13 @@ export const siteMetadata: Metadata = {
     locale: "en_US",
     url: "./",
     siteName,
-    title: "Charlie Bittner-Rossmiller — Product Leadership in Regulated Fintech & Applied AI",
+    title: "Charlie Bittner-Rossmiller — Enterprise AI Platform Leadership on Regulated Fintech",
     description: defaultDescription,
     images: [ogImage],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Charlie Bittner-Rossmiller — Product Leadership in Regulated Fintech & Applied AI",
+    title: "Charlie Bittner-Rossmiller — Enterprise AI Platform Leadership on Regulated Fintech",
     description: defaultDescription,
     images: [ogImage.url],
   },
@@ -140,7 +140,7 @@ export function generateJsonLd() {
     alternateName: ["Charles Bittner-Rossmiller"],
     jobTitle: "Director of Product Management",
     description:
-      "Director of Product Management at Willow Wealth, New York. Regulated private-markets fintech product leader (SEC/FINRA) who leads enterprise AI enablement and governance.",
+      "Director of Product Management at Willow Wealth, New York. Runs the company's enterprise AI platform end to end (rollout, governance, measurement, agentic delivery) on nine years of regulated private-markets fintech product work.",
     worksFor: {
       "@type": "Organization",
       name: "Willow Wealth",
@@ -165,6 +165,9 @@ export function generateJsonLd() {
       "Enterprise AI Adoption",
       "AI Governance",
       "Agentic Workflows",
+      "AI Agents for Growth Experimentation",
+      "Model Routing",
+      "Multi-Agent Systems",
       "AI Observability",
       "Model Context Protocol (MCP)",
       "API Architecture",
