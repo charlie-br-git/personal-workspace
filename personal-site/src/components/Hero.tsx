@@ -15,9 +15,9 @@ export default function Hero() {
         <p className="text-sm font-medium tracking-wider text-primary-light uppercase mb-6">
           Director of Product Management &middot; Willow Wealth &middot; New York, NY
         </p>
-        <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.1] mb-6">
-          Enterprise AI, run end to end,
-          <span className="gradient-text block">on a regulated fintech platform.</span>
+        <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight leading-[1.1] mb-6">
+          Enterprise AI, end to end,
+          <span className="gradient-text block">built on regulated fintech.</span>
         </h1>
         <p className="text-lg md:text-xl text-muted max-w-2xl leading-relaxed mb-10">
           I run Willow Wealth&apos;s enterprise AI platform end to end: the company-wide Claude
