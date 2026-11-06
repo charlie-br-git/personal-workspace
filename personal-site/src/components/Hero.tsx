@@ -16,16 +16,19 @@ export default function Hero() {
           Director of Product Management &middot; Willow Wealth &middot; New York, NY
         </p>
         <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.1] mb-6">
-          Product leadership for regulated fintech,
-          <span className="gradient-text block">built for the AI era.</span>
+          Enterprise AI, run end to end,
+          <span className="gradient-text block">on a regulated fintech platform.</span>
         </h1>
         <p className="text-lg md:text-xl text-muted max-w-2xl leading-relaxed mb-10">
-          Engineer to Director on one SEC- and FINRA-regulated private-markets platform since
-          2017: registered funds, managed portfolios, IRA custody and broker-dealer integrations,
-          and a team of three PMs. Since mid-2026 I also own AI enablement, governance, and
-          infrastructure org-wide &mdash; go/no-go authority under a capability framework I
-          ratified, extended, and operate, and the measurement pipeline behind 90%+ weekly active
-          adoption at peak across ~120 internal seats.
+          I run Willow Wealth&apos;s enterprise AI platform end to end: the company-wide Claude
+          Enterprise rollout, go/no-go authority under a capability framework I ratified, extended,
+          and operate, the measurement pipeline behind 90%+ weekly active use at peak across ~120
+          seats, nine custom agents deployed org-wide, and an agentic CI platform, co-developed with
+          our platform engineering lead, that never merges its own work. As of late 2026 its agents
+          also produce customer-facing work: copy and Figma-to-landing-page builds for top-of-funnel
+          experiments. Underneath it, nine years on one SEC- and FINRA-regulated private-markets
+          platform: engineer to Director, registered funds, managed portfolios, IRA custody and
+          broker-dealer integrations, and a team of three PMs.
         </p>
         <div className="flex flex-wrap items-center gap-4">
           <Link
