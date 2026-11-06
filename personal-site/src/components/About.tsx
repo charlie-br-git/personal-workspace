@@ -1,7 +1,7 @@
 export default function About() {
   const stats = [
     { value: "90%+", label: "Weekly active AI adoption at peak, ~120 internal seats" },
-    { value: "9 agents", label: "Custom agents deployed org-wide, with model routing and multi-agent chains" },
+    { value: "9 agents", label: "Custom agents deployed org-wide, with evals, model routing and multi-agent chains" },
     { value: "Since 2017", label: "Engineer to Director on one SEC/FINRA-regulated platform" },
     { value: "31 → 7 days", label: "IRA account setup, from launch to scale" },
   ];
@@ -13,7 +13,7 @@ export default function About() {
     },
     {
       lead: "Shipping agents that do real work",
-      rest: " — nine custom agents org-wide with model routing and multi-agent chains, including agents whose output reaches customers.",
+      rest: " — nine custom agents org-wide with evals, model routing and multi-agent chains, including agents whose output reaches customers.",
     },
     {
       lead: "Launching regulated products with partners",
@@ -48,8 +48,8 @@ export default function About() {
               release gate I operate, the measurement behind 90%+ weekly active use
               at peak across ~120 seats, and agentic delivery &mdash; from a
               co-developed CI platform that never merges its own work to nine custom
-              agents deployed across the organization with model routing and
-              multi-agent chains.
+              agents deployed across the organization with evals, model routing
+              and multi-agent chains.
             </p>
             <p>
               The platform&apos;s users are employees; as of late 2026 its agents
@@ -121,7 +121,7 @@ export default function About() {
           <p>
             <span className="text-foreground font-medium">Hands-on:</span> Claude
             Enterprise administration · Claude API · Claude Code · Model Context
-            Protocol (MCP) · custom agents with model routing and multi-agent chains ·
+            Protocol (MCP) · custom agents with evals, model routing and multi-agent chains ·
             agentic CI on GitHub Actions · AI usage telemetry (OTLP into the existing
             observability stack) · versioned org-wide prompt and skill layer · Python ·
             React / React Native · Twilio · SQLite
