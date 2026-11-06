@@ -64,8 +64,18 @@ export default function About() {
         markets.
       </SectionHeading>
 
+      {/* Stats as a hairline row with tabular numerals. */}
+      <ul className="mt-12 grid grid-cols-2 gap-x-6 gap-y-8 border-t border-rule pt-6 md:grid-cols-4">
+        {stats.map((stat) => (
+          <li key={stat.label}>
+            <p className="font-display text-2xl tabular-nums md:text-3xl">{stat.value}</p>
+            <p className="mt-2 text-sm text-muted">{stat.label}</p>
+          </li>
+        ))}
+      </ul>
+
       {/* Two prose columns, set under the heading on the right nine columns. */}
-      <div className="mt-12 grid grid-cols-12 gap-x-6">
+      <div className="mt-16 grid grid-cols-12 gap-x-6">
         <div className="col-span-12 md:col-start-4 md:col-span-9 grid gap-x-10 gap-y-6 lg:grid-cols-2 text-md text-muted">
           <div className="space-y-5">
             <p>
@@ -139,16 +149,6 @@ export default function About() {
           ))}
         </ol>
       </div>
-
-      {/* Stats as a hairline row with tabular numerals. */}
-      <ul className="mt-16 grid grid-cols-2 gap-x-6 gap-y-8 border-t border-rule pt-6 md:grid-cols-4">
-        {stats.map((stat) => (
-          <li key={stat.label}>
-            <p className="font-display text-2xl tabular-nums md:text-3xl">{stat.value}</p>
-            <p className="mt-2 text-sm text-muted">{stat.label}</p>
-          </li>
-        ))}
-      </ul>
 
       {/* Hands-on and governance strips as a specification table. */}
       <dl className="mt-14 border-t border-rule">
