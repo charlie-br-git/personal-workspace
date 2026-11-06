@@ -8,7 +8,7 @@ export default function Hero() {
       <div className="absolute top-1/4 -left-48 w-96 h-96 bg-primary/8 rounded-full blur-[128px]" />
       <div className="absolute bottom-1/4 -right-48 w-96 h-96 bg-accent/8 rounded-full blur-[128px]" />
 
-      <div className="relative mx-auto max-w-5xl px-6 py-20 md:py-28">
+      <div className="relative mx-auto w-full max-w-5xl px-6 py-20 md:py-28">
         <p className="text-base md:text-lg font-semibold text-foreground mb-2">
           Charlie Bittner-Rossmiller
         </p>
