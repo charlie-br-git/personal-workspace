@@ -3,8 +3,8 @@ import About from "@/components/About";
 import Experience from "@/components/Experience";
 import CaseStudyCard from "@/components/CaseStudyCard";
 import BlogPostCard from "@/components/BlogPostCard";
+import SectionHeading from "@/components/SectionHeading";
 import { getContentBySlug } from "@/lib/content";
-import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 const FEATURED_CASE_STUDIES = [
@@ -26,98 +26,67 @@ export default function Home() {
   const blogPosts = FEATURED_POSTS.map((slug) => getContentBySlug("blog", slug).meta);
 
   return (
-    <>
+    <div className="numbered">
       <Hero />
-      <div className="section-divider" />
-
       <About />
-      <div className="section-divider" />
-
       <Experience />
-      <div className="section-divider" />
 
-      {/* Case Studies */}
-      <section className="py-24">
-        <div className="mx-auto max-w-5xl px-6">
-          <div className="flex items-end justify-between mb-8">
-            <div>
-              <p className="text-sm font-medium tracking-wider text-secondary uppercase mb-3">
-                Case Studies
-              </p>
-              <h2 className="text-3xl md:text-4xl font-bold">
-                Selected <span className="gradient-text">deep dives.</span>
-              </h2>
-            </div>
-            <Link
-              href="/case-studies/"
-              className="hidden md:inline-flex items-center gap-1.5 text-sm font-medium text-secondary hover:text-secondary/80 transition-colors"
-            >
-              View all <ArrowRight size={14} />
-            </Link>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {caseStudies.map((meta) => (
-              <CaseStudyCard key={meta.slug} meta={meta} />
-            ))}
-          </div>
+      {/* Case studies */}
+      <section className="site-container border-t border-rule py-20 md:py-28">
+        <SectionHeading label="Case Studies">Selected deep dives.</SectionHeading>
+        <div className="mt-12 border-t border-rule">
+          {caseStudies.map((meta) => (
+            <CaseStudyCard key={meta.slug} meta={meta} />
+          ))}
         </div>
+        <p className="mt-6 text-sm">
+          <Link href="/case-studies/" className="link text-fg">
+            View all →
+          </Link>
+        </p>
       </section>
 
-      <div className="section-divider" />
-
-      {/* Blog */}
+      {/* Writing */}
       {blogPosts.length > 0 && (
-        <section className="py-24">
-          <div className="mx-auto max-w-5xl px-6">
-            <div className="flex items-end justify-between mb-8">
-              <div>
-                <p className="text-sm font-medium tracking-wider text-accent uppercase mb-3">
-                  Blog
-                </p>
-                <h2 className="text-3xl md:text-4xl font-bold">
-                  Selected <span className="gradient-text">writing.</span>
-                </h2>
-              </div>
-              <Link
-                href="/blog/"
-                className="hidden md:inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:text-accent/80 transition-colors"
-              >
-                View all <ArrowRight size={14} />
-              </Link>
-            </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {blogPosts.map((meta) => (
-                <BlogPostCard key={meta.slug} meta={meta} />
-              ))}
-            </div>
+        <section className="site-container border-t border-rule py-20 md:py-28">
+          <SectionHeading label="Blog">Selected writing.</SectionHeading>
+          <div className="mt-12 border-t border-rule">
+            {blogPosts.map((meta) => (
+              <BlogPostCard key={meta.slug} meta={meta} />
+            ))}
           </div>
+          <p className="mt-6 text-sm">
+            <Link href="/blog/" className="link text-fg">
+              View all →
+            </Link>
+          </p>
         </section>
       )}
 
-      <div className="section-divider" />
-
-      {/* CTA */}
-      <section className="py-24">
-        <div className="mx-auto max-w-5xl px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Let&apos;s <span className="gradient-text">compare notes.</span>
+      {/* Closing */}
+      <section className="site-container border-t border-rule py-20 md:py-28">
+        <div className="grid grid-cols-12 gap-x-6 gap-y-6">
+          <h2 className="col-span-12 md:col-start-4 md:col-span-9 lg:col-span-8 font-display text-3xl">
+            Let&apos;s compare notes.
           </h2>
-          <p className="text-lg text-muted max-w-xl mx-auto mb-8">
+          <p className="col-span-12 md:col-start-4 md:col-span-9 lg:col-span-7 max-w-lede text-lg text-muted">
             I&apos;m glad to talk about regulated fintech product strategy,
             enterprise AI governance and measurement, and what it takes to build
             products that hold up under scrutiny. LinkedIn is the fastest way to
             reach me.
           </p>
-          <a
-            href="https://www.linkedin.com/in/charliebr/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center rounded-lg px-6 py-3 text-sm font-semibold text-white gradient-bg hover:opacity-90 transition-opacity"
-          >
-            Message me on LinkedIn
-          </a>
+          <div className="col-span-12 md:col-start-4 md:col-span-9">
+            <a
+              href="https://www.linkedin.com/in/charliebr/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary"
+            >
+              Message me on LinkedIn
+            </a>
+          </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }

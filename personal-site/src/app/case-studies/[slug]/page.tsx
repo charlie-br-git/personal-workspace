@@ -3,7 +3,6 @@ import { formatDate } from "@/lib/format";
 import { articleJsonLd, articleMetadata } from "@/lib/metadata";
 import { mdxComponents } from "@/components/MdxComponents";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import type { Metadata } from "next";
 
@@ -44,39 +43,37 @@ export default async function CaseStudyPage({
   });
 
   return (
-    <article className="mx-auto max-w-3xl px-6 py-24">
+    <article className="site-container fade-in py-16 md:py-24">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Link
-        href="/case-studies/"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors mb-8"
-      >
-        <ArrowLeft size={14} /> Back to Case Studies
-      </Link>
+      <div className="grid grid-cols-12 gap-x-6 gap-y-10">
+        <header className="col-span-12 lg:col-span-10">
+          <p className="no-print text-sm">
+            <Link href="/case-studies/" className="link text-muted">
+              ← Back to Case Studies
+            </Link>
+          </p>
+          <p className="label mt-12 tabular-nums">
+            Case study · <time dateTime={meta.date}>{formatDate(meta.date)}</time>
+          </p>
+          <h1 className="font-display mt-5 text-4xl">{meta.title}</h1>
+          <p className="mt-6 max-w-lede text-lg text-muted">{meta.excerpt}</p>
+          <ul className="tags mt-8" aria-label="Topics">
+            {meta.tags.map((tag) => (
+              <li key={tag} className="tag">
+                {tag}
+              </li>
+            ))}
+          </ul>
+        </header>
 
-      <div className="flex items-center gap-3 text-sm text-muted mb-4">
-        <span>Case study</span>
-        <span>·</span>
-        <time dateTime={meta.date}>{formatDate(meta.date)}</time>
-      </div>
+        <div className="col-span-12 border-t border-rule" />
 
-      <div className="flex flex-wrap gap-2 mb-4">
-        {meta.tags.map((tag) => (
-          <span key={tag} className="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary-light">
-            {tag}
-          </span>
-        ))}
-      </div>
-
-      <h1 className="text-3xl md:text-4xl font-bold leading-tight mb-4">{meta.title}</h1>
-      <p className="text-lg text-muted mb-8">{meta.excerpt}</p>
-
-      <div className="section-divider mb-10" />
-
-      <div className="prose-custom">
-        <MDXRemote source={content} components={mdxComponents} />
+        <div className="prose col-span-12 md:col-start-2 md:col-span-10 lg:col-start-4 lg:col-span-8">
+          <MDXRemote source={content} components={mdxComponents} />
+        </div>
       </div>
     </article>
   );

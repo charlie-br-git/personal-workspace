@@ -1,4 +1,4 @@
-import { ArrowUpRight } from "lucide-react";
+import SectionHeading from "@/components/SectionHeading";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -32,44 +32,50 @@ const projects = [
 
 export default function ProjectsPage() {
   return (
-    <div className="mx-auto max-w-5xl px-6 py-24">
-      <p className="text-sm font-medium tracking-wider text-accent uppercase mb-3">Projects</p>
-      <h1 className="text-4xl md:text-5xl font-bold mb-4">
-        Product leader who <span className="gradient-text">builds.</span>
-      </h1>
-      <p className="text-lg text-muted max-w-2xl mb-12">
-        I prototype with the Claude API, React, Python, Twilio and MCP, using Claude Code. These
-        are personal projects, built to learn and to think through products. They are not
-        production systems or shipped products.
-      </p>
+    <div className="site-container fade-in py-16 md:py-24">
+      <SectionHeading
+        label="Projects"
+        numbered={false}
+        as="h1"
+        aside={
+          <p className="mt-4 max-w-lede text-lg text-muted">
+            I prototype with the Claude API, React, Python, Twilio and MCP, using Claude Code. These
+            are personal projects, built to learn and to think through products. They are not
+            production systems or shipped products.
+          </p>
+        }
+      >
+        Product leader who builds.
+      </SectionHeading>
 
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="mt-14 border-t border-rule">
         {projects.map((p) => (
-          <div key={p.name} className="rounded-xl bg-surface border border-border p-6">
-            <div className="flex flex-wrap gap-2 mb-3">
-              {p.stack.map((t) => (
-                <span
-                  key={t}
-                  className="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary-light"
-                >
-                  {t}
-                </span>
-              ))}
+          <article key={p.name} className="grid grid-cols-12 gap-x-6 gap-y-3 border-b border-rule py-8 md:py-10">
+            <div className="col-span-12 md:col-span-3">
+              <ul className="tags" aria-label="Stack">
+                {p.stack.map((t) => (
+                  <li key={t} className="tag">
+                    {t}
+                  </li>
+                ))}
+              </ul>
             </div>
-            <h3 className="text-lg font-bold text-foreground mb-2">{p.name}</h3>
-            <p className="text-sm text-muted leading-relaxed mb-4">{p.description}</p>
-            <div className="flex gap-4">
-              {p.links.map((l) => (
-                <a
-                  key={l.label}
-                  href={l.href}
-                  className="inline-flex items-center gap-1 text-sm font-medium text-secondary hover:text-secondary/80 transition-colors"
-                >
-                  {l.label} <ArrowUpRight size={14} />
-                </a>
-              ))}
+            <div className="col-span-12 md:col-span-9 lg:col-span-8">
+              <h2 className="font-display text-xl">{p.name}</h2>
+              <p className="mt-2 max-w-prose text-md text-muted">{p.description}</p>
+              {p.links.length > 0 && (
+                <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm">
+                  {p.links.map((l) => (
+                    <li key={l.label}>
+                      <a href={l.href} className="link print-url text-fg">
+                        {l.label} ↗
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
-          </div>
+          </article>
         ))}
       </div>
     </div>

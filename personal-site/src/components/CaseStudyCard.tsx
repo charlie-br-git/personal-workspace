@@ -1,35 +1,45 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import type { ContentMeta } from "@/lib/content";
 import { formatDate } from "@/lib/format";
 
-export default function CaseStudyCard({ meta }: { meta: ContentMeta }) {
+/** One editorial listing row: date and reading time, title, summary, tags. */
+export default function CaseStudyCard({
+  meta,
+  headingLevel: Heading = "h3",
+}: {
+  meta: ContentMeta;
+  /** h2 on index pages (under the page h1), h3 on the home page (under a section h2). */
+  headingLevel?: "h2" | "h3";
+}) {
+  const href = `/case-studies/${meta.slug}/`;
   return (
-    <Link
-      href={`/case-studies/${meta.slug}/`}
-      className="group block rounded-xl bg-surface border border-border p-6 hover:border-primary/30 transition-colors"
-    >
-      <time dateTime={meta.date} className="block text-xs text-muted mb-3">
-        {formatDate(meta.date)}
-      </time>
-      <div className="flex flex-wrap gap-2 mb-3">
-        {meta.tags.map((tag) => (
-          <span
-            key={tag}
-            className="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary-light"
-          >
-            {tag}
-          </span>
-        ))}
+    <article className="grid grid-cols-12 gap-x-6 gap-y-2 border-b border-rule py-7 md:py-8">
+      <div className="col-span-12 md:col-span-3 text-sm tabular-nums text-muted">
+        <time dateTime={meta.date} className="block">
+          {formatDate(meta.date)}
+        </time>
+        {meta.readingTime && <span className="block">{meta.readingTime}</span>}
       </div>
-      <h3 className="text-lg font-bold text-foreground mb-2 group-hover:text-primary-light transition-colors">
-        {meta.title}
-      </h3>
-      <p className="text-sm text-muted leading-relaxed mb-4">{meta.excerpt}</p>
-      <span className="inline-flex items-center gap-1.5 text-sm font-medium text-secondary">
-        Read case study
-        <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
-      </span>
-    </Link>
+      <div className="col-span-12 md:col-span-9 lg:col-span-8">
+        <Heading className="font-display text-xl">
+          <Link href={href} className="link-title">
+            {meta.title}
+          </Link>
+        </Heading>
+        <p className="mt-2 max-w-prose text-md text-muted">{meta.excerpt}</p>
+        <div className="mt-4 space-y-4">
+          <ul className="tags" aria-label="Topics">
+            {meta.tags.map((tag) => (
+              <li key={tag} className="tag">
+                {tag}
+              </li>
+            ))}
+          </ul>
+          <Link href={href} className="link inline-block text-sm text-fg">
+            Read case study →
+          </Link>
+        </div>
+      </div>
+    </article>
   );
 }

@@ -1,5 +1,6 @@
 import { getAllContent } from "@/lib/content";
 import CaseStudyCard from "@/components/CaseStudyCard";
+import SectionHeading from "@/components/SectionHeading";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -18,17 +19,22 @@ export default function CaseStudiesPage() {
   ];
 
   return (
-    <div className="mx-auto max-w-5xl px-6 py-24">
-      <p className="text-sm font-medium tracking-wider text-secondary uppercase mb-3">Case Studies</p>
-      <h1 className="text-4xl md:text-5xl font-bold mb-4">
-        Regulated products and <span className="gradient-text">governed AI.</span>
-      </h1>
-      <p className="text-lg text-muted max-w-2xl mb-12">
-        Breakdowns of real platform challenges — the product decisions, governance patterns, and architecture that made them work.
-      </p>
-      <div className="grid md:grid-cols-2 gap-6">
+    <div className="site-container fade-in py-16 md:py-24">
+      <SectionHeading
+        label="Case Studies"
+        numbered={false}
+        as="h1"
+        aside={
+          <p className="mt-4 max-w-lede text-lg text-muted">
+            Breakdowns of real platform challenges — the product decisions, governance patterns, and architecture that made them work.
+          </p>
+        }
+      >
+        Regulated products and governed AI.
+      </SectionHeading>
+      <div className="mt-14 border-t border-rule">
         {caseStudies.map((meta) => (
-          <CaseStudyCard key={meta.slug} meta={meta} />
+          <CaseStudyCard key={meta.slug} meta={meta} headingLevel="h2" />
         ))}
       </div>
     </div>

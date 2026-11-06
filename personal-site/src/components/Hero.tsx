@@ -1,25 +1,22 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="relative flex items-center overflow-hidden">
-      {/* Subtle ambient glow */}
-      <div className="absolute top-1/4 -left-48 w-96 h-96 bg-primary/8 rounded-full blur-[128px]" />
-      <div className="absolute bottom-1/4 -right-48 w-96 h-96 bg-accent/8 rounded-full blur-[128px]" />
+    <section className="site-container fade-in pt-14 pb-20 md:pt-24 md:pb-28">
+      <div className="grid grid-cols-12 gap-x-6 gap-y-8">
+        <div className="col-span-12 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+          <p className="label text-fg">Charlie Bittner-Rossmiller</p>
+          <p className="label">
+            Director of Product Management &middot; Willow Wealth &middot; New York, NY
+          </p>
+        </div>
 
-      <div className="relative mx-auto w-full max-w-5xl px-6 py-20 md:py-28">
-        <p className="text-base md:text-lg font-semibold text-foreground mb-2">
-          Charlie Bittner-Rossmiller
-        </p>
-        <p className="text-sm font-medium tracking-wider text-primary-light uppercase mb-6">
-          Director of Product Management &middot; Willow Wealth &middot; New York, NY
-        </p>
-        <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight leading-[1.1] mb-6">
+        <h1 className="col-span-12 lg:col-span-11 font-display text-5xl">
           Enterprise AI, end to end,
-          <span className="gradient-text block">built on regulated fintech.</span>
+          <span className="block">built on regulated fintech.</span>
         </h1>
-        <p className="text-lg md:text-xl text-muted max-w-2xl leading-relaxed mb-10">
+
+        <p className="col-span-12 md:col-span-10 lg:col-span-8 max-w-lede text-lg text-muted">
           I run Willow Wealth&apos;s enterprise AI platform end to end: the company-wide Claude
           Enterprise rollout, go/no-go authority under a capability framework I ratified, extended,
           and operate, the measurement pipeline behind 90%+ weekly active use at peak across ~120
@@ -30,26 +27,21 @@ export default function Hero() {
           platform: engineer to Director, registered funds, managed portfolios, IRA custody and
           broker-dealer integrations, and a team of three PMs.
         </p>
-        <div className="flex flex-wrap items-center gap-4">
-          <Link
-            href="/case-studies/"
-            className="inline-flex items-center justify-center rounded-lg px-6 py-3 text-sm font-semibold text-white gradient-bg hover:opacity-90 transition-opacity"
-          >
+
+        <div className="col-span-12 flex flex-wrap items-center gap-x-6 gap-y-4">
+          <Link href="/case-studies/" className="btn btn-primary">
             View Case Studies
           </Link>
-          <Link
-            href="/projects/"
-            className="inline-flex items-center justify-center rounded-lg px-6 py-3 text-sm font-semibold text-foreground border border-border hover:bg-surface transition-colors"
-          >
+          <Link href="/projects/" className="btn btn-secondary">
             See What I&apos;ve Built
           </Link>
           <a
             href="https://www.linkedin.com/in/charliebr/"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 px-2 py-3 text-sm font-semibold text-foreground underline-offset-4 hover:underline"
+            className="link print-url py-2 text-sm font-medium text-fg"
           >
-            Connect on LinkedIn <ArrowUpRight size={14} aria-hidden="true" />
+            Connect on LinkedIn ↗
           </a>
         </div>
       </div>
