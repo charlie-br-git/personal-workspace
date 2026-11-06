@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import SectionHeading from "@/components/SectionHeading";
 
 export const metadata: Metadata = {
   title: "Page not found",
@@ -9,18 +10,26 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <div className="mx-auto max-w-3xl px-6 py-24">
-      <p className="text-sm font-medium tracking-wider text-primary-light uppercase mb-3">404</p>
-      <h1 className="text-3xl md:text-4xl font-bold mb-4">Page not found</h1>
-      <p className="text-lg text-muted mb-8">
-        That page doesn&apos;t exist here. The case studies, writing and projects are all reachable from the home page.
-      </p>
-      <Link
-        href="/"
-        className="inline-flex items-center justify-center rounded-lg px-6 py-3 text-sm font-semibold text-white gradient-bg hover:opacity-90 transition-opacity"
+    <div className="site-container fade-in py-16 md:py-24">
+      <SectionHeading
+        label="404"
+        numbered={false}
+        as="h1"
+        aside={
+          <>
+            <p className="mt-4 max-w-lede text-lg text-muted">
+              That page doesn&apos;t exist here. The case studies, writing and projects are all reachable from the home page.
+            </p>
+            <p className="mt-8">
+              <Link href="/" className="btn btn-primary">
+                Back to home
+              </Link>
+            </p>
+          </>
+        }
       >
-        Back to home
-      </Link>
+        Page not found
+      </SectionHeading>
     </div>
   );
 }

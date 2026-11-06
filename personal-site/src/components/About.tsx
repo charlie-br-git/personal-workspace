@@ -1,43 +1,83 @@
+import SectionHeading from "@/components/SectionHeading";
+
+const stats = [
+  { value: "90%+", label: "Weekly active AI adoption at peak, ~120 internal seats" },
+  { value: "9 agents", label: "Custom agents deployed org-wide, with evals, model routing and multi-agent chains" },
+  { value: "Since 2017", label: "Engineer to Director on one SEC/FINRA-regulated platform" },
+  { value: "31 → 7 days", label: "IRA account setup, from launch to scale" },
+];
+
+const capabilities = [
+  {
+    lead: "Governing and measuring enterprise AI",
+    rest: " — written decision rights, a release gate I operate, and numbers that reconcile to the invoice.",
+  },
+  {
+    lead: "Shipping agents that do real work",
+    rest: " — nine custom agents org-wide with evals, model routing and multi-agent chains, including agents whose output reaches customers.",
+  },
+  {
+    lead: "Launching regulated products with partners",
+    rest: " — custodians, broker-dealers, advisers — with compliance review built in from the first sketch.",
+  },
+  {
+    lead: "Building to think",
+    rest: " — prototypes with the Claude API, MCP, Python, React Native and Twilio that test an idea before it goes on a roadmap.",
+  },
+];
+
+const specification = [
+  {
+    label: "Hands-on",
+    items: [
+      "Claude Enterprise administration",
+      "Claude API",
+      "Claude Code",
+      "Model Context Protocol (MCP)",
+      "custom agents with evals, model routing and multi-agent chains",
+      "agentic CI on GitHub Actions",
+      "AI usage telemetry (OTLP into the existing observability stack)",
+      "versioned org-wide prompt and skill layer",
+      "Python",
+      "React / React Native",
+      "Twilio",
+      "SQLite",
+    ],
+  },
+  {
+    label: "Governance and compliance",
+    items: [
+      "AI release gating (go/no-go)",
+      "API-key lifecycle and scoped read-only service accounts",
+      "PII and aggregate-only data rules",
+      "FINRA 2210 review",
+      "SOC 2 and ISO 27001 programs (co-led)",
+    ],
+  },
+];
+
 export default function About() {
-  const stats = [
-    { value: "90%+", label: "Weekly active AI adoption at peak, ~120 internal seats" },
-    { value: "9 agents", label: "Custom agents deployed org-wide, with evals, model routing and multi-agent chains" },
-    { value: "Since 2017", label: "Engineer to Director on one SEC/FINRA-regulated platform" },
-    { value: "31 → 7 days", label: "IRA account setup, from launch to scale" },
-  ];
-
-  const capabilities = [
-    {
-      lead: "Governing and measuring enterprise AI",
-      rest: " — written decision rights, a release gate I operate, and numbers that reconcile to the invoice.",
-    },
-    {
-      lead: "Shipping agents that do real work",
-      rest: " — nine custom agents org-wide with evals, model routing and multi-agent chains, including agents whose output reaches customers.",
-    },
-    {
-      lead: "Launching regulated products with partners",
-      rest: " — custodians, broker-dealers, advisers — with compliance review built in from the first sketch.",
-    },
-    {
-      lead: "Building to think",
-      rest: " — prototypes with the Claude API, MCP, Python, React Native and Twilio that test an idea before it goes on a roadmap.",
-    },
-  ];
-
   return (
-    <section id="about" className="py-24">
-      <div className="mx-auto max-w-5xl px-6">
-        <p className="text-sm font-medium tracking-wider text-secondary uppercase mb-3">
-          About
-        </p>
-        <h2 className="text-3xl md:text-4xl font-bold mb-10">
-          An engineer who became a product leader, and now runs{" "}
-          <span className="gradient-text">enterprise AI in regulated private markets.</span>
-        </h2>
+    <section id="about" className="site-container border-t border-rule py-20 md:py-28">
+      <SectionHeading label="About">
+        An engineer who became a product leader, and now runs enterprise AI in regulated private
+        markets.
+      </SectionHeading>
 
-        <div className="grid md:grid-cols-2 gap-10 mb-10">
-          <div className="space-y-5 text-muted leading-relaxed">
+      {/* Stats as a hairline row with tabular numerals. */}
+      <ul className="mt-12 grid grid-cols-2 gap-x-6 gap-y-8 border-t border-rule pt-6 md:grid-cols-4">
+        {stats.map((stat) => (
+          <li key={stat.label}>
+            <p className="font-display text-2xl tabular-nums md:text-3xl">{stat.value}</p>
+            <p className="mt-2 text-sm text-muted">{stat.label}</p>
+          </li>
+        ))}
+      </ul>
+
+      {/* Two prose columns, set under the heading on the right nine columns. */}
+      <div className="mt-16 grid grid-cols-12 gap-x-6">
+        <div className="col-span-12 md:col-start-4 md:col-span-9 grid gap-x-10 gap-y-6 lg:grid-cols-2 text-md text-muted">
+          <div className="space-y-5">
             <p>
               I&apos;m Director of Product Management at Willow Wealth (formerly
               Yieldstreet), a private-markets investment platform operating under
@@ -65,7 +105,7 @@ export default function About() {
               automations.
             </p>
           </div>
-          <div className="space-y-5 text-muted leading-relaxed">
+          <div className="space-y-5">
             <p>
               I got here from the inside: employee #13, a software engineer, in
               2017, then product management and senior product management, into
@@ -83,7 +123,7 @@ export default function About() {
             <p>
               I build to think: I prototype with the Claude API, React Native,
               Python, Twilio and MCP.{" "}
-              <span className="text-foreground font-medium">
+              <span className="font-medium text-fg">
                 The through-line is making complex, regulated systems usable by
                 the people who depend on them.
               </span>
@@ -95,45 +135,36 @@ export default function About() {
             </p>
           </div>
         </div>
+      </div>
 
-        <ul className="mb-14 grid gap-4 md:grid-cols-2 lg:grid-cols-4 text-sm text-muted leading-relaxed">
+      {/* Capabilities as a numbered list. */}
+      <div className="mt-16 grid grid-cols-12 gap-x-6 gap-y-4">
+        <p className="label col-span-12 md:col-span-3">Capabilities</p>
+        <ol className="list-numbered col-span-12 md:col-span-9 grid gap-x-10 gap-y-5 lg:grid-cols-2 text-md text-muted">
           {capabilities.map((c) => (
             <li key={c.lead}>
-              <span className="text-foreground font-medium">{c.lead}</span>
+              <span className="font-medium text-fg">{c.lead}</span>
               {c.rest}
             </li>
           ))}
-        </ul>
-
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {stats.map((stat) => (
-            <div
-              key={stat.label}
-              className="rounded-xl bg-surface border border-border p-6 text-center"
-            >
-              <div className="text-3xl font-bold gradient-text">{stat.value}</div>
-              <div className="mt-1 text-sm text-muted">{stat.label}</div>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-10 space-y-2 text-sm text-muted leading-relaxed">
-          <p>
-            <span className="text-foreground font-medium">Hands-on:</span> Claude
-            Enterprise administration · Claude API · Claude Code · Model Context
-            Protocol (MCP) · custom agents with evals, model routing and multi-agent chains ·
-            agentic CI on GitHub Actions · AI usage telemetry (OTLP into the existing
-            observability stack) · versioned org-wide prompt and skill layer · Python ·
-            React / React Native · Twilio · SQLite
-          </p>
-          <p>
-            <span className="text-foreground font-medium">Governance and compliance:</span>{" "}
-            AI release gating (go/no-go) · API-key lifecycle and scoped read-only
-            service accounts · PII and aggregate-only data rules · FINRA 2210 review ·
-            SOC 2 and ISO 27001 programs (co-led)
-          </p>
-        </div>
+        </ol>
       </div>
+
+      {/* Hands-on and governance strips as a specification table. */}
+      <dl className="mt-14 border-t border-rule">
+        {specification.map((row) => (
+          <div key={row.label} className="grid grid-cols-12 gap-x-6 gap-y-2 border-b border-rule py-5">
+            <dt className="label col-span-12 md:col-span-3 md:pt-0.5">{row.label}</dt>
+            <dd className="col-span-12 md:col-span-9 text-md text-muted">
+              <ul className="list-inline">
+                {row.items.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </dd>
+          </div>
+        ))}
+      </dl>
     </section>
   );
 }

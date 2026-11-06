@@ -1,5 +1,6 @@
 import { getAllContent } from "@/lib/content";
 import BlogPostCard from "@/components/BlogPostCard";
+import SectionHeading from "@/components/SectionHeading";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -11,17 +12,22 @@ export default function BlogPage() {
   const posts = getAllContent("blog");
 
   return (
-    <div className="mx-auto max-w-5xl px-6 py-24">
-      <p className="text-sm font-medium tracking-wider text-accent uppercase mb-3">Blog</p>
-      <h1 className="text-4xl md:text-5xl font-bold mb-4">
-        Thinking out loud about <span className="gradient-text">governed AI.</span>
-      </h1>
-      <p className="text-lg text-muted max-w-2xl mb-12">
-        Practical insights from building enterprise AI systems — architecture patterns, security decisions, and lessons learned.
-      </p>
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="site-container fade-in py-16 md:py-24">
+      <SectionHeading
+        label="Blog"
+        numbered={false}
+        as="h1"
+        aside={
+          <p className="mt-4 max-w-lede text-lg text-muted">
+            Practical insights from building enterprise AI systems — architecture patterns, security decisions, and lessons learned.
+          </p>
+        }
+      >
+        Thinking out loud about governed AI.
+      </SectionHeading>
+      <div className="mt-14 border-t border-rule">
         {posts.map((meta) => (
-          <BlogPostCard key={meta.slug} meta={meta} />
+          <BlogPostCard key={meta.slug} meta={meta} headingLevel="h2" />
         ))}
       </div>
     </div>
