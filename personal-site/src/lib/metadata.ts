@@ -6,7 +6,7 @@ export const personId = `${siteUrl}/#person`;
 
 const defaultTitle = "Charlie Bittner-Rossmiller | Director of Product Management";
 const defaultDescription =
-  "Director of Product Management at Willow Wealth, New York. Runs the enterprise AI platform end to end: rollout, governance, measurement, agents. Regulated fintech.";
+  "Director of Product Management at Willow Wealth, New York. Runs the enterprise AI platform end to end: rollout, enablement, measurement, agents. Regulated fintech.";
 
 // Absolute URL on purpose: Next ignores metadataBase for absolute URLs, which
 // sidesteps the basePath being applied twice to a relative image path.
@@ -33,7 +33,9 @@ export const siteMetadata: Metadata = {
     "registered funds",
     "custodial integrations",
     "enterprise AI adoption",
+    "AI enablement",
     "AI governance",
+    "AI release readiness",
     "MCP architecture",
     "Claude Enterprise",
     "New York",
@@ -140,7 +142,7 @@ export function generateJsonLd() {
     alternateName: ["Charles Bittner-Rossmiller"],
     jobTitle: "Director of Product Management",
     description:
-      "Director of Product Management at Willow Wealth, New York. Runs the company's enterprise AI platform end to end (rollout, governance, measurement, agentic delivery) on nine years of regulated private-markets fintech product work.",
+      "Director of Product Management at Willow Wealth, New York. Runs the company's enterprise AI platform end to end (rollout, enablement and readiness, measurement, agentic delivery, and now agents whose output reaches customers), built on nine years of regulated-fintech product work.",
     worksFor: {
       "@type": "Organization",
       name: "Willow Wealth",
@@ -163,6 +165,8 @@ export function generateJsonLd() {
       "SOC 2 and ISO 27001 Compliance Programs",
       "Vendor Security Review",
       "Enterprise AI Adoption",
+      "AI Enablement",
+      "AI Release Readiness",
       "AI Governance",
       "Agentic Workflows",
       "AI Agents for Growth Experimentation",

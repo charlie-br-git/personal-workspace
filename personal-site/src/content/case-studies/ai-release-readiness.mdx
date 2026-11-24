@@ -1,0 +1,56 @@
+---
+title: "AI Release Readiness in a Regulated Firm"
+date: "2026-09-15"
+excerpt: "AI release readiness in a regulated fintech: written ship criteria, evidence for those who decide, a change kept live under challenge, a hold on ready work."
+tags: ["AI Governance", "Enterprise AI", "Product Leadership", "Fintech"]
+---
+
+## The Problem Nobody Owns by Default
+
+Deploying enterprise AI gets you tools people *can* use. The question that arrives next is easy to leave unowned: when an AI system wants to act — merge code, post updates, read financial systems — what does "ready" have to mean, and who puts the evidence in front of the people who decide?
+
+At Willow Wealth the decision itself sits with the control functions, such as compliance, security and IT. My side is readiness: I run AI tools and connectors through a ratified risk-tier framework that sets what each tier may do across a ~120-person company, keep the approved-tool registry, and put the evidence in front of the people who decide, in an environment where FINRA and SEC obligations make "what ships" a compliance decision as much as a technical one.
+
+## Ready, and Not Yet
+
+A readiness check that has never said "not yet" is a rubber stamp. Two calls on my own work from the same period:
+
+**Kept live, under challenge.** I migrated our org-wide AI-to-observability integration off a deprecated endpoint onto the supported one. A senior engineer asked me to defer it — an incident-opening automation he relied on used an adjacent access path, and he was about to be unreachable. Instead of rolling back, I pulled the platform's own audit trail: his path was untouched by the change. He could check the same trail himself, and signed off shortly after. The rule this left me with: when someone asks you to defer a change that's already live, the answer is evidence about their specific concern, not a reflexive rollback.
+
+**Not yet, on my own work.** A fully-prepared org-wide permissions rollout — payloads staged, pre-deploy checks green — stayed unshipped: deploying it as a single blob could have silently applied the wrong security posture to one cohort of users. "Ready" and "safe to ship" are different claims, and the gap between them was a scoping question nobody had answered yet. I wrote the hold down, with the reasoning, in the decision record.
+
+## What "Good Enough to Ship" Actually Means
+
+Codified, not vibes. The bar an AI deployment has to clear before it goes to the people who approve it:
+
+- **Read-only by construction** — write access is always a separate governance request
+- **Human-gated** — no auto-merge, no unreviewed actions on sensitive surfaces
+- **Hard exclusions** — nothing that touches money movement, KYC, or PII
+- **Provenance** — automated writes carry who/what/why, with a deny list underneath
+- **Approval ≠ go-live** — sign-off and activation are separate, deliberate steps
+- **A defined rollback or kill path** — before launch, not after
+- **Pre-launch success targets** for anything classed as financial-impact
+
+Anything investor-facing routes through compliance review (FINRA 2210) before it ships. As of September 2026 nothing investor-facing had shipped — deliberately; that was the gate working as designed, not a backlog. The same gate applies to my own prototypes.
+
+The bar covers numbers as well as deployments: when the value estimate counted pull requests created rather than merged, the conservative merged-PR basis is what went to leadership — an estimated value ratio of roughly 2 to 1 in a reading taken on 1 September 2026, against roughly 3 to 1 on the created-PR basis.
+
+## Speed Is Part of the Bar
+
+Governance that's slow gets routed around. When a non-technical operations lead filed an intake for a Slack-to-project-tracker automation — the AI itself had flagged her design as needing review — I approved the pilot the same day, on two written privacy conditions: aggregate-level data only, and PII rules apply to every post. It has run under those conditions since, built and operated by its non-technical owner.
+
+The same posture got an operations workflow to a working internal POC in one sitting: a business-operations lead spec'd her services team's manual pre-call preparation process in a 1:1, and about two hours later a pre-call brief generator — read-only, sensitive fields excluded, gaps stated rather than filled — was running against real data. A POC, not a team-wide launch; readiness criteria built in from the first prompt are what made that pace possible. Under the same model, a read-only ERP connector went live for Finance's month-end close — named users, scoped access, written usage rules — and that scoped, read-only service-account pattern became the standard answer whenever another system asks for AI access.
+
+The test of the whole posture is whether the org kept using the tools: weekly active use peaked above 90% of the ~120 seats, with Claude Code on 81.7% of merged pull requests in August 2026.
+
+## Patterns
+
+1. **Evidence from the system beats persuasion.** The audit trail settled a colleague's objection to a live change in minutes — and separately disproved an AI surface's own claim that an integration was blocked (access turned out to be endpoint-scoped, not blocked). When the evidence is checkable by both parties, the argument usually ends.
+
+2. **A hold you can explain is a feature.** Writing down *why* something didn't ship builds more trust than shipping it would have.
+
+3. **Approval is not go-live.** Separating them lets the approvers say yes quickly without anything going live accidentally.
+
+4. **Speed keeps governance alive.** A same-day conditioned approval gets used; a four-week review board gets bypassed.
+
+Context: the product work this readiness layer sits on top of — registered funds, managed portfolios, custodial and broker-dealer integrations — is in [Building Regulated Products on a Private-Markets Platform](/case-studies/fintech-alt-investments).

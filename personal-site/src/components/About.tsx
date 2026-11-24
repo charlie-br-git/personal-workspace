@@ -4,13 +4,13 @@ const stats = [
   { value: "90%+", label: "Weekly active AI adoption at peak, ~120 internal seats" },
   { value: "9 agents", label: "Custom agents deployed org-wide, with evals, model routing and multi-agent chains" },
   { value: "Since 2017", label: "Engineer to Director on one SEC/FINRA-regulated platform" },
-  { value: "31 → 7 days", label: "IRA account setup, from launch to scale" },
+    { value: "31 → 7 days", label: "Time to fund an IRA account, including account creation" },
 ];
 
 const capabilities = [
   {
-    lead: "Governing and measuring enterprise AI",
-    rest: " — written decision rights, a release gate I operate, and numbers that reconcile to the invoice.",
+        lead: "Enabling and measuring enterprise AI",
+    rest: " — onboarding and office hours, release-readiness evidence, and numbers that reconcile to the invoice.",
   },
   {
     lead: "Shipping agents that do real work",
@@ -22,7 +22,7 @@ const capabilities = [
   },
   {
     lead: "Building to think",
-    rest: " — prototypes with the Claude API, MCP, Python, React Native and Twilio that test an idea before it goes on a roadmap.",
+    rest: " — prototypes with the Claude API, MCP, Python and React Native that test an idea before it goes on a roadmap.",
   },
 ];
 
@@ -40,17 +40,15 @@ const specification = [
       "versioned org-wide prompt and skill layer",
       "Python",
       "React / React Native",
-      "Twilio",
-      "SQLite",
     ],
   },
   {
-    label: "Governance and compliance",
+        label: "Readiness and compliance",
     items: [
-      "AI release gating (go/no-go)",
+            "AI release-readiness evidence",
       "API-key lifecycle and scoped read-only service accounts",
       "PII and aggregate-only data rules",
-      "FINRA 2210 review",
+            "FINRA 2210 review as a ship condition for investor-facing output",
       "SOC 2 and ISO 27001 programs (co-led)",
     ],
   },
@@ -83,9 +81,9 @@ export default function About() {
               Yieldstreet), a private-markets investment platform operating under
               SEC and FINRA rules, and I run its enterprise AI platform end to end.
               I led the company-wide Claude Enterprise rollout in 2025, and since
-              mid-2026 I own AI enablement, governance, and infrastructure org-wide
-              as our Claude Enterprise administrator: written decision rights and a
-              release gate I operate, the measurement behind 90%+ weekly active use
+              mid-2026 I run AI enablement, readiness and the Claude platform work
+              org-wide as our Claude Enterprise administrator: the measurement
+              behind 90%+ weekly active use
               at peak across ~120 seats, and agentic delivery &mdash; from a
               co-developed CI platform that never merges its own work to nine custom
               agents deployed across the organization with evals, model routing
@@ -95,14 +93,14 @@ export default function About() {
               The platform&apos;s users are employees; as of late 2026 its agents
               also produce customer-facing work &mdash; copy and Figma-to-landing-page
               builds for top-of-funnel experiments, cutting the time from idea to
-              test. The out-of-the-box AI service is being evolved toward a
-              self-hosted, multi-provider, multi-model gateway (a work in progress,
-              not yet in production). In practice that is privacy and access
-              governance for AI inside a FINRA/SEC firm: role-based access, scoped
+              test. A proof of concept for an in-house AI gateway is built and is being
+              evolved into a self-hosted, multi-provider gateway (a work in progress,
+              not in production). In practice the platform work centers on privacy and
+              access for AI inside a FINRA/SEC firm: role-based access, scoped
               read-only service accounts, audit logging of AI activity,
               aggregate-only reporting with per-user detail restricted to
               administrators, and written PII rules as ship conditions for new
-              automations.
+              automations. The governance calls sit with the control functions.
             </p>
           </div>
           <div className="space-y-5">
@@ -110,8 +108,8 @@ export default function About() {
               I got here from the inside: employee #13, a software engineer, in
               2017, then product management and senior product management, into
               the Director role, where I also lead Willow 360 managed portfolios,
-              registered funds and the embedded-brokerage integration, and manage
-              three PMs. The work is regulated by nature &mdash; an IRA launch with a
+              registered funds and the embedded-brokerage integration. From 2021 to 2024 I
+              managed a team of two product managers. The work is regulated by nature &mdash; an IRA launch with a
               custodian, a 0-to-1 savings account, registered funds, managed
               portfolios, and the custodial and broker-dealer integrations behind
               them &mdash; in a context where compliance is a design input rather
@@ -122,7 +120,10 @@ export default function About() {
             </p>
             <p>
               I build to think: I prototype with the Claude API, React Native,
-              Python, Twilio and MCP.{" "}
+              Python and MCP. How I decide: start with the narrowest access
+              that does the job, report the number I can defend over the one that
+              flatters, and put the evidence in front of the people who own the risk
+              so they can make the call.{" "}
               <span className="font-medium text-fg">
                 The through-line is making complex, regulated systems usable by
                 the people who depend on them.
@@ -150,7 +151,7 @@ export default function About() {
         </ol>
       </div>
 
-      {/* Hands-on and governance strips as a specification table. */}
+            {/* Hands-on and readiness strips as a specification table. */}
       <dl className="mt-14 border-t border-rule">
         {specification.map((row) => (
           <div key={row.label} className="grid grid-cols-12 gap-x-6 gap-y-2 border-b border-rule py-5">
