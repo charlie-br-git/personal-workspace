@@ -50,20 +50,20 @@ Each of the product, design, marketing, and engineering teams got a plugin shape
 
 I would not describe this as a shipped customer-facing AI product, and I do not present it as one. All users are internal employees.
 
-Since then the picture has moved: by late 2026, agents built on this platform also produce customer-facing work — copy and Figma-to-landing-page builds for top-of-funnel experiments — which shortens the path from idea to test. The platform's users are still employees; what changed is where their agents' output goes.
+Since then the picture has moved: by late 2026, agents built on this platform also produce customer-facing work — copy and Figma-to-landing-page builds for top-of-funnel experiments — which shortens the path from idea to test. The platform's users are still employees; what changed is where their agents' output goes, and nine custom agents with evals are now deployed org-wide.
 
 ## Where It Went (updated September 2026)
 
 Six months on it is org-wide, and the shape changed more than the scale:
 
 - ~120 seats across the company, 90%+ weekly active at peak — weekly active measured against a usage threshold validated against the vendor dashboard before the metric was locked, reported as aggregates only
-- AI-assisted code on roughly four of five merged engineering PRs, with attribution reconciled against the vendor console
-- A three-tier capability framework I ratified, extended, and now operate — it decides what each deployment may do, carries go/no-go release authority, and attaches written ship conditions (aggregate-only data, PII rules, human in the loop) to new automations
+- Claude Code on 81.7% of merged pull requests in August 2026 (250 of 306), with attribution reconciled against the vendor console
+- A risk-tier framework that sets what each deployment may do and attaches written ship conditions (aggregate-only data, PII rules, human in the loop) to new automations; I run intake and classification against it and keep the approved-tool registry, and the control functions own the decisions
 - Agentic workflows running unattended in production, behind a quality gate that never auto-merges
 - Org-wide meant non-engineering too: a read-only ERP connector live for Finance's month-end close with named users and written usage rules, and weekly office hours plus a versioned org-wide skill and prompt layer keeping the rest of the seats supplied
 
-Anything investor-facing routes through FINRA 2210 compliance review before it ships; nothing investor-facing has shipped — that is the deliberate outcome, not a backlog. And not all of it landed as designed: production error data was mined into a scored fix backlog with published guardrails, but engineering rejected the auto-proposed fix PRs on quality grounds, so the mechanism was re-scoped to ride their existing alerting trigger.
+Anything investor-facing routes through FINRA 2210 compliance review before it ships; as of September 2026 nothing investor-facing had shipped — that was the deliberate outcome, not a backlog. And not all of it landed as designed: production error data was mined into a scored fix backlog with published guardrails, but engineering rejected the auto-proposed fix PRs on quality grounds, so the mechanism was re-scoped to ride their existing alerting trigger.
 
-The governance side is its own case study: [Running an AI Release Gate in a Regulated Firm](/case-studies/owning-the-ai-ship-decision).
+The readiness side is its own case study: [AI Release Readiness in a Regulated Firm](/case-studies/ai-release-readiness).
 
 Context: the regulated product business this platform was rolled out into is described in [Building Regulated Products on a Private-Markets Platform](/case-studies/fintech-alt-investments).

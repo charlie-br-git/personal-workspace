@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Projects",
   description:
-    "Hands-on builds: financial planning tools and Claude API prototypes, built with Claude Code.",
+    "Hands-on builds: a financial planning app and a Claude-run daily check-in, built with Claude Code.",
 };
 
 const projects = [
@@ -22,10 +22,10 @@ const projects = [
     ],
   },
   {
-    name: "SMS Wellness Bot",
-    stack: ["Python", "Twilio", "Claude API", "SQLite"],
+    name: "Wellness Check-in",
+    stack: ["Python", "Claude Code", "Pydantic"],
     description:
-      "A text-message wellness assistant built on the Claude API, with SQLite analytics and rate limiting. A personal prototype, not publicly hosted.",
+      "A three-question daily check-in built as a Claude Code scheduled task: Claude asks the questions and structures the answers, and a small Python script validates each day's record. A personal prototype, not publicly hosted.",
     links: [],
   },
 ];
@@ -39,7 +39,7 @@ export default function ProjectsPage() {
         as="h1"
         aside={
           <p className="mt-4 max-w-lede text-lg text-muted">
-            I prototype with the Claude API, React, Python, Twilio and MCP, using Claude Code. These
+            I prototype with the Claude API, React, Python and MCP, using Claude Code. These
             are personal projects, built to learn and to think through products. They are not
             production systems or shipped products.
           </p>

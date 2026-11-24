@@ -17,13 +17,13 @@ But choosing MCP is the easy part. Deploying it at enterprise scale, with real s
 
 ### 1. One Server Per Domain, Not One Server Per Team
 
-Our first instinct was to give each team their own MCP server with all the tools they need. This doesn't scale. Instead, we organized servers by **domain** and composed team configurations from these building blocks.
+The first instinct is to give each team its own MCP server with all the tools it needs. That doesn't scale. Organize servers by **domain** instead, and compose team configurations from those building blocks.
 
-This meant when we improved the analytics connector, every team that used it benefited automatically. Composability beats customization.
+That way, an improvement to one connector reaches every team that uses it. Composability beats customization.
 
 ### 2. API Connectors as the Security Boundary
 
-Rather than giving Claude direct access to internal systems, we built API connector layers that enforce access controls. Every request from Claude goes through an authenticated API that checks:
+Rather than giving Claude direct access to internal systems, put an API connector layer in front of them that enforces access controls. Every request from Claude should go through an authenticated API that checks:
 
 - Is this user authorized for this data?
 - Is this action within the scope of their role?
@@ -33,9 +33,9 @@ The API layer is your security boundary. The MCP server is your capability layer
 
 ### 3. Plugin Architecture for Team-Specific Behavior
 
-Generic AI is useful. AI that understands your team's context is transformative. We built a plugin system where each team can define:
+Generic AI is useful. AI that understands your team's context is far more useful. Give each team a plugin layer where they can define:
 
-- **System prompts** tailored to their domain (marketing gets brand guidelines, engineering gets our code standards)
+- **System prompts** tailored to their domain (marketing gets brand guidelines, engineering gets its code standards)
 - **Tool subsets** scoped to their workflow
 - **Output formats** that match how they actually work (engineering wants markdown, marketing wants formatted copy)
 
@@ -43,7 +43,7 @@ Generic AI is useful. AI that understands your team's context is transformative.
 
 ### RBAC That People Understand
 
-The worst RBAC system is one nobody can explain. We kept ours simple:
+The worst RBAC system is one nobody can explain. Keep it simple:
 
 - **Roles map to teams**, not individuals
 - **Permissions are additive** — start with nothing, add what's needed
@@ -51,26 +51,26 @@ The worst RBAC system is one nobody can explain. We kept ours simple:
 
 ### Audit Everything, Alert Selectively
 
-We log every AI interaction. But we only alert on anomalies — unusual data access patterns, permission escalation attempts, or actions that touch sensitive data categories. Alert fatigue is the enemy of security.
+Log every AI interaction, but alert only on anomalies — unusual data access patterns, permission escalation attempts, or actions that touch sensitive data categories. Alert fatigue is the enemy of security.
 
 ### Data Classification Drives Access
 
-Before we wrote a single line of RBAC code, we classified our data:
+Before writing a single line of RBAC code, classify your data:
 
 - **Public**: Product descriptions, public market data
 - **Internal**: Aggregated analytics, team documentation
 - **Restricted**: Customer PII, financial records, compliance data
 - **Prohibited**: Never accessible to AI under any circumstances
 
-Each MCP tool is tagged with the data classification level it can access. Roles are tagged with the levels they're allowed to touch. The system enforces the intersection.
+Tag each MCP tool with the classification level of the data it can reach, tag each role with the levels it may touch, and let the system enforce the intersection.
 
 ## What Actually Matters
 
-After several months in production, here's what I'd tell anyone starting this journey:
+Here's what I'd tell anyone starting this journey:
 
 **Invest in developer experience.** If it's hard for your team to add a new MCP tool or modify a plugin, they won't do it. Make the platform easy to extend.
 
-**Start with one team, not four.** We piloted with engineering (they're the most forgiving of rough edges) and iterated based on their feedback before expanding. By the time we onboarded marketing, the platform was solid.
+**Start with one team, not four.** Pilot with the most forgiving team (often engineering, which tolerates rough edges) and iterate on its feedback before expanding, so the platform is solid by the time the next team arrives.
 
 **Security is a product feature.** Don't bolt it on. Design it in from day one. When leadership asks "is this safe?" you want to show them the architecture, not a slide deck.
 

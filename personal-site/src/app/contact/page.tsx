@@ -30,7 +30,7 @@ export default function ContactPage() {
         aside={
           <p className="mt-4 max-w-lede text-lg text-muted">
             I&apos;m always interested in conversations about regulated fintech product
-            strategy, enterprise AI adoption and governance, or the intersection of product and engineering leadership.
+            strategy, enterprise AI adoption and readiness, or the intersection of product and engineering leadership.
             A LinkedIn message or connection note with one line about what you&apos;re working on is all it takes.
           </p>
         }

@@ -1,13 +1,13 @@
 ---
-title: "Agentic CI Governance: A Platform That Never Merges Its Own Work"
+title: "Agentic CI Guardrails: A Platform That Never Merges Its Own Work"
 date: "2026-08-28"
-excerpt: "Agentic CI governance in a regulated firm: a PR gate for AI-produced changes that never auto-merges, fail-closed validation, and adversarial multi-agent review."
+excerpt: "Agentic CI guardrails in a regulated firm: a PR gate for AI-produced changes that never auto-merges, fail-closed validation, and adversarial multi-agent review."
 tags: ["Agentic AI", "Platform Engineering", "CI/CD", "AI Safety"]
 ---
 
 ## The Premise
 
-Once AI writes real code and runs real workflows, the platform question changes. At Willow Wealth — a regulated alternative-investment platform of about 120 people — AI-assisted code shows up on roughly four of five merged engineering PRs, so the question stopped being whether AI can do the work and became what checks the work, and who owns the merge.
+Once AI writes real code and runs real workflows, the platform question changes. At Willow Wealth — a regulated alternative-investment platform of about 120 people — Claude Code was on 81.7% of merged pull requests in August 2026 (as later measured), so the question stopped being whether AI can do the work and became what checks the work, and who owns the merge.
 
 I run an agentic CI/governance platform built around one non-negotiable: **the system never merges its own changes.** The architecture was co-developed with our platform engineering lead; I executed and operate it — the first working version came out of a single day running four AI coding sessions in parallel, with me as the only relay and the only one allowed to decide anything, and roughly two dozen pull requests merged through the same gate being built that morning. Every AI-produced pull request passes the gate — a battery of automated checks plus human-origin attribution — and then waits for a person. Every other component assumes the gate: workflows are designed to produce PRs that pass it, not to route around it.
 
@@ -17,13 +17,13 @@ We didn't start with autonomous agents; we started with the gate. Scheduled agen
 
 ## Fail Closed, and Test Like an Attacker
 
-The platform's metadata parsing originally ran on string manipulation — the kind of thing that works until it silently doesn't. I replaced it with fail-closed schema validation backed by a 21-case test suite. Then came the interesting part: an adversarial hardening round against the validator itself found a Unicode-homoglyph evasion — Cyrillic characters that visually impersonate the metadata fence and slip past naive checks. The round also surfaced that the fix I'd initially ordered wouldn't have closed the hole. Happy-path test suites don't find that class of bug; adversaries do, so we simulate them before shipping.
+The platform's metadata parsing originally ran on string manipulation — the kind of thing that works until it silently doesn't. I replaced it with fail-closed schema validation backed by a fixture-driven test suite. Then came the interesting part: an adversarial hardening round against the validator itself found a Unicode-homoglyph evasion — Cyrillic characters that visually impersonate the metadata fence and slip past naive checks. The round also surfaced that the fix I'd initially ordered wouldn't have closed the hole. Happy-path test suites don't find that class of bug; adversaries do, so we simulate them before shipping.
 
 ## Multi-Agent Adversarial Review
 
-For higher-stakes changes, one review isn't enough — so the platform runs multi-agent adversarial review before release: parallel AI reviewers with deliberately different lenses, including one whose instructions are to argue that the change should not ship. The largest of these ran fourteen agents across six verification passes over one draft patch against production code — a patch that remains unmerged; each pass surfaced defects that were fixed and re-verified before the next. A standing cross-model policy backs it: plan with one model, review with a different one, so the reviewer doesn't share the author's blind spots.
+For higher-stakes changes, one review isn't enough — so the platform runs multi-agent adversarial review before release: parallel AI reviewers with deliberately different lenses, including one whose instructions are to argue that the change should not ship. In one such review, a draft patch against production code went through several adversarial verification passes and a persona review panel; each pass surfaced defects that were fixed and re-verified before the next, and the patch is still awaiting a decision to submit. A standing cross-model policy backs it: plan with one model, review with a different one, so the reviewer doesn't share the author's blind spots.
 
-The same discipline applies to prose as to code. The org-wide AI instruction set — the configuration that shapes how the assistant answers for every employee, including its compliance and investor-data rules — went through a thirteen-agent review before I shipped it in two version-controlled variants, ending invisible drift on a field that previously had no version history.
+The same discipline applies to prose as to code. The org-wide AI instruction set — the configuration that shapes how the assistant answers for every employee, including its compliance and investor-data rules — went through an adversarial multi-agent review before I shipped it in two version-controlled variants, ending invisible drift on a field that previously had no version history.
 
 ## Patterns
 

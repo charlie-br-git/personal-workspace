@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Blog",
-  description: "Writing about enterprise AI adoption, MCP architecture, AI governance, and bridging product and engineering.",
+  description: "Writing about enterprise AI adoption, MCP architecture, evals and observability, and bridging product and engineering.",
 };
 
 export default function BlogPage() {
@@ -19,7 +19,7 @@ export default function BlogPage() {
         as="h1"
         aside={
           <p className="mt-4 max-w-lede text-lg text-muted">
-            Practical insights from building enterprise AI systems — architecture patterns, security decisions, and lessons learned.
+            Practical insights from building enterprise AI systems — architecture patterns, access design, and lessons learned.
           </p>
         }
       >

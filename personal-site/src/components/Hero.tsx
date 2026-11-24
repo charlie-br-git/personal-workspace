@@ -18,14 +18,14 @@ export default function Hero() {
 
         <p className="col-span-12 md:col-span-10 lg:col-span-8 max-w-lede text-lg text-muted">
           I run Willow Wealth&apos;s enterprise AI platform end to end: the company-wide Claude
-          Enterprise rollout, go/no-go authority under a capability framework I ratified, extended,
-          and operate, the measurement pipeline behind 90%+ weekly active use at peak across ~120
+          Enterprise rollout and enablement, release-readiness evidence for our control functions, the
+          measurement pipeline behind 90%+ weekly active use at peak across ~120
           seats, nine custom agents deployed org-wide with evals, and an agentic CI platform, co-developed with
-          our platform engineering lead, that never merges its own work. As of late 2026 its agents
+          our platform engineering lead, that never merges its own work. As of late 2026 the AI platform&apos;s agents
           also produce customer-facing work: copy and Figma-to-landing-page builds for top-of-funnel
           experiments. Underneath it, nine years on one SEC- and FINRA-regulated private-markets
           platform: engineer to Director, registered funds, managed portfolios, IRA custody and
-          broker-dealer integrations, and a team of three PMs.
+          broker-dealer integrations; from 2021 to 2024 I also managed a team of two product managers.
         </p>
 
         <div className="col-span-12 flex flex-wrap items-center gap-x-6 gap-y-4">
