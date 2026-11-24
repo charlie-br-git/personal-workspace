@@ -1,7 +1,7 @@
 ---
 title: "The LLM Eval Plan I Wrote Before the Product: Golden Set, Judge Rubrics, CI Gates"
 date: "2026-08-14"
-excerpt: "The LLM eval plan for an AI feature that never got built: a 50-prompt golden set, judge rubrics, refusal patterns, CI gates — and why it was worth writing."
+excerpt: "The LLM eval plan for an AI feature that never got built: a refusal-weighted golden set, judge rubrics, refusal patterns, CI gates — and why it was worth writing."
 tags: ["AI Evaluation", "LLM Evals", "AI Product Management", "Golden Datasets"]
 ---
 
@@ -13,12 +13,12 @@ In April 2026 I wrote the PRD for an AI-powered investor-experience proof of con
 - **Graders**: an LLM judge working from a rubric, plus regex checks for the rules that must never bend — the spec's example: no dollar claim without a prior tool call
 - **A runner** (promptfoo) wired into CI, running on every PR and blocking merge on regression against a pinned baseline
 - **Prompt and model versions logged on every request**, so any output can be traced to exactly what produced it
-- **A hard gate**: all 50 prompts passing before the next phase starts
-- **Ten committed refusal patterns with sample replies**, written before any model saw a user
+- **A hard gate**: every golden-set prompt passing before the next phase starts
+- **Committed refusal patterns with sample replies**, written before any model saw a user
 
 ## Why Refusals Lead the Set
 
-Fifteen of fifty prompts test declining, because in a regulated domain the most important behavior an AI feature has is refusing correctly: no advice it isn't licensed to give, no numbers it can't ground in a tool call, no confident answer where the honest one is "that needs a human." Refusal isn't an error state to minimize — it's product surface, with its own spec, its own test cases, and its own copy.
+Refusals are the largest share of the set, because in a regulated domain the most important behavior an AI feature has is refusing correctly: no advice it isn't licensed to give, no numbers it can't ground in a tool call, no confident answer where the honest one is "that needs a human." Refusal isn't an error state to minimize — it's product surface, with its own spec, its own test cases, and its own copy.
 
 ## It Never Got Built
 

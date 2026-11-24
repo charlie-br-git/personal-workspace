@@ -7,7 +7,7 @@ tags: ["Design Systems", "AI Tooling", "Developer Experience", "Figma"]
 
 ## The Gap Between Design and Everyone Else
 
-When AI coding tools looked at our designs, they saw geometry: raw dimensions, generic utility classes, a pixel-faithful reconstruction of decisions our design system had already made properly. Engineers got plausible-looking code that ignored the real component library. Designers watched their system get re-derived badly. Product and marketing mockups drifted from what production actually renders. Every team paid a translation tax, and AI tooling was reproducing it at scale — at a company where AI-assisted code was showing up on roughly four of five merged engineering PRs, that tax rode along on most of the code that shipped.
+When AI coding tools looked at our designs, they saw geometry: raw dimensions, generic utility classes, a pixel-faithful reconstruction of decisions our design system had already made properly. Engineers got plausible-looking code that ignored the real component library. Designers watched their system get re-derived badly. Product and marketing mockups drifted from what production actually renders. Every team paid a translation tax, and AI tooling was reproducing it at scale — at a company where AI-assisted code shows up on most merged engineering PRs, that tax rides along on most of the code that ships.
 
 The fix was to make the design system itself AI-readable: mapping design components to their real code counterparts, so an AI tool asked about a design returns actual component code with real props, not a geometric impression of it.
 
@@ -19,9 +19,9 @@ Rather than trickling templates out, I published the **full library** the same d
 
 - **The pilot had already de-risked the mechanics** — the remaining risk was content quality, which post-hoc review covers
 - **Rollback was one command** — a fast, total undo made the blast radius acceptable
-- **Coverage had no silent holes** — every published component accounted for, each as a template or a documented skip; an undocumented skip is where a "covered" claim quietly stops being true
+- **Coverage had no silent holes** — every component in the published library accounted for, each as a template or a documented skip; an undocumented skip is where a "covered" claim quietly stops being true
 
-The publish was announced the same day to engineering, design, and leadership — crediting the colleagues whose earlier proof-of-concept work had started down this road.
+The publish was announced the same day to engineering, design, and leadership — crediting the colleagues who had started down this road with an earlier proof of concept.
 
 ## Keeping It True Over Time
 

@@ -9,7 +9,7 @@ tags: ["AI Governance", "Enterprise AI", "Product Leadership", "Fintech"]
 
 Deploying enterprise AI gets you tools people *can* use. The question that arrives next is easy to leave unowned: when an AI system wants to act — merge code, post updates, read financial systems — what does "ready" have to mean, and who puts the evidence in front of the people who decide?
 
-At Willow Wealth the decision itself sits with the control functions, such as compliance, security and IT. My side is readiness: I run AI tools and connectors through a ratified risk-tier framework that sets what each tier may do across a ~120-person company, keep the approved-tool registry, and put the evidence in front of the people who decide, in an environment where FINRA and SEC obligations make "what ships" a compliance decision as much as a technical one.
+At Willow Wealth the decision itself sits with the control functions, such as compliance, security and IT. My side is readiness: I run AI tools and connectors through a ratified risk-tier framework that sets what each tier may do across a ~120-person company, keep the approved-tool registry, and assemble the evidence those functions decide on, in an environment where FINRA and SEC obligations make "what ships" a compliance decision as much as a technical one.
 
 ## Ready, and Not Yet
 
@@ -33,19 +33,19 @@ Codified, not vibes. The bar an AI deployment has to clear before it goes to the
 
 Anything investor-facing routes through compliance review (FINRA 2210) before it ships. As of September 2026 nothing investor-facing had shipped — deliberately; that was the gate working as designed, not a backlog. The same gate applies to my own prototypes.
 
-The bar covers numbers as well as deployments: when the value estimate counted pull requests created rather than merged, the conservative merged-PR basis is what went to leadership — an estimated value ratio of roughly 2 to 1 in a reading taken on 1 September 2026, against roughly 3 to 1 on the created-PR basis.
+The bar covers numbers as well as deployments: when the value estimate turned out to count pull requests created rather than merged, I replaced the single headline ratio in the leadership deck with a range — from a little over 2:1 to a little under 3.5:1, its ends set by the measurement basis — and that range is what the deck carried in its later refresh.
 
 ## Speed Is Part of the Bar
 
-Governance that's slow gets routed around. When a non-technical operations lead filed an intake for a Slack-to-project-tracker automation — the AI itself had flagged her design as needing review — I approved the pilot the same day, on two written privacy conditions: aggregate-level data only, and PII rules apply to every post. It has run under those conditions since, built and operated by its non-technical owner.
+Governance that's slow gets routed around. When a non-technical project-management operator filed an intake for a Slack-to-project-tracker automation — the AI itself had flagged her design as needing review — the pilot was approved the same day, on two written privacy conditions: aggregate-level data only, and PII rules apply to every post. It is built and operated by its non-technical owner.
 
-The same posture got an operations workflow to a working internal POC in one sitting: a business-operations lead spec'd her services team's manual pre-call preparation process in a 1:1, and about two hours later a pre-call brief generator — read-only, sensitive fields excluded, gaps stated rather than filled — was running against real data. A POC, not a team-wide launch; readiness criteria built in from the first prompt are what made that pace possible. Under the same model, a read-only ERP connector went live for Finance's month-end close — named users, scoped access, written usage rules — and that scoped, read-only service-account pattern became the standard answer whenever another system asks for AI access.
+The same posture got an operations workflow to a working internal POC in one sitting: a business-operations lead spec'd her services team's manual pre-call preparation process in a 1:1, and about two hours later a pre-call brief generator — read-only, sensitive fields excluded, gaps stated rather than filled — was running against real data. A POC, not a team-wide launch; readiness criteria built in from the first prompt are what made that pace possible. Under the same model, a read-only ERP connector went live for Finance's month-end close — named users, scoped access, written usage rules — under a least-privilege service-account pattern, with each connection starting at the lowest access level.
 
-The test of the whole posture is whether the org kept using the tools: weekly active use peaked above 90% of the ~120 seats, with Claude Code on 81.7% of merged pull requests in August 2026.
+The test of the whole posture is whether the org kept using the tools: 90%+ weekly active at peak across ~120 seats, with Claude Code on 81.7% of merged pull requests in August 2026.
 
 ## Patterns
 
-1. **Evidence from the system beats persuasion.** The audit trail settled a colleague's objection to a live change in minutes — and separately disproved an AI surface's own claim that an integration was blocked (access turned out to be endpoint-scoped, not blocked). When the evidence is checkable by both parties, the argument usually ends.
+1. **Evidence from the system beats persuasion.** The audit trail settled a colleague's objection to a live change — and separately disproved an AI surface's own claim that an integration was blocked (access turned out to be endpoint-scoped, not blocked). When the evidence is checkable by both parties, the argument usually ends.
 
 2. **A hold you can explain is a feature.** Writing down *why* something didn't ship builds more trust than shipping it would have.
 

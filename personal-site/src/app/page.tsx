@@ -10,7 +10,7 @@ import Link from "next/link";
 const FEATURED_CASE_STUDIES = [
   "ira-custodial-integration",
   "fintech-alt-investments",
-    "enterprise-claude-platform",
+  "enterprise-claude-platform",
 ];
 const FEATURED_POSTS = [
   "measuring-enterprise-ai-value",
@@ -19,7 +19,7 @@ const FEATURED_POSTS = [
 ];
 
 export default function Home() {
-    // Curated, not date-sorted: the regulated-products stories lead, then the Claude Enterprise rollout.
+  // Curated, not date-sorted: the regulated-products stories lead, then the Claude Enterprise rollout.
   const caseStudies = FEATURED_CASE_STUDIES.map(
     (slug) => getContentBySlug("case-studies", slug).meta
   );
@@ -71,7 +71,7 @@ export default function Home() {
           </h2>
           <p className="col-span-12 md:col-start-4 md:col-span-9 lg:col-span-7 max-w-lede text-lg text-muted">
             I&apos;m glad to talk about regulated fintech product strategy,
-            enterprise AI enablement, readiness and measurement, and what it takes to build
+            enabling and measuring enterprise AI, and what it takes to build
             products that hold up under scrutiny. LinkedIn is the fastest way to
             reach me.
           </p>

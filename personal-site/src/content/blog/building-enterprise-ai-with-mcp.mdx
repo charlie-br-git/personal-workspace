@@ -19,7 +19,7 @@ But choosing MCP is the easy part. Deploying it at enterprise scale, with real s
 
 The first instinct is to give each team its own MCP server with all the tools it needs. That doesn't scale. Organize servers by **domain** instead, and compose team configurations from those building blocks.
 
-Then an improvement to one connector reaches every team that uses it. Composability beats customization.
+That way, an improvement to one connector reaches every team that uses it. Composability beats customization.
 
 ### 2. API Connectors as the Security Boundary
 
@@ -33,9 +33,9 @@ The API layer is your security boundary. The MCP server is your capability layer
 
 ### 3. Plugin Architecture for Team-Specific Behavior
 
-Generic AI is useful. AI that understands your team's context is far more useful. Give each team a plugin layer where it can define:
+Generic AI is useful. AI that understands your team's context is far more useful. Give each team a plugin layer where they can define:
 
-- **System prompts** tailored to their domain (marketing gets brand guidelines, engineering gets our code standards)
+- **System prompts** tailored to their domain (marketing gets brand guidelines, engineering gets its code standards)
 - **Tool subsets** scoped to their workflow
 - **Output formats** that match how they actually work (engineering wants markdown, marketing wants formatted copy)
 
@@ -66,11 +66,11 @@ Tag each MCP tool with the classification level of the data it can reach, tag ea
 
 ## What Actually Matters
 
-After several months in production, here's what I'd tell anyone starting this journey:
+Here's what I'd tell anyone starting this journey:
 
 **Invest in developer experience.** If it's hard for your team to add a new MCP tool or modify a plugin, they won't do it. Make the platform easy to extend.
 
-**Start with one team, not four.** We piloted with engineering (they're the most forgiving of rough edges) and iterated based on their feedback before expanding. By the time we onboarded marketing, the platform was solid.
+**Start with one team, not four.** Pilot with the most forgiving team (often engineering, which tolerates rough edges) and iterate on its feedback before expanding, so the platform is solid by the time the next team arrives.
 
 **Security is a product feature.** Don't bolt it on. Design it in from day one. When leadership asks "is this safe?" you want to show them the architecture, not a slide deck.
 

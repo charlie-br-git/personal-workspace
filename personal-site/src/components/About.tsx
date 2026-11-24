@@ -4,12 +4,12 @@ const stats = [
   { value: "90%+", label: "Weekly active AI adoption at peak, ~120 internal seats" },
   { value: "9 agents", label: "Custom agents deployed org-wide, with evals, model routing and multi-agent chains" },
   { value: "Since 2017", label: "Engineer to Director on one SEC/FINRA-regulated platform" },
-    { value: "31 → 7 days", label: "Time to fund an IRA account, including account creation" },
+  { value: "31 → 7 days", label: "Time to fund an IRA account, including account creation" },
 ];
 
 const capabilities = [
   {
-        lead: "Enabling and measuring enterprise AI",
+    lead: "Enabling and measuring enterprise AI",
     rest: " — onboarding and office hours, release-readiness evidence, and numbers that reconcile to the invoice.",
   },
   {
@@ -43,12 +43,12 @@ const specification = [
     ],
   },
   {
-        label: "Readiness and compliance",
+    label: "Readiness and compliance",
     items: [
-            "AI release-readiness evidence",
+      "AI release-readiness evidence",
       "API-key lifecycle and scoped read-only service accounts",
       "PII and aggregate-only data rules",
-            "FINRA 2210 review as a ship condition for investor-facing output",
+      "FINRA 2210 review as a ship condition for investor-facing output",
       "SOC 2 and ISO 27001 programs (co-led)",
     ],
   },
@@ -81,9 +81,9 @@ export default function About() {
               Yieldstreet), a private-markets investment platform operating under
               SEC and FINRA rules, and I run its enterprise AI platform end to end.
               I led the company-wide Claude Enterprise rollout in 2025, and since
-              mid-2026 I run AI enablement, readiness and the Claude platform work
-              org-wide as our Claude Enterprise administrator: the measurement
-              behind 90%+ weekly active use
+              mid-2026 I have run AI enablement, readiness and the Claude platform work
+              org-wide as our Claude Enterprise administrator: onboarding and office
+              hours, the measurement behind 90%+ weekly active use
               at peak across ~120 seats, and agentic delivery &mdash; from a
               co-developed CI platform that never merges its own work to nine custom
               agents deployed across the organization with evals, model routing
@@ -100,7 +100,7 @@ export default function About() {
               read-only service accounts, audit logging of AI activity,
               aggregate-only reporting with per-user detail restricted to
               administrators, and written PII rules as ship conditions for new
-              automations. The governance calls sit with the control functions.
+              automations.
             </p>
           </div>
           <div className="space-y-5">
@@ -151,7 +151,7 @@ export default function About() {
         </ol>
       </div>
 
-            {/* Hands-on and readiness strips as a specification table. */}
+      {/* Hands-on and readiness strips as a specification table. */}
       <dl className="mt-14 border-t border-rule">
         {specification.map((row) => (
           <div key={row.label} className="grid grid-cols-12 gap-x-6 gap-y-2 border-b border-rule py-5">

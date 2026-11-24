@@ -19,7 +19,7 @@ export default function MovedCaseStudy() {
       <meta httpEquiv="refresh" content={`0; url=${target}`} />
       <p className="text-lg text-muted">
         This case study has moved:{" "}
-        <Link href="/case-studies/ai-release-readiness/">AI Release Readiness in a Regulated Firm</Link>.
+        <Link href="/case-studies/ai-release-readiness/" className="link text-fg">AI Release Readiness in a Regulated Firm</Link>.
       </p>
     </div>
   );
